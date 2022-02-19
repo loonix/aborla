@@ -1,0 +1,11 @@
+# Web Platform
+
+## Usage
+
+1.  Run
+
+- `git clone https://github.com/loonix/aborla.git`
+- `cd web`
+- `npm install`
+
+2.  Run `ng serve`
