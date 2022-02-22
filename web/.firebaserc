@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "angular-voxer"
-  }
+    "default": "glossy-beach-188721",
+    "aborla-web": "glossy-beach-188721"
+  },
+  "targets": {}
 }

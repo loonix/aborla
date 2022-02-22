@@ -1,12 +1,13 @@
 export const environment = {
   production: true,
   firebase:  {
-    apiKey: 'AIzaSyAKlEX5a8PQaadYNSrohqfl33O37Kjkv1Y',
-    authDomain: 'angular-voxer.firebaseapp.com',
-    databaseURL: 'https://angular-voxer.firebaseio.com',
-    projectId: 'angular-voxer',
-    storageBucket: 'angular-voxer.appspot.com',
-    messagingSenderId: '122050526979',
-    appId: '1:122050526979:web:529304dce5ffca7a'
+    apiKey: 'AIzaSyAm8IDZXWWnbIIbOeim367vtgUhWIHAhxg',
+    authDomain: 'glossy-beach-188721.firebaseapp.com',
+    databaseURL: 'https://glossy-beach-188721.firebaseio.com',
+    projectId: 'glossy-beach-188721',
+    storageBucket: 'glossy-beach-188721.appspot.com',
+    messagingSenderId: '124732544623',
+    appId: '1:124732544623:web:6f6d5c16b9125a016a9f9a',
+    measurementId: 'G-6PBF9E061X'
   }
 };
