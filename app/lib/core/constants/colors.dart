@@ -14,4 +14,5 @@ class ThemeColors {
   static const Color darkGrey = Color(0xff424242);
   static const Color lightGray = Color(0xFFF7F7F7);
   static const Color white30 = Colors.white30;
+  static const Color white = Colors.white;
 }
