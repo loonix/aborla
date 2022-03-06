@@ -72,6 +72,11 @@
             "browserTarget": "firestarter:build"
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "vendorChunk": true,
+              "sourceMap": true
+            },
             "production": {
               "browserTarget": "firestarter:build:production"
             }

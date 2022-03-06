@@ -1,10 +1,13 @@
-<h1>List Page</h1>
-
-<mat-nav-list role="list">
-    <h3 mat-subheader>Customers (Fake Data)</h3>
-
-    <mat-list-item *ngFor="let cust of data.customers" [routerLink]="cust.id" role="listitem">
-        <mat-icon mat-list-icon>account_box</mat-icon>
-        <h3>{{ cust.name }}</h3>
-    </mat-list-item>
-</mat-nav-list>
+<mat-card class="example-card" *ngFor="let anuncio of data.feed" [routerLink]="anuncio.id">
+    <img mat-card-image src="{{anuncio.images[0]}}" alt="{{anuncio.title}}">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-subtitle>{{anuncio.category}}</mat-card-subtitle>
+      <mat-card-title>{{anuncio.title}}</mat-card-title>
+    </mat-card-header>
+   
+    <!-- <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions> -->
+  </mat-card>

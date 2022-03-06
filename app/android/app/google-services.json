@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "124732544623",
+    "firebase_url": "https://glossy-beach-188721.firebaseio.com",
+    "project_id": "glossy-beach-188721",
+    "storage_bucket": "glossy-beach-188721.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124732544623:android:caa3b51f0c4720d36a9f9a",
+        "android_client_info": {
+          "package_name": "com.mengle.aborla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124732544623-8eo12tc5udvii4tvpu05nenkmcrb85cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7WGXTVmyS1ASy7sF707gRd5BGhBdXG4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124732544623-8eo12tc5udvii4tvpu05nenkmcrb85cu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "124732544623-ol94i37t1rsq53m86h8aqg5srnv1l30p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aborla.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

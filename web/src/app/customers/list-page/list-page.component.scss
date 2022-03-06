@@ -16,3 +16,11 @@ mat-list-item {
     }
     transition: transform 300ms ease;
 }
+
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }

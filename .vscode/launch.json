@@ -5,6 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch ng serve & Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: start",
+            "url": "http://localhost:4200/#",
+      
+            // Note: The ./client directory
+            "webRoot": "${workspaceFolder}/src",
+            
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+              "webpack:/*": "${webRoot}/*",
+              "/./*": "${webRoot}/*",
+              "/src/*": "${webRoot}/*",
+              "/*": "*",
+              "/./~/*": "${webRoot}/node_modules/*"
+            }
+          },
+        {
             "name": "app",
             "cwd": "app",
             "request": "launch",
@@ -16,6 +35,29 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
-        }
+        },
+        {
+            "name": "Launch Chrome with ng serve",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceRoot}/web"
+          },
+          {
+            "name": "Launch Chrome with ng test",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:9876/debug.html",
+            "webRoot": "${workspaceRoot}/web"
+          },
+          {
+            "name": "Launch ng e2e",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/web/node_modules/protractor/bin/protractor",
+            "protocol": "inspector",
+            "args": ["${workspaceRoot}/protractor.conf.js"]
+          }      
     ]
 }
+

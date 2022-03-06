@@ -6,6 +6,12 @@ import { AuthGuard } from './user/auth.guard';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   {
+    path: 'feed',
+    loadChildren: () =>
+      import('./customers/feed.module').then(m => m.FeedModule),
+  },
+
+  {
     path: 'login',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
@@ -15,11 +21,6 @@ const routes: Routes = [
       import('./kanban/kanban.module').then(m => m.KanbanModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'customers',
-    loadChildren: () =>
-      import('./customers/customers.module').then(m => m.CustomersModule),
-  }
 ];
 
 @NgModule({

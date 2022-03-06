@@ -55,7 +55,7 @@ class _ABorlaState extends State<ABorla> with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       title: 'ABORLA',
       // theme: ssTheme,
-      initialRoute: Routes.feed,
+      initialRoute: Routes.login,
       navigatorObservers: [routeObserver],
       routes: Routes.allRoutes,
       // onUnknownRoute: (settings) => MaterialPageRoute(builder: (_) => Login()),

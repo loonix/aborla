@@ -8,4 +8,5 @@
 - `cd web`
 - `npm install`
 
-2.  Run `ng serve`
+2.  Run `ng serve` for production
+3.  Run `ng serve --configuration=development` for development (Breakpoints)

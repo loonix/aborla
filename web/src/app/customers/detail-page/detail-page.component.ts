@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { tap } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
-import { CustomerDataService } from '../customer-data.service';
+import { FeedDataService } from '../feed-data.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,32 +12,36 @@ import { Observable } from 'rxjs';
   styleUrls: ['./detail-page.component.scss']
 })
 export class DetailPageComponent implements OnInit {
-  customerId: string;
-  customer: Observable<any>;
+  productId: string;
+  product: any;
 
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore,
     private seo: SeoService,
-    public data: CustomerDataService
-  ) {}
+    public data: FeedDataService
+  ) { }
 
   ngOnInit() {
-    this.customerId = this.route.snapshot.paramMap.get('id');
+    this.productId = this.route.snapshot.paramMap.get('id');
 
     // this.customer = this.db
     //   .collection('customers')
     //   .doc<any>(customerId)
     //   .valueChanges()
-    this.customer = this.data.getCustomer(this.customerId)
-      .pipe(
-        tap(cust =>
-          this.seo.generateTags({
-            title: cust.name,
-            description: cust.bio,
-            image: cust.image,
-          })
-        )
-      );
+    debugger;
+    this.data.getFeed(this.productId).subscribe(prod => {
+      this.seo.generateTags({
+        title: prod.title,
+        description: prod.description,
+        image: prod.images[0],
+      })
+      this.product = prod;
+      console.log(prod);
+    });
+
+    console.log(this.productId);
+    console.log(this.product);
   }
+
 }

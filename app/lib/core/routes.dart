@@ -1,4 +1,5 @@
 import 'package:ABorla/screens/feed/feed.dart';
+import 'package:ABorla/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -10,6 +11,6 @@ class Routes {
 
   static final allRoutes = <String, WidgetBuilder>{
     Routes.feed: (_) => Feed(),
-    // RouteNames.login: (_) => Login(),
+    Routes.login: (_) => Login(),
   };
 }
