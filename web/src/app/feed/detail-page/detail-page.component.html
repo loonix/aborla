@@ -2,6 +2,9 @@
 <button mat-raised-button routerLink="/feed">BACK</button>
 <button mat-raised-button mat-raised-button color="accent"
 cdkDragDisabled (click)="openBoardDialog()">EDITAR</button>
+<button mat-raised-button mat-raised-button color="accent"
+cdkDragDisabled (click)="createFeed()">CRIAR</button>
+
 <mat-card *ngIf="product">
   <mat-card-header>
     <mat-card-title>{{ product.title }}</mat-card-title>

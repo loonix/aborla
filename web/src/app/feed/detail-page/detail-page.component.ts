@@ -53,5 +53,25 @@ export class DetailPageComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+    /**
+   * Creates a new board for the current user
+   */
+    async createFeed() {
+      // const user = await this.afAuth.currentUser;
+      return this.db.collection('feed').add({
+        adPackage: "12312312333",
+        categoryId: "ZlkX8zngMC91VYM8wnTy",
+        description: "Uma boa bicicleta",
+        // expirationDate:
+        images: [
+        "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
+        "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w",
+      ],
+        location: "Vila Nova de Gaia",
+        title: "Bicicleta de passeio Urban 26'' B-PRO",
+        typeOfRequest: 1
+      });
+    }
 }
 
