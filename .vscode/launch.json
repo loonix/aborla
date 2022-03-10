@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch ng serve & Chrome",
+            "name": "Launch ng serve & Brave",
             "type": "chrome",
             "request": "launch",
             "preLaunchTask": "npm: start",
@@ -13,7 +13,7 @@
       
             // Note: The ./client directory
             "webRoot": "${workspaceFolder}/src",
-            
+            "runtimeExecutable": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
             "sourceMaps": true,
             "sourceMapPathOverrides": {
               "webpack:/*": "${webRoot}/*",

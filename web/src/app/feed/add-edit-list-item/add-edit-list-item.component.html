@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Adicionar Artigo</h2>
+<mat-dialog-content class="mat-typography">
+  
+  <mat-form-field appearance="fill">
+    <mat-label>Titulo</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Descrição</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <mat-select>
+      <mat-option value="one">Veiculos</mat-option>
+      <mat-option value="two">Servicos</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox>
+  </mat-checkbox>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>EDITAR</button>
+</mat-dialog-actions>

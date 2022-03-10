@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './user/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', redirectTo: '/feed', pathMatch: 'full' },
   {
     path: 'feed',
     loadChildren: () =>
-      import('./customers/feed.module').then(m => m.FeedModule),
+      import('./feed/feed.module').then(m => m.FeedModule),
   },
-
+  // {
+  //   path: ':id',
+  //   component: DetailPageComponent,
+  //   children: [
+  //     { path: 'edit',pathMatch:'full', component: AddEditListItemComponent},
+  //   ]
+  // },
   {
     path: 'login',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)

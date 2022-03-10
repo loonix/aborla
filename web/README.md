@@ -10,3 +10,11 @@
 
 2.  Run `ng serve` for production
 3.  Run `ng serve --configuration=development` for development (Breakpoints)
+
+
+## Build
+- `ng build`
+
+## Deploy to firebase hosting
+remember to build before you run this command
+- `firebase deploy --only hosting`
