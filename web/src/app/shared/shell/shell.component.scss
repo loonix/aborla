@@ -1,5 +1,6 @@
 .sidenav-container {
   height: 100%;
+  background-color: white
 }
 
 .logo {
@@ -16,6 +17,12 @@
 .sidenav {
   width: 200px;
   font-family: sofia-pro;
+}
+
+.mat-toolbar{
+  background-color:#88b0a0;
+  color: white;
+
 }
 
 .sidenav .mat-toolbar {
