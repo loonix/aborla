@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // App Modules
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomePageComponent } from './home-page/home-page.component';
+
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 
@@ -24,7 +24,7 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [	
     AppComponent,
-    HomePageComponent,
+    
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
