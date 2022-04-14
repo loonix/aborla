@@ -6,11 +6,10 @@
 
 - `git clone https://github.com/loonix/aborla.git`
 - `cd web`
-- `npm install`
+- `npm install` OR --> `npm install --legacy-peer-deps` in case it fails to install npm
 
 2.  Run `ng serve` for production
 3.  Run `ng serve --configuration=development` for development (Breakpoints)
-
 
 ## Build
 - `ng build`
