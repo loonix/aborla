@@ -10,6 +10,7 @@ import { FeedDataService } from '../feed-data.service';
 })
 export class ListPageComponent implements OnInit {
   feed;
+  search = 'Procure artigos';
 
   constructor(private seo: SeoService, private db: AngularFirestore, public data: FeedDataService) {}
 
