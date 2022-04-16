@@ -23,6 +23,7 @@ export class EmailLoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -47,10 +48,15 @@ export class EmailLoginComponent implements OnInit {
   get isPasswordReset() {
     return this.type === 'reset';
   }
+  
+  get name() {
+    return this.form.get('name');
+  }
 
   get email() {
     return this.form.get('email');
   }
+
   get password() {
     return this.form.get('password');
   }
