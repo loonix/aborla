@@ -2,25 +2,77 @@
     text-align: center;
     padding: 24px;
 }
+
 mat-nav-list {
     max-width: 600px;
-    background-color:#212121; 
+    background-color: #df1414;
     padding: 0;
     margin: 0 auto;
 }
+
 mat-list-item {
 
     transition: transform 300ms ease;
+
     &:hover {
         transform: translateY(-3px);
     }
+
     transition: transform 300ms ease;
 }
 
 .example-card {
     max-width: 400px;
-  }
-  
-  .example-header-image {
+}
+
+.example-header-image {
     background-size: cover;
-  }
+}
+
+.example-container {
+    width: 300px;
+    height: 600px;
+    margin: 122px;
+    border: 1px  rgb(200, 211, 202);
+}
+
+mat-drawer-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.filtros {
+    width: 650px;
+    float: left;
+    
+
+    margin-top: 60px;
+}
+
+.lista {
+    width: 1650px;
+    float: left;
+
+    margin-top: 60px;
+}
+
+:host {
+    text-align: center;
+    padding: 24px;
+}
+mat-card {
+    max-width: 450px;
+    margin: 0 auto 10px;
+}
+
+.button {
+    width: 650px;
+    float: left;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}

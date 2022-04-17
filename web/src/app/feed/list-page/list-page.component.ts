@@ -3,6 +3,7 @@ import { SeoService } from 'src/app/services/seo.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FeedDataService } from '../feed-data.service';
 
+
 @Component({
   selector: 'app-list-page',
   templateUrl: './list-page.component.html',
