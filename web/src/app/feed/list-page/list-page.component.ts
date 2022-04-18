@@ -11,6 +11,15 @@ import { FeedDataService } from '../feed-data.service';
 })
 export class ListPageComponent implements OnInit {
   feed;
+  search = 'Procure artigos';
+
+  title = 'Card View Demo';
+
+  gridColumns = 3;
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+  }
 
   constructor(private seo: SeoService, private db: AngularFirestore, public data: FeedDataService) {}
 
