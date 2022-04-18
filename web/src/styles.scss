@@ -1,12 +1,9 @@
-
-
-
 // THIS --> https://material.io/design/color/#tools-for-picking-colors
 // https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=fa8242
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 @import url("https://use.typekit.net/jnq3uxd.css");
 // Plus imports for other components in your app.
 
@@ -14,9 +11,8 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 $custom-typography: mat-typography-config(
-    $font-family: 'sofia-pro'
+    $font-family: "sofia-pro",
 );
-
 
 @include mat-core($custom-typography);
 
@@ -50,7 +46,7 @@ $custom-orange: (
         A200: $black-87-opacity,
         A400: $black-87-opacity,
         A700: white,
-    )
+    ),
 );
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
@@ -72,11 +68,22 @@ $aborla-theme: mat-light-theme($aborla-primary, $aborla-accent, $aborla-warn);
 
 /* You can add global styles to this file, and also import other style files */
 
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: sofia-pro, sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: sofia-pro, sans-serif;
+}
 a {
     color: white;
     text-decoration: none;
+}
+
+// requrired for filtros
+mat-grid-list.mat-grid-list.list-view-grid .mat-grid-tile-content {
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: flex-start;
 }
