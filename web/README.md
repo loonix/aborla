@@ -37,3 +37,5 @@ npm install -g @schematics/angular@13.0.2
 npm install -g rxjs@6.5.5
 npm install -g typescript@4.2.4
 ```
+
+install this:  npm install -save @angular/flex-layout@12.0.0-beta.35

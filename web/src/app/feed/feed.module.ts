@@ -6,6 +6,7 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddEditListItemComponent } from './add-edit-list-item/add-edit-list-item.component';
 import { MaterialModule } from '../material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { MaterialModule } from '../material.module';
     CommonModule,
     SharedModule,
     FeedRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
+
   ],
   entryComponents: [AddEditListItemComponent],
   schemas: [
