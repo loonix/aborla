@@ -2,7 +2,14 @@
   "name": "aborla",
   "description": "Plataforma de troca e doação de todo o tipo de produtos e serviços promovendo assim a sustentabilidade e solidariedade social",
   "version": "1.0.1",
-  "keywords": ["aborla", "gratis", "doar", "reciclar", "anuncio", "comunidade"],
+  "keywords": [
+    "aborla",
+    "gratis",
+    "doar",
+    "reciclar",
+    "anuncio",
+    "comunidade"
+  ],
   "author": "Daniel Carneiro, Bruno Faria, Hugo Nascimento",
   "scripts": {
     "ng": "ng",
@@ -29,6 +36,7 @@
     "@angular/compiler": "~12.0.1",
     "@angular/core": "~12.0.1",
     "@angular/fire": "^6.1.5",
+    "@angular/flex-layout": "^12.0.0-beta.35",
     "@angular/forms": "~12.0.1",
     "@angular/material": "^12.0.1",
     "@angular/platform-browser": "~12.0.1",
