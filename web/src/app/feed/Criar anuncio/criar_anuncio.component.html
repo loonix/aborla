@@ -1,0 +1,49 @@
+<mat-grid-list cols="2" rowHeight="100%" class="list-view-grid">
+  <mat-grid-tile class="">
+    <mat-grid-tile class="titulo_anuncio">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Titulo</mat-label>
+          <input matInput placeholder="Placeholder">
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+          <mat-hint></mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+
+      </p>
+      <h3>Categoria</h3>
+      <mat-icon class="center">class</mat-icon> 
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label class="">
+            <mat-icon> class </mat-icon> Categoria
+          </mat-label>
+          <mat-select #hasBackdrop>
+            <mat-option>veiculos</mat-option>
+            <mat-option [value]="true">True</mat-option>
+            <mat-option [value]="false">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-button-toggle-group name="tipoDeAnuncio" aria-label="Tipo de anuncio">
+          <mat-button-toggle color="red" value="red">Oferta</mat-button-toggle>
+          <mat-button-toggle value="green">Pedido</mat-button-toggle>
+          <mat-button-toggle value="blue">Troca</mat-button-toggle>
+        </mat-button-toggle-group>
+      </p>
+
+      <mat-button-toggle-group name="tipoDeAnuncio" aria-label="Tipo de anuncio">
+        <mat-button-toggle color="red" value="red">Oferta</mat-button-toggle>
+        <mat-button-toggle value="green">Pedido</mat-button-toggle>
+        <mat-button-toggle value="blue">Troca</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-grid-tile>
+
+  </mat-grid-tile>
+</mat-grid-list>

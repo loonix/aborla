@@ -10,6 +10,7 @@
       <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
       <a mat-list-item routerLink="/kanban" (click)="drawer.close()">Kanban Demo</a>
       <a mat-list-item routerLink="/filtros" (click)="drawer.close()">Filtros</a>
+      <a mat-list-item routerLink="/registar" (click)="drawer.close()">Registar</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -28,6 +29,7 @@
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
+        <a mat-button routerLink="/registar">Registar</a>
         <a mat-button routerLink="/feed">Feed</a>
         <a mat-button routerLink="/kanban">Kanban</a>
 

@@ -12,9 +12,11 @@
     <mat-form-field appearance="fill">
 
       <mat-label class="">
-        <mat-icon>class</mat-icon>Categoria
+        <mat-icon class="center">class</mat-icon> Categoria
       </mat-label>
-      <mat-select #mode value="side">
+   
+      <mat-select #mode value="side"> 
+      
         <mat-option value="side">Veiculos</mat-option>
         <mat-option value="over">Vestuário</mat-option>
         <mat-option value="push">Push</mat-option>
@@ -39,7 +41,7 @@
         <mat-icon>calendar_today</mat-icon> Válido até
       </mat-label>
       <input matInput [matDatepicker]="picker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint></mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
@@ -50,13 +52,15 @@
 
   <mat-grid-tile [colspan]="3">
     <div class="lista">
-      <mat-toolbar color="primary">
-        <span>Lista</span>
+      <mat-toolbar color="">
+        <span></span>
         <button mat-button (click)="toggleGridColumns()" fxHide.lt-md>
-          <span *ngIf="gridColumns === 4">3 Colunas</span>
-          <span *ngIf="gridColumns === 3">4 Colunas</span>
+          <span *ngIf="gridColumns === 4"></span>
+          <span *ngIf="gridColumns === 3"></span>
         </button>
+        <mat-button-toggle class="criar_anuncio" value="green">Criar Anuncio</mat-button-toggle>
       </mat-toolbar>
+    
       <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
           <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let anuncio of data.feed"
