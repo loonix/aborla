@@ -58,7 +58,7 @@
           <span *ngIf="gridColumns === 4"></span>
           <span *ngIf="gridColumns === 3"></span>
         </button>
-        <mat-button-toggle class="criar_anuncio" value="green">Criar Anuncio</mat-button-toggle>
+        <mat-button-toggle class="criar_anuncio" value="green" (click)="create()" >Criar Anuncio</mat-button-toggle>
       </mat-toolbar>
     
       <div class="content">
