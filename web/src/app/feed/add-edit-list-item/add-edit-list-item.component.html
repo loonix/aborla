@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Adicionar Artigo</h2>
+<h2 mat-dialog-title>{{modalTitle}}</h2>
 <mat-dialog-content class="mat-typography">
   
   <mat-form-field appearance="fill">
@@ -18,51 +18,29 @@
   </mat-form-field>
 
 
-  <div class="card-group">
-
+  <div class="card-group" *ngFor="let card of cards">
   <mat-card class="example-card">
-    <mat-card-title>Destacar anuncio no site</mat-card-title>
-    <mat-card-content>
-      <div class="curency">
-        <span>3.00</span>
-        <span>3 Dias</span>
-      </div>
-    </mat-card-content>
+    <ng-container *ngIf="card.icon">
+      <i class="fa-solid fa-mobile-button"></i>
+    </ng-container>
+    <ng-container *ngIf="!card.icon">
+      <span class="fa-stack fa-2x" style="--fa-inverse: #88b0a0;">
+        <i [ngClass]="card.iconStacked1"></i>
+        <i [ngClass]="card.iconStacked2"></i>
+      </span>
+    </ng-container>
+    <div class="card-text">
+      <mat-card-title>{{card.title}}</mat-card-title>
+      <mat-card-content>
+        <div class="curency">
+          <span>{{card.ammount}}</span>
+          <span>{{card.days}} Dias</span>
+        </div>
+      </mat-card-content>
+    </div>
   </mat-card>
-
-  <mat-card class="example-card">
-    <mat-card-title>Destacar anuncio no site</mat-card-title>
-    <mat-card-content>
-      <div class="curency">
-        <span>3.00</span>
-        <span>3 Dias</span>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-
-  <mat-card class="example-card">
-    <mat-card-title>Destacar anuncio no site</mat-card-title>
-    <mat-card-content>
-      <div class="curency">
-        <span>3.00</span>
-        <span>3 Dias</span>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-
-  <mat-card class="example-card">
-    <mat-card-title>Destacar anuncio no site</mat-card-title>
-    <mat-card-content>
-      <div class="curency">
-        <span>3.00</span>
-        <span>3 Dias</span>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
 </div>
+
   <mat-checkbox>
   </mat-checkbox>
 
