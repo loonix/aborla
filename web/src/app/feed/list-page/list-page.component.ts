@@ -39,7 +39,11 @@ export class ListPageComponent implements OnInit {
   }
 
   create() {
-    const dialogRef = this.dialog.open(AddEditListItemComponent);
+    const dialogRef = this.dialog.open(AddEditListItemComponent, {
+      data: { 
+        isEdit: false
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

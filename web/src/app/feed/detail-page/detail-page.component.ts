@@ -48,7 +48,11 @@ export class DetailPageComponent implements OnInit {
   }
 
   openBoardDialog(): void {
-    const dialogRef = this.dialog.open(AddEditListItemComponent);
+    const dialogRef = this.dialog.open(AddEditListItemComponent, {
+      data: { 
+        isEdit: true
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
