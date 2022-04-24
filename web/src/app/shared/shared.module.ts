@@ -14,9 +14,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormGroupComponent } from './form-group/form-group.component';
+import { MaterialModule } from '../material.module';
 
 const components = [
-  ShellComponent, DeleteButtonComponent
+  ShellComponent, DeleteButtonComponent, FormGroupComponent
 ];
 
 const modules = [
@@ -33,7 +35,8 @@ const modules = [
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MaterialModule
 ];
 
 @NgModule({
