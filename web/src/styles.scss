@@ -87,3 +87,23 @@ mat-grid-list.mat-grid-list.list-view-grid .mat-grid-tile-content {
     margin: 0 auto;
     justify-content: flex-start;
 }
+
+
+/// mat toggle styles override
+.mat-button-toggle{
+    background-color: #f5f5f5;
+  }
+  
+  .mat-button-toggle:hover {
+    background-color: #88b0a0; ;
+    color: white !important;    
+  }
+  
+  .mat-button-toggle-checked {
+    background-color: #88b0a0;
+    color: white !important;
+  }
+  .mat-button-toggle-group {
+    margin-bottom: 1em;
+  }
+  
