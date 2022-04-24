@@ -7,16 +7,19 @@ import { SharedModule } from '../shared/shared.module';
 import { AddEditListItemComponent } from './add-edit-list-item/add-edit-list-item.component';
 import { MaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [ListPageComponent, DetailPageComponent,AddEditListItemComponent],
+  declarations: [ListPageComponent, DetailPageComponent, AddEditListItemComponent],
   imports: [
     CommonModule,
     SharedModule,
     FeedRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
 
   ],
   entryComponents: [AddEditListItemComponent],
