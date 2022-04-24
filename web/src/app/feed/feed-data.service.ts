@@ -22,7 +22,6 @@ export class FeedDataService {
   }
 
   getFeed(id: string) {
-    debugger;
     if (this.feed) {
       const cached = this.feed.find(v => v.id === id);
       console.log(this.feed)
@@ -31,7 +30,6 @@ export class FeedDataService {
     } else {
       console.log('use db');
       console.log('id', id);
-      debugger;
       return this.db.collection(this.dbName).doc(id).valueChanges();
     }
   }
