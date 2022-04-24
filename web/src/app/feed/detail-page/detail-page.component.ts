@@ -7,6 +7,7 @@ import { FeedDataService } from '../feed-data.service';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
+import { Item } from 'src/app/shared/models/item.model';
 
 @Component({
   selector: 'app-detail-page',
@@ -14,8 +15,8 @@ import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-it
   styleUrls: ['./detail-page.component.scss']
 })
 export class DetailPageComponent implements OnInit {
-  productId: string;
-  product: any;
+  itemId: string;
+  item: Item;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,31 +27,31 @@ export class DetailPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get('id');
+    this.itemId = this.route.snapshot.paramMap.get('id');
 
     // this.customer = this.db
     //   .collection('customers')
     //   .doc<any>(customerId)
     //   .valueChanges()
-    debugger;
-    this.data.getFeed(this.productId).subscribe(prod => {
+    this.data.getFeed(this.itemId).subscribe(prod => {
       this.seo.generateTags({
         title: prod.title,
         description: prod.description,
         image: prod.images[0],
       })
-      this.product = prod;
+      this.item = prod;
       console.log(prod);
     });
 
-    console.log(this.productId);
-    console.log(this.product);
+    console.log(this.itemId);
+    console.log(this.item);
   }
 
-  openBoardDialog(): void {
+  onEdit(item: Item): void {
     const dialogRef = this.dialog.open(AddEditListItemComponent, {
       data: { 
-        isEdit: true
+        isEdit: true,
+        item: item
       }
     });
     dialogRef.afterClosed().subscribe(result => {

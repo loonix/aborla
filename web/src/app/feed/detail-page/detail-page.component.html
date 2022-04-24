@@ -5,18 +5,18 @@
 <div class="image-card">
 
 </div>
-<mat-card *ngIf="product">
+<mat-card *ngIf="item">
   <mat-card-header>
-    <mat-card-title>{{ product.title }}</mat-card-title>
+    <mat-card-title>{{ item.title }}</mat-card-title>
     <mat-card-subtitle>Detalhes</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="product?.images[0]" />
+  <img mat-card-image [src]="item?.images[0]" />
   <mat-card-content>
     <p>
-      {{ product?.description }}
+      {{ item?.description }}
     </p>
   </mat-card-content>
   <button mat-raised-button routerLink="/feed">BACK</button>
-  <button mat-raised-button mat-raised-button color="accent" cdkDragDisabled (click)="openBoardDialog()">EDITAR</button>
+  <button mat-raised-button mat-raised-button color="accent" cdkDragDisabled (click)="onEdit(item)">EDITAR</button>
   <button mat-raised-button mat-raised-button color="accent" cdkDragDisabled (click)="createFeed()">CRIAR</button>
 </mat-card>
