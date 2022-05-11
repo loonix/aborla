@@ -56,9 +56,9 @@
     <div class="image3"></div>
   </div>
 
-
-  <div class="card-group" *ngFor="let card of cards">
-    <mat-card class="example-card">
+  <mat-button-toggle-group name="card" aria-label="card">
+    <mat-button-toggle value="flour" *ngFor="let card of cards">
+      
       <ng-container *ngIf="card.icon">
         <i class="fa-solid fa-mobile-button"></i>
       </ng-container>
@@ -77,8 +77,9 @@
           </div>
         </mat-card-content>
       </div>
-    </mat-card>
-  </div>
+    </mat-button-toggle>
+   
+  </mat-button-toggle-group>
 
   <mat-checkbox>
   </mat-checkbox>

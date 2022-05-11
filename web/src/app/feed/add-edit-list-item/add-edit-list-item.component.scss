@@ -8,8 +8,16 @@
     display: flex;
 
     .example-card {
-        flex:1
+        flex:1;
+        display: inline-flex;
+        svg:first-child {
+            font-size: 3em;
+        }
+
     }
 
 
+}
+mat-button-toggle-group  {
+    display: grid;
 }

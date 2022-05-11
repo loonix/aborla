@@ -3,20 +3,21 @@
 
     <h3>Filtros</h3>
 
-  <mat-button-toggle-group name="tipoDeAnuncio" aria-label="Tipo de anuncio" multiple>
-    <mat-button-toggle color="red" value="red">Oferta</mat-button-toggle>
-    <mat-button-toggle value="green">Pedido</mat-button-toggle>
-    <mat-button-toggle value="blue">Troca</mat-button-toggle>
-  </mat-button-toggle-group>
+    <mat-button-toggle-group #group="matButtonToggleGroup" name="tipoDeAnuncio" aria-label="Tipo de anuncio"
+      [value]="selectedType" (change)="onSelectedType(group.value)" multiple>
+      <mat-button-toggle value="1">Oferta</mat-button-toggle>
+      <mat-button-toggle value="2">Pedido</mat-button-toggle>
+      <mat-button-toggle value="3">Troca</mat-button-toggle>
+    </mat-button-toggle-group>
 
     <mat-form-field appearance="fill">
 
       <mat-label class="">
         <mat-icon class="center">class</mat-icon> Categoria
       </mat-label>
-   
-      <mat-select #mode value="side"> 
-      
+
+      <mat-select #mode value="side">
+
         <mat-option value="side">Veiculos</mat-option>
         <mat-option value="over">Vestuário</mat-option>
         <mat-option value="push">Push</mat-option>
@@ -58,9 +59,9 @@
           <span *ngIf="gridColumns === 4"></span>
           <span *ngIf="gridColumns === 3"></span>
         </button>
-        <mat-button-toggle class="criar_anuncio" value="green" (click)="create()" >Criar Anuncio</mat-button-toggle>
+        <mat-button-toggle class="criar_anuncio" value="green" (click)="create()">Criar Anuncio</mat-button-toggle>
       </mat-toolbar>
-    
+
       <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
           <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let anuncio of data.feed"
@@ -71,7 +72,7 @@
                 <mat-card-subtitle>{{anuncio.category}}</mat-card-subtitle>
                 <mat-card-title>{{anuncio.title}}</mat-card-title>
               </mat-card-header>
-   
+
               <mat-card-actions>
                 <button mat-button>LIKE</button>
                 <button mat-button>SHARE</button>

@@ -12,12 +12,21 @@ export class FeedDataService {
 
   constructor(private db: AngularFirestore) { }
 
-  subscribeToFeed() {
+  subscribeToFeed(typeOfRequest?: any[]) {
     if (!this.feed) {
-      this.subscription = this.db.collection(this.dbName).valueChanges({idField: 'id'})
+      this.subscription = this.db.collection(this.dbName,
+        this.queryFn(typeOfRequest) ).valueChanges({idField: 'id'})
       .subscribe(data =>  {
         this.feed = data;
       });
+    }
+  }
+  queryFn(typeOfRequest) {
+    return ref => {
+      let query = ref;
+      if(typeOfRequest) { query = query.where('typeOfRequest', '==', typeOfRequest[0]) };
+      // if(type) { query = query.where('field2', '==', value2) };
+      return query;
     }
   }
 

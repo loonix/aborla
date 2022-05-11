@@ -16,6 +16,7 @@ export class ListPageComponent implements OnInit {
   search = 'Procure artigos';
 
   title = 'Card View Demo';
+  selectedType;
 
   gridColumns = 3;
 
@@ -23,7 +24,11 @@ export class ListPageComponent implements OnInit {
     this.gridColumns = this.gridColumns === 3 ? 4 : 3;
   }
 
-  constructor(private seo: SeoService, private db: AngularFirestore, public data: FeedDataService, public dialog: MatDialog
+  constructor(
+    private seo: SeoService, 
+    private db: AngularFirestore, 
+    public data: FeedDataService, 
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -47,5 +52,16 @@ export class ListPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onSelectedType(val: []) {
+    this.selectedType = val;
+    let test = [];
+    val.forEach(el => {
+      test.push(Number(el));
+    });
+    console.log(val);
+    this.data.subscribeToFeed(test);
+
   }
 }
