@@ -1,39 +1,42 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { of, Subscription } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeedDataService {
-  feed = null;
-  subscription;
+  feed:any = null;
+  subscription: Subscription = new Subscription;
   dbName = 'feed';
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore) {}
 
   subscribeToFeed(typeOfRequest?: any[]) {
     if (!this.feed) {
-      this.subscription = this.db.collection(this.dbName,
-        this.queryFn(typeOfRequest) ).valueChanges({idField: 'id'})
-      .subscribe(data =>  {
-        this.feed = data;
-      });
+      this.subscription = this.db
+        .collection(this.dbName, this.queryFn(typeOfRequest))
+        .valueChanges({ idField: 'id' })
+        .subscribe((data: any) => {
+          this.feed = data;
+        });
     }
   }
-  queryFn(typeOfRequest) {
-    return ref => {
+  queryFn(typeOfRequest: any[] | undefined) {
+    return (ref: any) => {
       let query = ref;
-      if(typeOfRequest) { query = query.where('typeOfRequest', '==', typeOfRequest[0]) };
+      if (typeOfRequest) {
+        query = query.where('typeOfRequest', '==', typeOfRequest[0]);
+      }
       // if(type) { query = query.where('field2', '==', value2) };
       return query;
-    }
+    };
   }
 
   getFeed(id: string) {
     if (this.feed) {
-      const cached = this.feed.find(v => v.id === id);
-      console.log(this.feed)
+      const cached = this.feed.find((v: { id: string; }) => v.id === id);
+      console.log(this.feed);
       console.log('use cached');
       return of(cached);
     } else {

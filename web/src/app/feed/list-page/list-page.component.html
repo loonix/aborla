@@ -1,23 +1,24 @@
 <mat-grid-list cols="4" rowHeight="100%" class="list-view-grid">
   <mat-grid-tile class="filtros">
-
     <h3>Filtros</h3>
 
-    <mat-button-toggle-group #group="matButtonToggleGroup" name="tipoDeAnuncio" aria-label="Tipo de anuncio"
-      [value]="selectedType" (change)="onSelectedType(group.value)" multiple>
+    <mat-button-toggle-group
+      #group="matButtonToggleGroup"
+      name="tipoDeAnuncio"
+      aria-label="Tipo de anuncio"
+      [value]="selectedType"
+      (change)="onSelectedType(group.value)"
+      multiple
+    >
       <mat-button-toggle value="1">Oferta</mat-button-toggle>
       <mat-button-toggle value="2">Pedido</mat-button-toggle>
       <mat-button-toggle value="3">Troca</mat-button-toggle>
     </mat-button-toggle-group>
 
     <mat-form-field appearance="fill">
-
-      <mat-label class="">
-        <mat-icon class="center">class</mat-icon> Categoria
-      </mat-label>
+      <mat-label class=""> <mat-icon class="center">class</mat-icon> Categoria </mat-label>
 
       <mat-select #mode value="side">
-
         <mat-option value="side">Veiculos</mat-option>
         <mat-option value="over">Vestuário</mat-option>
         <mat-option value="push">Push</mat-option>
@@ -25,10 +26,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-
-      <mat-label class="">
-        <mat-icon> location_on</mat-icon> Localização
-      </mat-label>
+      <mat-label class=""> <mat-icon> location_on</mat-icon> Localização </mat-label>
       <mat-select #hasBackdrop>
         <mat-option>Porto</mat-option>
         <mat-option [value]="true">True</mat-option>
@@ -36,19 +34,15 @@
       </mat-select>
     </mat-form-field>
 
-
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label class="">
-        <mat-icon>calendar_today</mat-icon> Válido até
-      </mat-label>
-      <input matInput [matDatepicker]="picker">
+      <mat-label class=""> <mat-icon>calendar_today</mat-icon> Válido até </mat-label>
+      <input matInput [matDatepicker]="picker" />
       <mat-hint></mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="3">
@@ -64,13 +58,18 @@
 
       <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let anuncio of data.feed"
-            [routerLink]="anuncio.id">
+          <div
+            [fxFlex]="100 / gridColumns + '%'"
+            fxFlex.xs="100%"
+            fxFlex.sm="33%"
+            *ngFor="let anuncio of data.feed"
+            [routerLink]="anuncio.id"
+          >
             <mat-card class="mat-elevation-z4">
-              <img mat-card-image src="{{anuncio.images[0]}}">
+              <img mat-card-image src="{{ anuncio.images[0] }}" />
               <mat-card-header>
-                <mat-card-subtitle>{{anuncio.category}}</mat-card-subtitle>
-                <mat-card-title>{{anuncio.title}}</mat-card-title>
+                <mat-card-subtitle>{{ anuncio.category }}</mat-card-subtitle>
+                <mat-card-title>{{ anuncio.title }}</mat-card-title>
               </mat-card-header>
 
               <mat-card-actions>

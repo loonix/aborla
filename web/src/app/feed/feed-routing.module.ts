@@ -3,25 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListPageComponent } from './list-page/list-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-  { path: '', component: ListPageComponent },
-  {
-    path: ':id',
-    component: DetailPageComponent,
-    // children: [
-    //   {path: 'edit', component: AddEditListItemComponent},
-    // ]
-  }
+  Shell.childRoutes([
+    { path: '', redirectTo: '/feed', pathMatch: 'full' },
+    { path: 'feed', component: ListPageComponent },
+    { path: 'feed/:id', component: DetailPageComponent }
+  ]),
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-    MatDialogModule,
-  ],
+  imports: [RouterModule.forChild(routes), MatDialogModule],
   exports: [RouterModule],
-
 })
-export class FeedRoutingModule { }
+export class FeedRoutingModule {}

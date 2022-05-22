@@ -1,23 +1,20 @@
 .curency {
-    font-size: 2em;
+  font-size: 2em;
 }
 
-.card-group{
-    padding: 1em;
-    margin: 1em;
-    display: flex;
+.card-group {
+  padding: 1em;
+  margin: 1em;
+  display: flex;
 
-    .example-card {
-        flex:1;
-        display: inline-flex;
-        svg:first-child {
-            font-size: 3em;
-        }
-
+  .example-card {
+    flex: 1;
+    display: inline-flex;
+    svg:first-child {
+      font-size: 3em;
     }
-
-
+  }
 }
-mat-button-toggle-group  {
-    display: grid;
+mat-button-toggle-group {
+  display: grid;
 }

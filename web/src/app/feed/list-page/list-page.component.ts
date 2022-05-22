@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { SeoService } from 'src/app/services/seo.service';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore/'; 
+
 import { FeedDataService } from '../feed-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
-
+import { SeoService } from '@app/@shared/seo.service';
 
 @Component({
   selector: 'app-list-page',
   templateUrl: './list-page.component.html',
-  styleUrls: ['./list-page.component.scss']
+  styleUrls: ['./list-page.component.scss'],
 })
 export class ListPageComponent implements OnInit {
-  feed;
+  feed:any;
   search = 'Procure artigos';
 
   title = 'Card View Demo';
-  selectedType;
+  selectedType: any;
 
   gridColumns = 3;
 
@@ -25,16 +25,16 @@ export class ListPageComponent implements OnInit {
   }
 
   constructor(
-    private seo: SeoService, 
-    private db: AngularFirestore, 
-    public data: FeedDataService, 
-    public dialog: MatDialog,
-  ) { }
+    private seo: SeoService,
+    private db: AngularFirestore,
+    public data: FeedDataService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.seo.generateTags({
       title: 'Lista de artigos',
-      description: 'A lista completa de todos os artigos disponiveis'
+      description: 'A lista completa de todos os artigos disponiveis',
     });
 
     // this.customers = this.db.collection('customers').valueChanges({ idField: 'id' });
@@ -45,23 +45,22 @@ export class ListPageComponent implements OnInit {
 
   create() {
     const dialogRef = this.dialog.open(AddEditListItemComponent, {
-      data: { 
-        isEdit: false
-      }
+      data: {
+        isEdit: false,
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
   onSelectedType(val: []) {
     this.selectedType = val;
-    let test = [];
-    val.forEach(el => {
+    let test: any[] = [];
+    val.forEach((el) => {
       test.push(Number(el));
     });
     console.log(val);
     this.data.subscribeToFeed(test);
-
   }
 }

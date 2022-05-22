@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -44,6 +44,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   exports: [
     A11yModule,
     ClipboardModule,

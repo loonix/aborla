@@ -1,7 +1,14 @@
 {
-  "projects": {
-    "default": "glossy-beach-188721",
-    "aborla-web": "glossy-beach-188721"
+  "targets": {
+    "glossy-beach-188721": {
+      "hosting": {
+        "aborla": [
+          "glossy-beach-188721"
+        ]
+      }
+    }
   },
-  "targets": {}
+  "projects": {
+    "default": "glossy-beach-188721"
+  }
 }

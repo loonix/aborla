@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Item, TypeOfRequest } from 'src/app/shared/models/item.model';
+import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 
 @Component({
   selector: 'app-add-edit-list-item',
   templateUrl: './add-edit-list-item.component.html',
-  styleUrls: ['./add-edit-list-item.component.scss']
+  styleUrls: ['./add-edit-list-item.component.scss'],
 })
 export class AddEditListItemComponent implements OnInit {
   form: FormGroup;
@@ -18,25 +18,24 @@ export class AddEditListItemComponent implements OnInit {
 
   validationMessages = {
     title: {
-      required: "required"
+      required: 'required',
     },
-   
   };
   isEdit: boolean;
-  item:Item;
-  modalTitle;
-  cards = [
+  item: Item;
+  modalTitle: any;
+  cards:any = [
     {
       title: 'Destacar anuncio no site',
       icon: 'fa-solid fa-earth-europe',
       days: 3,
-      ammount: 3.00,
+      ammount: 3.0,
     },
     {
       title: 'Destacar anuncio na app',
       icon: 'fa-solid fa-mobile-button',
       days: 3,
-      ammount: 3.00,
+      ammount: 3.0,
     },
     {
       title: 'Destacar anuncio no site na app',
@@ -44,13 +43,13 @@ export class AddEditListItemComponent implements OnInit {
       iconStacked1: 'fa-solid fa-earth-europe fa-stack-2x',
       iconStacked2: 'fab fa-solid fa-mobile-button fa-stack-1x fa-inverse',
       days: 3,
-      ammount: 5.00,
+      ammount: 5.0,
     },
     {
       title: 'Nao destacar anuncio',
       icon: 'fa-solid fa-circle-xmark',
       days: 0,
-      ammount: 0.00,
+      ammount: 0.0,
     },
   ];
   constructor(
@@ -64,28 +63,30 @@ export class AddEditListItemComponent implements OnInit {
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', Validators.required);
     this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', Validators.required);
     this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', Validators.required);
-    this.acceptsTradeFormControl = new FormControl(this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade: '', Validators.required);
-   
+    this.acceptsTradeFormControl = new FormControl(
+      this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '',
+      Validators.required
+    );
+
     this.form = new FormGroup({
       title: this.titleFormControl,
       description: this.descriptionFormControl,
       category: this.categoryFormControl,
       expirationDate: this.expirationDateFormControl,
-      acceptsTrade: this.acceptsTradeFormControl
+      acceptsTrade: this.acceptsTradeFormControl,
     });
   }
 
-  setData(data) {
+  setData(data:any) {
     this.isEdit = data.isEdit;
     const type = this.isEdit ? 'Editar' : 'Adicionar';
     this.modalTitle = `${type} Artigo`;
-    if(this.isEdit) this.item = this.data?.item;
+    if (this.isEdit) this.item = this.data?.item;
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
 
 // [

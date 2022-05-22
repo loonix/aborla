@@ -3,11 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "firestarter": {
+    "aborla": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -17,38 +20,26 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/browser",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "src/apple-touch-icon.png",
+              "src/robots.txt",
+              "src/manifest.webmanifest",
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/main.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -62,122 +53,113 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "firestarter:build"
-          },
-          "configurations": {
-            "development": {
-              "optimization": false,
-              "vendorChunk": true,
-              "sourceMap": true
-            },
-            "production": {
-              "browserTarget": "firestarter:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "firestarter:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "firestarter:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "firestarter:serve:production"
-            }
-          }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
-            ,              "optimization": true
-}
-          }
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "firestarter:build",
-            "serverTarget": "firestarter:server"
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "ci": {
+              "progress": false
+            }
           },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "firestarter:build:production",
-              "serverTarget": "firestarter:server:production"
+              "browserTarget": "aborla:build:production"
+            },
+            "development": {
+              "browserTarget": "aborla:build:development"
+            },
+            "ci": {
+              "progress": false
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "aborla:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "watch": true
+          },
+          "configurations": {
+            "ci": {
+              "watch": false,
+              "ci": true,
+              "coverage": true,
+              "silent": true
             }
           }
         },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "browserTarget": "firestarter:build:production",
-            "serverTarget": "firestarter:server:production",
-            "routes": [
-              "/"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "aborla:serve"
           },
           "configurations": {
-            "production": {}
+            "production": {
+              "devServerTarget": "aborla:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "aborla:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "aborla:serve:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "aborla:build:production",
+            "firebaseProject": "glossy-beach-188721",
+            "firebaseHostingSite": "glossy-beach-188721"
           }
         }
       }
     }
   },
-  "defaultProject": "firestarter"
+  "defaultProject": "aborla"
 }

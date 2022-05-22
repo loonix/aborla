@@ -1,52 +1,86 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { environment } from '../environments/environment';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
-// App Modules
+import { environment } from '@env/environment';
+import { RouteReusableStrategy, ApiPrefixInterceptor, ErrorHandlerInterceptor, SharedModule } from '@shared';
+import { AuthModule } from '@app/auth';
+import { HomeModule } from './home/home.module';
+import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { SharedModule } from './shared/shared.module';
-import { UserModule } from './user/user.module';
-
-// Firebase imports
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MaterialModule } from './material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { providePerformance, getPerformance } from '@angular/fire/performance';
+import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { FeedModule } from './feed/feed.module';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/'; 
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
-  declarations: [	
-    AppComponent,
-    
-   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule,
+    BrowserModule,
+    ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    TranslateModule.forRoot(),
     BrowserAnimationsModule,
-    SharedModule,
-    UserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MaterialModule,
-    ReactiveFormsModule
+    SharedModule,
+    ShellModule,
+    HomeModule,
+    FeedModule,
+    AuthModule,
+    AppRoutingModule,
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
+    provideMessaging(() => getMessaging()),
+    providePerformance(() => getPerformance()),
+    provideRemoteConfig(() => getRemoteConfig()),
+    provideStorage(() => getStorage()), // must be imported as the last module as it contains the fallback route
   ],
-  exports:[
-    MaterialModule
+  declarations: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiPrefixInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReusableStrategy,
+    },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    ScreenTrackingService,
+    UserTrackingService,
   ],
-  providers: [],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
-export class AppModule { }
+export class AppModule {}

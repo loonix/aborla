@@ -1,37 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './user/auth.guard';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/feed', pathMatch: 'full' },
-  {
-    path: 'feed',
-    loadChildren: () =>
-      import('./feed/feed.module').then(m => m.FeedModule),
-  },
-  // {
-  //   path: ':id',
-  //   component: DetailPageComponent,
-  //   children: [
-  //     { path: 'edit',pathMatch:'full', component: AddEditListItemComponent},
-  //   ]
-  // },
-  {
-    path: 'login',
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-  },
-  {
-    path: 'kanban',
-    loadChildren: () =>
-      import('./kanban/kanban.module').then(m => m.KanbanModule),
-    canActivate: [AuthGuard]
-  },
+  Shell.childRoutes([{ path: 'about', loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) }]),
+  // Fallback when no prior route is matched
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule],
+  providers: [],
 })
 export class AppRoutingModule {}
