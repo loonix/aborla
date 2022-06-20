@@ -10,8 +10,6 @@ import { LoaderComponent } from './loader/loader.component';
   imports: [FlexLayoutModule, MaterialModule, TranslateModule, CommonModule],
   declarations: [LoaderComponent],
   exports: [LoaderComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

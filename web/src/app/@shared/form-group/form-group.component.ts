@@ -4,10 +4,9 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'hub-form-group',
   templateUrl: './form-group.component.html',
-  styleUrls: ['./form-group.component.scss']
+  styleUrls: ['./form-group.component.scss'],
 })
 export class FormGroupComponent implements OnInit {
-
   @Input()
   control: FormControl = new FormControl();
   // formControlName of the input.
@@ -24,7 +23,7 @@ export class FormGroupComponent implements OnInit {
 
   required: boolean;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     // We run the validator against a form control with an empty value and check if the required attribute exists on the result :)

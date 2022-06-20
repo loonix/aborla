@@ -6,8 +6,8 @@ import { of, Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class FeedDataService {
-  feed:any = null;
-  subscription: Subscription = new Subscription;
+  feed: any = null;
+  subscription: Subscription = new Subscription();
   dbName = 'feed';
 
   constructor(private db: AngularFirestore) {}
@@ -35,7 +35,7 @@ export class FeedDataService {
 
   getFeed(id: string) {
     if (this.feed) {
-      const cached = this.feed.find((v: { id: string; }) => v.id === id);
+      const cached = this.feed.find((v: { id: string }) => v.id === id);
       console.log(this.feed);
       console.log('use cached');
       return of(cached);

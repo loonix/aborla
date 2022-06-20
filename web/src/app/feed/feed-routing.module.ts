@@ -9,7 +9,7 @@ const routes: Routes = [
   Shell.childRoutes([
     { path: '', redirectTo: '/feed', pathMatch: 'full' },
     { path: 'feed', component: ListPageComponent },
-    { path: 'feed/:id', component: DetailPageComponent }
+    { path: 'feed/:id', component: DetailPageComponent },
   ]),
 ];
 

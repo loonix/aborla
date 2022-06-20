@@ -1,4 +1,4 @@
-import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeedRoutingModule } from './feed-routing.module';
 import { ListPageComponent } from './list-page/list-page.component';
@@ -10,11 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/@shared';
 
 @NgModule({
-  declarations: [
-     ListPageComponent,
-     DetailPageComponent, 
-     AddEditListItemComponent,
-    ],
+  declarations: [ListPageComponent, DetailPageComponent, AddEditListItemComponent],
   imports: [
     CommonModule,
     SharedModule,

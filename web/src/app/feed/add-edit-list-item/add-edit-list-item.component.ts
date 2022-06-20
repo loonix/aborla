@@ -24,7 +24,7 @@ export class AddEditListItemComponent implements OnInit {
   isEdit: boolean;
   item: Item;
   modalTitle: any;
-  cards:any = [
+  cards: any = [
     {
       title: 'Destacar anuncio no site',
       icon: 'fa-solid fa-earth-europe',
@@ -77,7 +77,7 @@ export class AddEditListItemComponent implements OnInit {
     });
   }
 
-  setData(data:any) {
+  setData(data: any) {
     this.isEdit = data.isEdit;
     const type = this.isEdit ? 'Editar' : 'Adicionar';
     this.modalTitle = `${type} Artigo`;

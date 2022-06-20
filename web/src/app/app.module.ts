@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -26,7 +26,7 @@ import { providePerformance, getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { FeedModule } from './feed/feed.module';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore/'; 
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
@@ -79,8 +79,6 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     UserTrackingService,
   ],
   bootstrap: [AppComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

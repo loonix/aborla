@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore/'; 
+import { AngularFirestore } from '@angular/fire/compat/firestore/';
 
 import { FeedDataService } from '../feed-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { SeoService } from '@app/@shared/seo.service';
   styleUrls: ['./list-page.component.scss'],
 })
 export class ListPageComponent implements OnInit {
-  feed:any;
+  feed: any;
   search = 'Procure artigos';
 
   title = 'Card View Demo';
