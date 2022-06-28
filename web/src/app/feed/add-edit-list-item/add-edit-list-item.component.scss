@@ -2,19 +2,43 @@
   font-size: 2em;
 }
 
-.card-group {
-  padding: 1em;
-  margin: 1em;
-  display: flex;
 
-  .example-card {
-    flex: 1;
-    display: inline-flex;
-    svg:first-child {
-      font-size: 3em;
-    }
-  }
+mat-grid-list {
+  width: 1000px;
 }
+
 mat-button-toggle-group {
-  display: grid;
+  flex-direction: row;
 }
+
+.add-edit-list-item {
+ 
+  width: 100%;
+}
+
+.child-formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 10%;
+    
+}
+
+.child-opcoes {
+
+  width: 100%;
+  margin: auto;
+  
+}
+
+.child-expira-data {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 10%;
+}
+
+mat-button-toggle{margin:10px}
+
+ng-container{display: flex;
+flex-direction: row;}

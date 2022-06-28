@@ -3,6 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
 @Component({
   selector: 'app-add-edit-list-item',
   templateUrl: './add-edit-list-item.component.html',
@@ -52,6 +59,12 @@ export class AddEditListItemComponent implements OnInit {
       ammount: 0.0,
     },
   ];
+  tiles: Tile[] = [
+    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+  ];
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -88,6 +101,56 @@ export class AddEditListItemComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
+
+
+/**
+ * @title Basic grid-list
+ */
+  // @Component({
+  //   selector: 'grid-list-overview-example',
+  //   styleUrls: ['grid-list-overview-example.css'],
+  //   templateUrl: 'grid-list-overview-example.html',
+  // })
+  // export class GridListOverviewExample {}
+
+
+// /**
+//  * @title Basic grid-list
+//  */
+//  @Component({
+//   selector: 'grid-list-overview-example',
+//   styleUrls: ['grid-list-overview-example.css'],
+//   templateUrl: 'grid-list-overview-example.html',
+// })
+// export class GridListOverviewExample {}
+
+// /**
+//  * @title Dynamic grid-list
+//  */
+// @Component({
+//   selector: 'grid-list-dynamic-example',
+//   templateUrl: 'grid-list-dynamic-example.html',
+// })
+// export class GridListDynamicExample {
+//   tiles: Tile[] = [
+//     { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
+//     { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
+//     { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
+//     { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
+//   ];
+// }
+
+/**  Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */
 
 // [
 //   {
