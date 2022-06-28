@@ -23,11 +23,12 @@
   </button>
   <mat-menu #userMenu="matMenu">
     <mat-list>
-      <mat-list-item>
+      <mat-list-item *ngIf="username">
         <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
-    <button mat-menu-item (click)="logout()" translate>Logout</button>
+    <button *ngIf="username" mat-menu-item (click)="logout()" translate>Logout</button>
+    <button *ngIf="!username" mat-menu-item (click)="login()" translate>Login</button>
   </mat-menu>
 </mat-toolbar>

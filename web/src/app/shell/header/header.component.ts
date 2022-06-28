@@ -25,8 +25,14 @@ export class HeaderComponent implements OnInit {
     this.authService.SignOut();
   }
 
+  login() {
+    this.router.navigate(['sign-in']);
+  }
+
   get username(): string | null {
-    return this.authService.GetUser().displayName;
+    var user = this.authService.GetUser();
+    if(user) return user.displayName;
+    return null;
   }
 
   get title(): string {
