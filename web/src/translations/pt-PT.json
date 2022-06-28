@@ -1,16 +1,15 @@
 {
   "APP_NAME": "aborla",
   "About": "Sobre",
-  "Hello world !": "Olá Mundo !",
   "Home": "Início",
   "Logged in as": "Conectado como",
   "Login": "Entrar",
   "Logout": "Sair",
   "Password": "Senha",
   "Password is required": "A senha é obrigatória",
-  "Username": "Usuário",
-  "Username is required": "O usuário é obrigatório",
-  "Username or password incorrect.": "Usuário ou senha incorretos.",
+  "Username": "Utilizador",
+  "Username is required": "O utilizador é obrigatório",
+  "Username or password incorrect.": "Utilizador ou senha incorretos.",
   "Remember me": "Lembre-se de mim",
   "Version": "Versão"
 }

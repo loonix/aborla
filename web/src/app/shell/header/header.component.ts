@@ -2,8 +2,8 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthService } from '@app/@shared/services/auth.service';
 
-import { AuthenticationService, CredentialsService } from '@app/auth';
 
 @Component({
   selector: 'app-header',
@@ -16,19 +16,17 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private titleService: Title,
-    private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService
+    public authService: AuthService
   ) {}
 
   ngOnInit() {}
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authService.SignOut();
   }
 
   get username(): string | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.username : null;
+    return this.authService.GetUser().displayName;
   }
 
   get title(): string {

@@ -10,7 +10,6 @@ import { MaterialModule } from './material.module';
 
 import { environment } from '@env/environment';
 import { RouteReusableStrategy, ApiPrefixInterceptor, ErrorHandlerInterceptor, SharedModule } from '@shared';
-import { AuthModule } from '@app/auth';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
@@ -28,9 +27,14 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { FeedModule } from './feed/feed.module';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AuthService } from './@shared/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
@@ -43,9 +47,10 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     ShellModule,
     HomeModule,
     FeedModule,
-    AuthModule,
+    AuthenticationModule,
     AppRoutingModule,
     AngularFirestoreModule,
+    AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore()),
     provideAnalytics(() => getAnalytics()),
@@ -77,6 +82,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     ScreenTrackingService,
     UserTrackingService,
+    AuthService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
