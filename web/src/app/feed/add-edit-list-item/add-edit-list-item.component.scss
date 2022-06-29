@@ -2,17 +2,13 @@
   font-size: 2em;
 }
 
-
 mat-grid-list {
   width: 1000px;
+  height: 2000px;
 }
 
-mat-button-toggle-group {
-  flex-direction: row;
-}
 
 .add-edit-list-item {
- 
   width: 100%;
 }
 
@@ -21,14 +17,41 @@ mat-button-toggle-group {
   flex-direction: column;
   width: 100%;
   margin-left: 10%;
-    
+
 }
 
 .child-opcoes {
 
   width: 100%;
-  margin: auto;
-  
+  margin-left: 10%;
+
+}
+
+mat-icon {
+  display: flex;
+  flex: 1;
+  font-size: 80px;
+float: left;
+}
+
+.card-text {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  float: right;
+}
+
+.mat-grid-tile-images {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgb(60, 94, 58);
+  padding-block: 10px;
+
+}
+.image-tile{
+ 
+  object-fit: cover;
+
 }
 
 .child-expira-data {
@@ -38,7 +61,13 @@ mat-button-toggle-group {
   margin-left: 10%;
 }
 
-mat-button-toggle{margin:10px}
+.destacar-anuncio {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0px;
+  margin-inline: 8px;
+  margin-bottom: 20px;
+  display: flex;
 
-ng-container{display: flex;
-flex-direction: row;}
+}
