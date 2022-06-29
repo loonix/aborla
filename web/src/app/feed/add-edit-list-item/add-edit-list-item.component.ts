@@ -10,6 +10,7 @@ export interface Tile {
   text: string;
 }
 
+
 @Component({
   selector: 'app-add-edit-list-item',
   templateUrl: './add-edit-list-item.component.html',
@@ -65,6 +66,7 @@ export class AddEditListItemComponent implements OnInit {
     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
   ];
+  itemImagesAvaliable: boolean;
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -72,6 +74,7 @@ export class AddEditListItemComponent implements OnInit {
     this.setData(data);
   }
   ngOnInit(): void {
+    this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
     this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', Validators.required);
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', Validators.required);
     this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', Validators.required);
@@ -101,6 +104,7 @@ export class AddEditListItemComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+
 
 export interface Tile {
   color: string;
