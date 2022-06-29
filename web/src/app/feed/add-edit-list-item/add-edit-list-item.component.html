@@ -97,11 +97,11 @@
 
             <mat-grid-tile style="display:flex ;" *ngFor="let card of cards">
 
-              <mat-button-toggle class="destacar-anuncio" value="flour">
+              <mat-button-toggle style=" border-radius: .8em; display: flex;" class="destacar-anuncio" value="flour">
 
                 <ng-container  *ngIf="card.icon">
 
-                  <mat-icon  color="primary"> public </mat-icon>
+                  <mat-icon align="left"  color="primary"> public </mat-icon>
 
                   <i class="fa-solid fa-mobile-button"></i>
                 </ng-container>
@@ -109,6 +109,7 @@
                 <ng-container *ngIf="!card.icon">
                   <mat-icon  color="primary"> star </mat-icon>
                   <span class="fa-stack fa-2x" style="--fa-inverse: #88b0a0">
+                   
                     <i [ngClass]="card.iconStacked1"></i>
                     <i [ngClass]="card.iconStacked2"></i>
                   </span>
