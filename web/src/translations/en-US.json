@@ -26,5 +26,9 @@
   "We have sent a confirmation email to": "We have sent a confirmation email to",
   "Please check your email and click on the link to verify your email address.": "Please check your email and click on the link to verify your email address.",
   "Resend Verification Email": "Resend Verification Email",
-  "Thank You for Registering": "Thank You for Registering"
+  "Thank You for Registering": "Thank You for Registering",
+  "Company": "Company",
+  "Individual": "Individual",
+  "Name": "Name",
+  "Confirm Password": "Confirm Password"
 }

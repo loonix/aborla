@@ -1,10 +1,19 @@
 <div class="displayTable">
   <div class="displayTableCell">
-    <div class="authBlock">
+    <div class="authBlock-register">
       <div class="logo">
         <img src="../../../assets/logo.png" />
       </div>
       <h3 translate>Sign Up <app-language-selector [icon]="true"></app-language-selector></h3>
+
+      <mat-button-toggle-group name="accountType" aria-label="Account Type">
+        <mat-button-toggle value="company">{{'Company' |translate}}</mat-button-toggle>
+        <mat-button-toggle value="individual">{{'Individual' | translate}}</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <div class="formGroup">
+        <input type="name" class="formControl" placeholder="{{'Name' | translate}}" #userName required />
+      </div>
 
       <div class="formGroup">
         <input type="email" class="formControl" placeholder="{{'Email Address' | translate}}" #userEmail required />
@@ -12,6 +21,10 @@
 
       <div class="formGroup">
         <input type="password" class="formControl" placeholder="{{'Password' | translate}}" #userPwd required />
+      </div>
+
+      <div class="formGroup">
+        <input type="confirmPassword" class="formControl" placeholder="{{'Confirm Password' | translate}}" #userConfirmPwd required />
       </div>
 
       <div class="formGroup">

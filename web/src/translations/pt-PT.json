@@ -26,5 +26,9 @@
   "We have sent a confirmation email to": "Enviamos um e-mail de confirmação para",
   "Please check your email and click on the link to verify your email address.": "Por favor, verifique o seu email e clique no link para verificar seu endereço de email.",
   "Resend Verification Email": "Reenviar email de verificação",
-  "Thank You for Registering": "Obrigado por se registar"
+  "Thank You for Registering": "Obrigado por se registar",
+  "Company": "Empresa",
+  "Individual": "Particular",
+  "Name": "Nome",
+  "Confirm Password": "Confirmar Senha"
 }
