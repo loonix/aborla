@@ -1,67 +1,46 @@
 <div class="displayTable">
   <div class="displayTableCell">
     <div class="authBlock">
-      <h3>Sign In</h3>
+      <div class="logo">
+        <img src="../../../assets/logo.png" />
+      </div>
+      
+      <h3 translate>Login <app-language-selector [icon]="true"></app-language-selector></h3>
+
       <div class="formGroup">
-        <input
-          type="text"
-          class="formControl"
-          placeholder="Username"
-          #userName
-          required
-        />
+        <input type="text" class="formControl" placeholder="{{'Username' | translate}}" #userName required/>
       </div>
 
       <div class="formGroup">
-        <input
-          type="password"
-          class="formControl"
-          placeholder="Password"
-          #userPassword
-          required
-        />
+        <input type="password" class="formControl" placeholder="{{'Password' | translate}}" #userPassword required />
       </div>
 
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <input
-          type="button"
-          class="btn btnPrimary"
-          value="Log in"
-          (click)="authService.SignIn(userName.value, userPassword.value)"
-        />
+        <input type="button" class="btn btnPrimary" value="Log in"
+          (click)="authService.SignIn(userName.value, userPassword.value)" />
       </div>
 
       <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
+        <span class="or"><span class="orInner" translate>Or</span></span>
       </div>
 
       <!-- Calling GoogleAuth Api from AuthService -->
       <div class="formGroup">
-        <button
-          type="button"
-          class="btn googleBtn"
-          (click)="authService.GoogleAuth()"
-        >
-          <i class="fab fa-google-plus-g"></i>
+        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()" translate>
+          <i class="fab fa-google"></i>
           Log in with Google
         </button>
       </div>
 
       <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
+        <span (click)="navigateTo('forgot-password')" translate>Forgot Password?</span>
       </div>
     </div>
 
     <div class="redirectToLogin">
-      <span
-        >Don't have an account?<span
-          class="redirect"
-          routerLink="/register-user"
-        >
-          Sign Up</span
-        ></span
-      >
+      <span translate>Don't have an account?<span class="redirect" (click)="navigateTo('register-user')" translate>
+          Sign Up</span></span>
     </div>
   </div>
 </div>
