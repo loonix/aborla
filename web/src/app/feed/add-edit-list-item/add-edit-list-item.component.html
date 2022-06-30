@@ -14,7 +14,7 @@
           <section class="formulario">
             <div class="child-formulario">
 
-              <hub-form-group  name="title" [control]="titleFormControl">
+              <hub-form-group name="title" [control]="titleFormControl">
                 <!-- [validationErrors]="validationErrors"-->
                 <mat-form-field appearance="fill">
                   <mat-label>Titulo</mat-label>
@@ -25,7 +25,7 @@
               <hub-form-group name="description" [control]="descriptionFormControl">
                 <mat-form-field appearance="fill">
                   <mat-label>Descrição</mat-label>
-                  <textarea  matInput formControlName="description"></textarea>
+                  <textarea matInput formControlName="description"></textarea>
                 </mat-form-field>
               </hub-form-group>
 
@@ -70,20 +70,21 @@
 
         <mat-grid-tile colspan="1" rowspan="5">
           <mat-grid-list cols="2" rowHeight="100px">
-            <mat-grid-tile class="mat-grid-tile-images"   colspan="2" rowspan="2">
+            <mat-grid-tile class="mat-grid-tile-images" colspan="2" rowspan="2">
               <img *ngIf="itemImagesAvaliable && item.images[0]" mat-card-image src="{{ item.images[0] }}" />
               <div *ngIf="!itemImagesAvaliable || !item.images[0]" class="no-image">
                 <i class="fa fa-camera"></i>
               </div>
             </mat-grid-tile>
             <mat-grid-tile class="mat-grid-tile-images" colspan="1" rowspan="2" style="background: rgb(0, 255, 179)">
-              <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image src="{{ item.images[1] }}" />
+              <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image
+                src="{{ item.images[1] }}" />
               <div *ngIf="!itemImagesAvaliable || !item.images[1]" class="no-image">
                 <i class="fa fa-camera"></i>
               </div>
             </mat-grid-tile>
             <mat-grid-tile class="mat-grid-tile-images" colspan="1" rowspan="2" style="background: yellow">
-              <img   *ngIf="itemImagesAvaliable && item.images[2]" mat-card-image src="{{ item.images[2] }}" />
+              <img *ngIf="itemImagesAvaliable && item.images[2]" mat-card-image src="{{ item.images[2] }}" />
               <div *ngIf="!itemImagesAvaliable || !item.images[2]" class="no-image">
                 <i class="fa fa-camera"></i>
               </div>
@@ -91,7 +92,7 @@
           </mat-grid-list>
         </mat-grid-tile>
 
-        <mat-grid-tile  colspan="2" rowspan="4">
+        <mat-grid-tile colspan="2" rowspan="4">
 
           <mat-grid-list cols="2" rowHeight="200px">
 
@@ -99,24 +100,24 @@
 
               <mat-button-toggle style=" border-radius: .8em; display: flex;" class="destacar-anuncio" value="flour">
 
-                <ng-container  *ngIf="card.icon">
+                <ng-container *ngIf="card.icon">
 
-                  <mat-icon align="left"  color="primary"> public </mat-icon>
+                  <mat-icon align="left" color="primary"> public </mat-icon>
 
                   <i class="fa-solid fa-mobile-button"></i>
                 </ng-container>
 
                 <ng-container *ngIf="!card.icon">
-                  <mat-icon  color="primary"> star </mat-icon>
+                  <mat-icon align="left" color="primary"> public </mat-icon>
                   <span class="fa-stack fa-2x" style="--fa-inverse: #88b0a0">
-                   
+
                     <i [ngClass]="card.iconStacked1"></i>
                     <i [ngClass]="card.iconStacked2"></i>
                   </span>
                 </ng-container>
 
                 <div class="card-text">
-                  <mat-card-title style="font-size:20px ;">{{ card.title }}</mat-card-title>
+                  <mat-card-title style="font-size:15px ;">{{ card.title }}</mat-card-title>
                   <mat-card-content>
                     <div class="curency">
                       <span>{{ card.ammount }}</span>
@@ -135,8 +136,8 @@
   </form>
 
 </mat-dialog-content>
-<mat-dialog-actions align="center">
+<mat-dialog-actions class="test" align="center">
 
-  <mat-button-toggle style="width:150px ;" mat-button mat-dialog-close>Criar</mat-button-toggle>
+  <mat-button-toggle  mat-button mat-dialog-close>Criar Anuncio</mat-button-toggle>
 
 </mat-dialog-actions>
