@@ -3,10 +3,15 @@
 
 
 # Getting started
+NVM for windows: https://github.com/coreybutler/nvm-windows
+
+NVM for Linux/Mac: https://github.com/nvm-sh/nvm
 
 1. Install NVM - Only required 1st time setup
+
 ```sh
 nvm install 16.11.1
+nvm use 16.11.1
 ```
 
 2. Install Angular CLI - Only required 1st time setup
