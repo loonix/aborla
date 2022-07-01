@@ -8,12 +8,10 @@
 
       <div class="formGroup" *ngIf="authService.userData as user">
         <p class="text-center" translate>
-          We have sent a confirmation email to <strong>{{ user.email }}</strong>.
+          We have sent a confirmation email to <strong>{{ user.email }}</strong
+          >.
         </p>
-        <p class="text-center" translate>
-          Please check your email and click on the link to verify your email
-          address.
-        </p>
+        <p class="text-center" translate>Please check your email and click on the link to verify your email address.</p>
       </div>
 
       <!-- Calling SendVerificationMail() method using authService Api -->
@@ -26,8 +24,7 @@
     </div>
 
     <div class="redirectToLogin">
-      <span translate>Go back to<span class="redirect" (click)="navigateTo('sign-in')" translate>
-          Login</span></span>
+      <span translate>Go back to<span class="redirect" (click)="navigateTo('sign-in')" translate> Login</span></span>
     </div>
   </div>
 </div>
