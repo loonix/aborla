@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '@app/@shared/services/auth.service';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,11 +12,7 @@ import { AuthService } from '@app/@shared/services/auth.service';
 export class HeaderComponent implements OnInit {
   @Input() sidenav!: MatSidenav;
 
-  constructor(
-    private router: Router,
-    private titleService: Title,
-    public authService: AuthService
-  ) {}
+  constructor(private router: Router, private titleService: Title, public authService: AuthService) {}
 
   ngOnInit() {}
 
@@ -31,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   get username(): string | null {
     var user = this.authService.GetUser();
-    if(user) return user.displayName;
+    if (user) return user.displayName;
     return null;
   }
 

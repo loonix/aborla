@@ -26,6 +26,12 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     I18nModule,
     // AuthRoutingModule,
   ],
-  declarations: [DashboardComponent, ForgotPasswordComponent, SignInComponent,SignUpComponent,VerifyEmailComponent],
+  declarations: [
+    DashboardComponent,
+    ForgotPasswordComponent,
+    SignInComponent,
+    SignUpComponent,
+    VerifyEmailComponent
+  ],
 })
-export class AuthenticationModule {}
+export class AuthenticationModule { }
