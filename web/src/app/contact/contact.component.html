@@ -1,3 +1,39 @@
-<p>
-  contact works!
-</p>
+<div class="authBlock">
+  <!-- Default form contact -->
+  <form class="text-center border border-light p-5" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <p class="h4 mb-4">Contact us</p>
+    <!-- Name -->
+    <div class="formGroup">
+      <input type="text" class="formControl" formControlName="contactFormName" placeholder="{{ 'Name' | translate }}"
+        required />
+    </div>
+    <!-- Email -->
+    <div class="formGroup">
+      <input type="email" class="formControl" formControlName="contactFormEmail" placeholder="{{ 'Email' | translate }}"
+        required />
+    </div>
+    <!-- Subject -->
+    <div class="formGroup">
+      <mat-form-field appearance="fill">
+        <mat-label translate>Subject</mat-label>
+        <select matNativeControl formControlName="contactFormSubjects" required>
+          <option value="" disabled>Choose option</option>
+          <option value="1" selected>Feedback</option>
+          <option value="2">Report a bug</option>
+          <option value="3">Feature request</option>
+          <option value="4">Feature request</option>
+        </select>
+      </mat-form-field>
+    </div>
+
+    <!-- Message -->
+    <div class="formGroup">
+      <textarea formControlName="contactFormMessage" class="formControl" rows="3" placeholder="Message"></textarea>
+    </div>
+    <!-- Copy -->
+    <!-- Send button -->
+    <button mat-button color="primary" type="submit" [disabled]="disabledSubmitButton" translate>Send</button>
+
+  </form>
+  <!-- Default form contact -->
+</div>

@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@app/material.module';
 import { ContactRoutingModule } from './contact-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,7 +13,9 @@ import { ContactRoutingModule } from './contact-routing.module';
     TranslateModule, 
     FlexLayoutModule, 
     MaterialModule, 
-    ContactRoutingModule
+    ContactRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [ContactComponent]
 })
