@@ -64,6 +64,12 @@ mat-grid-list.mat-grid-list.list-view-grid .mat-grid-tile-content {
 .mat-button-toggle-group {
   margin-bottom: 1em;
 }
+/// mat toggle styles attached display:flex (BF)
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  padding: 0 12px;
+  display: flex;
+  
+}
 
 
 

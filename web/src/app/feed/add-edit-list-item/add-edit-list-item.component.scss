@@ -27,28 +27,17 @@ mat-grid-list {
 
 }
 
-mat-icon {
-  display: flex;
-  flex: 1;
-  font-size: 80px;
-float: left;
-}
-
-.card-text {
-  display: flex;
-  flex: 2;
-  flex-direction: column;
-  float: right;
-}
-
 .mat-grid-tile-images {
+  border-radius: .8em;
   border-style: dashed;
   border-width: 2px;
   border-color: rgb(60, 94, 58);
   padding-block: 10px;
+ 
 
 }
-.image-tile{
+
+.image-tile {
  
   object-fit: cover;
 
@@ -62,12 +51,31 @@ float: left;
 }
 
 .destacar-anuncio {
+  
   width: 100%;
   height: 100%;
   padding: 0;
-  margin: 0px;
-  margin-inline: 8px;
-  margin-bottom: 20px;
+  margin: 5px;
   display: flex;
+  justify-content: center;
+ 
+}
+
+mat-icon {
+  display: flex;
+
+  font-size: 80px;
+  float: left;
+}
+.card-text {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  float: right;
+ 
+}
+
+.test{
+width:auto
 
 }
