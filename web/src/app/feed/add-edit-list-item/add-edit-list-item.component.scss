@@ -7,7 +7,6 @@ mat-grid-list {
   height: 2000px;
 }
 
-
 .add-edit-list-item {
   width: 100%;
 }
@@ -17,30 +16,23 @@ mat-grid-list {
   flex-direction: column;
   width: 100%;
   margin-left: 10%;
-
 }
 
 .child-opcoes {
-
   width: 100%;
   margin-left: 10%;
-
 }
 
 .mat-grid-tile-images {
-  border-radius: .8em;
+  border-radius: 0.8em;
   border-style: dashed;
   border-width: 2px;
   border-color: rgb(60, 94, 58);
   padding-block: 10px;
- 
-
 }
 
 .image-tile {
- 
   object-fit: cover;
-
 }
 
 .child-expira-data {
@@ -51,31 +43,41 @@ mat-grid-list {
 }
 
 .destacar-anuncio {
-  
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 5px;
   display: flex;
   justify-content: center;
- 
+
+  i {
+    display: flex;
+    font-size: 80px;
+    float: left;
+
+    .fab {
+      color: #88b0a0;
+    }
+  }
+}
+
+i.fa.fab {
+  color: rgb(167, 167, 167);
 }
 
 mat-icon {
   display: flex;
-
   font-size: 80px;
   float: left;
 }
+
 .card-text {
   display: flex;
   flex: 2;
   flex-direction: column;
   float: right;
- 
 }
 
-.test{
-width:auto
-
+.test {
+  width: auto;
 }

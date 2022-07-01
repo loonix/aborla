@@ -10,7 +10,6 @@ export interface Tile {
   text: string;
 }
 
-
 @Component({
   selector: 'app-add-edit-list-item',
   templateUrl: './add-edit-list-item.component.html',
@@ -35,37 +34,32 @@ export class AddEditListItemComponent implements OnInit {
   cards: any = [
     {
       title: 'Destacar anuncio no site',
-      icon: 'fa-solid fa-earth-europe',
+      icon: 'fa fa-solid fa-globe',
       days: 3,
-      ammount: 3.0,
+      amount: 3.0,
     },
     {
       title: 'Destacar anuncio na app',
-      icon: 'fa-solid fa-mobile-button',
+      icon: 'fa fa-solid fa-mobile',
       days: 3,
-      ammount: 3.0,
+      amount: 3.0,
     },
     {
       title: 'Destacar anuncio no site na app',
       icon: null,
-      iconStacked1: 'fa-solid fa-earth-europe fa-stack-2x',
-      iconStacked2: 'fab fa-solid fa-mobile-button fa-stack-1x fa-inverse',
+      iconStacked1: 'fa fa-solid fa-globe fa-stack-2x',
+      iconStacked2: 'fa fab fa-solid fa-mobile fa-stack-1x fa-inverse',
       days: 3,
-      ammount: 5.0,
+      amount: 5.0,
     },
     {
       title: 'Nao destacar anuncio',
-      icon: 'fa-solid fa-circle-xmark',
+      icon: 'fa fa-times',
       days: 0,
-      ammount: 0.0,
+      amount: 0.0,
     },
   ];
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+
   itemImagesAvaliable: boolean;
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
@@ -105,7 +99,6 @@ export class AddEditListItemComponent implements OnInit {
   }
 }
 
-
 export interface Tile {
   color: string;
   cols: number;
@@ -113,18 +106,15 @@ export interface Tile {
   text: string;
 }
 
-
-
 /**
  * @title Basic grid-list
  */
-  // @Component({
-  //   selector: 'grid-list-overview-example',
-  //   styleUrls: ['grid-list-overview-example.css'],
-  //   templateUrl: 'grid-list-overview-example.html',
-  // })
-  // export class GridListOverviewExample {}
-
+// @Component({
+//   selector: 'grid-list-overview-example',
+//   styleUrls: ['grid-list-overview-example.css'],
+//   templateUrl: 'grid-list-overview-example.html',
+// })
+// export class GridListOverviewExample {}
 
 // /**
 //  * @title Basic grid-list

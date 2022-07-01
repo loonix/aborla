@@ -3,17 +3,12 @@
 </div>
 
 <mat-dialog-content class="mat-typography">
-
   <form class="form" name="itemForm" [formGroup]="form">
-
     <section class="add-edit-list-item">
-
       <mat-grid-list cols="2" rowHeight="100px">
         <mat-grid-tile colspan="1" rowspan="5">
-
           <section class="formulario">
             <div class="child-formulario">
-
               <hub-form-group name="title" [control]="titleFormControl">
                 <!-- [validationErrors]="validationErrors"-->
                 <mat-form-field appearance="fill">
@@ -49,7 +44,6 @@
             </div>
 
             <div class="child-expira-data">
-
               <hub-form-group name="expirationDate" [control]="expirationDateFormControl">
                 <mat-form-field appearance="fill">
                   <mat-label>Expira em</mat-label>
@@ -63,7 +57,6 @@
               <hub-form-group name="expirationDate" [control]="acceptsTradeFormControl">
                 <mat-checkbox formControlName="acceptsTrade">Aceita trocas</mat-checkbox>
               </hub-form-group>
-
             </div>
           </section>
         </mat-grid-tile>
@@ -77,8 +70,12 @@
               </div>
             </mat-grid-tile>
             <mat-grid-tile class="mat-grid-tile-images" colspan="1" rowspan="2" style="background: rgb(0, 255, 179)">
-              <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image
-                src="{{ item.images[1] }}" />
+              <img
+                class="image-tile"
+                *ngIf="itemImagesAvaliable && item.images[1]"
+                mat-card-image
+                src="{{ item.images[1] }}"
+              />
               <div *ngIf="!itemImagesAvaliable || !item.images[1]" class="no-image">
                 <i class="fa fa-camera"></i>
               </div>
@@ -93,51 +90,37 @@
         </mat-grid-tile>
 
         <mat-grid-tile colspan="2" rowspan="4">
-
-          <mat-grid-list cols="2" rowHeight="200px">
-
-            <mat-grid-tile style="display:flex ;" *ngFor="let card of cards">
-
-              <mat-button-toggle style=" border-radius: .8em; display: flex;" class="destacar-anuncio" value="flour">
-
-                <ng-container *ngIf="card.icon">
-
-                  <mat-icon align="left" color="primary"> public </mat-icon>
-
-                  <i class="fa-solid fa-mobile-button"></i>
+          <mat-grid-list cols="2" rowHeight="150px">
+            <mat-grid-tile style="display: flex" *ngFor="let card of cards">
+              <mat-button-toggle style="border-radius: 0.8em; display: flex" class="destacar-anuncio" value="flour">
+                <ng-container *ngIf="card.icon != null">
+                  <i class="{{card.icon}}"></i>
                 </ng-container>
 
                 <ng-container *ngIf="!card.icon">
-                  <mat-icon align="left" color="primary"> public </mat-icon>
                   <span class="fa-stack fa-2x" style="--fa-inverse: #88b0a0">
-
                     <i [ngClass]="card.iconStacked1"></i>
                     <i [ngClass]="card.iconStacked2"></i>
                   </span>
                 </ng-container>
 
                 <div class="card-text">
-                  <mat-card-title style="font-size:15px ;">{{ card.title }}</mat-card-title>
+                  <mat-card-title style="font-size: 15px">{{ card.title }}</mat-card-title>
                   <mat-card-content>
                     <div class="curency">
-                      <span>{{ card.ammount }}</span>
+                      <span>{{ card.amount }}</span>
                       <span>{{ card.days }} Dias</span>
                     </div>
                   </mat-card-content>
                 </div>
               </mat-button-toggle>
-
             </mat-grid-tile>
-
           </mat-grid-list>
         </mat-grid-tile>
       </mat-grid-list>
     </section>
   </form>
-
 </mat-dialog-content>
 <mat-dialog-actions class="test" align="center">
-
-  <mat-button-toggle  mat-button mat-dialog-close>Criar Anuncio</mat-button-toggle>
-
+  <mat-button-toggle mat-button mat-dialog-close>Criar Anuncio</mat-button-toggle>
 </mat-dialog-actions>
