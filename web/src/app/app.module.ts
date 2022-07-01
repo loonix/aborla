@@ -63,7 +63,9 @@ import { AuthenticationModule } from './authentication/authentication.module';
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()), // must be imported as the last module as it contains the fallback route
   ],
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -87,4 +89,4 @@ import { AuthenticationModule } from './authentication/authentication.module';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule { }
