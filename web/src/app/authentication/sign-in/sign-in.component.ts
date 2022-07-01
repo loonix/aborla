@@ -7,11 +7,10 @@ import { AuthService } from '@app/@shared/services/auth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-
 export class SignInComponent implements OnInit {
-  constructor(public authService: AuthService, public router: Router,) { }
+  constructor(public authService: AuthService, public router: Router) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   navigateTo(link: string) {
     this.router.navigate([link]);

@@ -4,21 +4,25 @@
       <div class="logo">
         <img src="../../../assets/logo.png" />
       </div>
-      
+
       <h3 translate>Login <app-language-selector [icon]="true"></app-language-selector></h3>
 
       <div class="formGroup">
-        <input type="text" class="formControl" placeholder="{{'Username' | translate}}" #userName required/>
+        <input type="text" class="formControl" placeholder="{{ 'Username' | translate }}" #userName required />
       </div>
 
       <div class="formGroup">
-        <input type="password" class="formControl" placeholder="{{'Password' | translate}}" #userPassword required />
+        <input type="password" class="formControl" placeholder="{{ 'Password' | translate }}" #userPassword required />
       </div>
 
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in"
-          (click)="authService.SignIn(userName.value, userPassword.value)" />
+        <input
+          type="button"
+          class="btn btnPrimary"
+          value="Log in"
+          (click)="authService.SignIn(userName.value, userPassword.value)"
+        />
       </div>
 
       <div class="formGroup">
@@ -39,8 +43,11 @@
     </div>
 
     <div class="redirectToLogin">
-      <span translate>Don't have an account?<span class="redirect" (click)="navigateTo('register-user')" translate>
-          Sign Up</span></span>
+      <span translate
+        >Don't have an account?<span class="redirect" (click)="navigateTo('register-user')" translate>
+          Sign Up</span
+        ></span
+      >
     </div>
   </div>
 </div>
