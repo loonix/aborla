@@ -6,14 +6,12 @@ import { AuthService } from '@app/@shared/services/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-
 export class DashboardComponent implements OnInit {
   isActive = true;
 
-  user:any;
+  user: any;
   constructor(public authService: AuthService) {
     this.user = this.authService.GetUser();
-
   }
 
   ngOnInit(): void {
