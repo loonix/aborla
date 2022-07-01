@@ -30,5 +30,10 @@
   "Company": "Company",
   "Individual": "Individual",
   "Name": "Name",
-  "Confirm Password": "Confirm Password"
+  "Confirm Password": "Confirm Password",
+  "Phone Number": "Phone Number",
+  "County": "County",
+  "Address": "Address",
+  "Postcode": "Postcode",
+  "Create Account": "Create Account"
 }

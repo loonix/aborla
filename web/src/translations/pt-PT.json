@@ -30,5 +30,10 @@
   "Company": "Empresa",
   "Individual": "Particular",
   "Name": "Nome",
-  "Confirm Password": "Confirmar Senha"
+  "Confirm Password": "Confirmar Senha",
+  "Phone Number": "Telemóvel",
+  "County": "Concelho",
+  "Address": "Morada",
+  "Postcode": "Código Postal",
+  "Create Account": "Criar Conta"
 }
