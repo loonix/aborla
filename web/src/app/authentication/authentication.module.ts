@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -27,11 +27,10 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     // AuthRoutingModule,
   ],
   declarations: [
-    DashboardComponent,
-    ForgotPasswordComponent,
-    SignInComponent,
-    SignUpComponent,
-    VerifyEmailComponent
-  ],
+    DashboardComponent, 
+    ForgotPasswordComponent, 
+    SignInComponent, 
+    SignUpComponent, 
+    VerifyEmailComponent],
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {}
