@@ -11,9 +11,17 @@
 .brand {
   color: mat-color($app-primary, "default-contrast");
   text-decoration: none;
-  padding-right: 1rem;
+  padding: .5em 1em 0 .5em;
 }
 
 .menu-button {
   margin-right: 1rem;
+}
+
+.logo-and-links {
+  display: flex;
+  img {
+    width: 60px;
+    filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white);
+  }
 }
