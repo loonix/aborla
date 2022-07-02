@@ -16,9 +16,33 @@
   }
 }
 
+.authBlockinfocontato {
+
+  margin: 0 auto;
+  
+  background: white;
+  padding: 0px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  .authBlockformcontato {
+   
+    margin: 0 auto;
+    max-width: 450px;
+    background: white;
+    padding: 0px;
+    overflow: hidden;
+   -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+    }
+
+
 .authBlock-register {
   @extend .authBlock;
   max-width: 800px;
+  
 }
 
 .forgotPassword {
