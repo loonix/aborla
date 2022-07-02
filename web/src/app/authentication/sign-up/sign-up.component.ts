@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormComponent } from '@app/@shared/form-group/form.component';
 import { AuthService } from '@app/@shared/services/auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '@app/@shared/services/auth.service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent extends FormComponent implements OnInit {
   form: FormGroup;
   usernameFormControl: FormControl;
   passwordFormControl: FormControl;
@@ -21,15 +22,18 @@ export class SignUpComponent implements OnInit {
   phoneNumberFormControl: FormControl;
 
   validationMessages = {
-    title: {
+    name: {
       required: 'required',
     },
   };
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(public authService: AuthService, public router: Router) {
+    super();
+  }
 
-  ngOnInit() {
+  override ngOnInit(): void {
     this.generateForm();
+    super.ngOnInit();
   }
 
   generateForm() {
@@ -64,5 +68,10 @@ export class SignUpComponent implements OnInit {
 
   register() {
     // this.authService.SignUp(userEmail.value, userPwd.value)
+    if (this.validateForm()) {
+      console.log('Valid form')
+      return;
+    }
+    console.log('invalid form')
   }
 }
