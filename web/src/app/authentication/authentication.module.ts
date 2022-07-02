@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,8 +12,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-// import { AuthRoutingModule } from './auth-routing.module';
-// import { LoginComponent } from './login.component';
+import { AuthenticationRoutingModule } from './authentication-routing.module';
+import { AuthService } from '@app/@shared/services/auth.service';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     FlexLayoutModule,
     MaterialModule,
     I18nModule,
-    // AuthRoutingModule,
+    AuthenticationRoutingModule,
   ],
   declarations: [
     DashboardComponent, 
@@ -32,5 +32,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     SignInComponent, 
     SignUpComponent, 
     VerifyEmailComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    providers:[AuthService]
 })
 export class AuthenticationModule {}
