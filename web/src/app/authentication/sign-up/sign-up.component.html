@@ -4,32 +4,88 @@
       <div class="logo">
         <img src="../../../assets/logo.png" />
       </div>
-      <h3 translate>Sign Up <app-language-selector [icon]="true"></app-language-selector></h3>
+      <h3 translate>Sign Up <app-language-selector [icon]="true"></app-language-selector>
+      </h3>
+      <form class="form" name="form" [formGroup]="form">
 
-      <mat-button-toggle-group name="accountType" aria-label="Account Type">
-        <mat-button-toggle value="company">{{'Company' |translate}}</mat-button-toggle>
-        <mat-button-toggle value="individual">{{'Individual' | translate}}</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <div class="formGroup">
-        <input type="name" class="formControl" placeholder="{{'Name' | translate}}" #userName required />
+      <div class="center">
+        <mat-button-toggle-group class="accountType" name="accountType" aria-label="Account Type">
+          <mat-button-toggle value="company">{{ 'Company' | translate }}</mat-button-toggle>
+          <mat-button-toggle value="individual">{{ 'Individual' | translate }}</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
 
-      <div class="formGroup">
-        <input type="email" class="formControl" placeholder="{{'Email Address' | translate}}" #userEmail required />
-      </div>
+      <mat-grid-list cols="2" class="block-grid-list" rows="1">
+        <mat-grid-tile>
+
+            
+          <hub-form-group name="name" [control]="nameFormControl" [validationErrors]="validationErrors">
+            <div class="formGroup">
+            <label translate>Name</label>
+            <input type="name" class="formControl" formControlName="name" placeholder="{{ 'Name' | translate }}" #userName required />
+          </div>
+        </hub-form-group>
+
+        <hub-form-group name="email" [control]="emailFormControl">
+          <div class="formGroup">
+            <label translate>Email</label>
+            <input type="email" class="formControl" formControlName="email" placeholder="{{ 'Email Address' | translate }}" #userEmail
+              required />
+          </div>
+        </hub-form-group>
+
+        <hub-form-group name="password" [control]="passwordFormControl">
+          <div class="formGroup">
+            <label translate>Password</label>
+            <input type="password" class="formControl" formControlName="password" placeholder="{{ 'Password' | translate }}" #userPwd required />
+          </div>
+        </hub-form-group>
+
+        <hub-form-group name="confirmPassword" [control]="confirmPasswordFormControl">
+          <div class="formGroup">
+            <label translate>Confirm Password</label>
+            <input type="confirmPassword" class="formControl" formControlName="confirmPassword" placeholder="{{ 'Confirm Password' | translate }}"
+              #userConfirmPwd required />
+          </div>
+          </hub-form-group>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <hub-form-group name="address" [control]="addressFormControl">
+          <div class="formGroup">
+            <label translate>Address</label>
+            <input type="name" class="formControl" formControlName="address" placeholder="{{ 'Address' | translate }}" #address required />
+          </div>
+          </hub-form-group>
+
+          <hub-form-group name="postcode" [control]="postcodeFormControl">
+          <div class="formGroup">
+            <label translate>Postcode</label>
+            <input type="name" class="formControl" formControlName="postcode" placeholder="{{ 'Postcode' | translate }}" #postcode required />
+          </div>
+          </hub-form-group>
+
+          <hub-form-group name="county" [control]="countyFormControl">
+          <div class="formGroup">
+            <label translate>County</label>
+            <input type="name" class="formControl" formControlName="county"  placeholder="{{ 'County' | translate }}" #county required />
+          </div>
+          </hub-form-group>
+
+          <hub-form-group name="phoneNumber" [control]="phoneNumberFormControl">
+          <div class="formGroup">
+            <label translate>Phone Number</label>
+            <input type="tel" class="formControl" formControlName="phoneNumber" placeholder="{{ 'Phone Number' | translate }}" #phoneNumber
+              required />
+          </div>
+          </hub-form-group> 
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      </form> 
 
       <div class="formGroup">
-        <input type="password" class="formControl" placeholder="{{'Password' | translate}}" #userPwd required />
-      </div>
-
-      <div class="formGroup">
-        <input type="confirmPassword" class="formControl" placeholder="{{'Confirm Password' | translate}}" #userConfirmPwd required />
-      </div>
-
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="{{'Sign Up' | translate}}"
-          (click)="authService.SignUp(userEmail.value, userPwd.value)" />
+        <input type="button" class="btn btnPrimary" value="{{ 'Create Account' | translate }}" (click)="register()" />
       </div>
 
       <div class="formGroup">
@@ -38,7 +94,7 @@
 
       <!-- Continue with Google -->
       <div class="formGroup">
-        <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()" translate>
+        <button type="button" class="btn googleBtn" (click)="loginWithGoogle()" translate>
           <i class="fab fa-google"></i>
           Continue with Google
         </button>
@@ -46,8 +102,8 @@
     </div>
 
     <div class="redirectToLogin" translate>
-      <span>Already have an account?
-        <span class="redirect" (click)="navigateTo('sign-in')" translate>Login</span></span>
+      <span translate>Already have an account? <span class="redirect" (click)="navigateTo('sign-in')"
+          translate>Login</span></span>
     </div>
   </div>
 </div>

@@ -29,7 +29,7 @@ export class FormGroupComponent implements OnInit {
     // We run the validator against a form control with an empty value and check if the required attribute exists on the result :)
     if (this.control.validator && this.control.validator(new FormControl(''))) {
       const errors = this.control.validator(new FormControl(''));
-      this.required = Object.keys(errors).includes('required');
+      this.required = Object.keys(errors as any).includes('required');
     } else {
       this.required = false;
     }
