@@ -1,18 +1,48 @@
-<h1>Detalhes do Artigo</h1>
 
-<div class="image-card"></div>
-<mat-card *ngIf="item">
-  <mat-card-header>
-    <mat-card-title>{{ item.title }}</mat-card-title>
-    <mat-card-subtitle>Detalhes</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image [src]="item?.images[0]" />
-  <mat-card-content>
-    <p>
-      {{ item?.description }}
-    </p>
-  </mat-card-content>
-  <button mat-raised-button routerLink="/feed">BACK</button>
-  <button mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR</button>
-  <button mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="createFeed()">CRIAR</button>
-</mat-card>
+<!-- Artigos Destacados -->
+<div class="column-layout group">
+  <h5 class="h5">
+    Artigos Destacados
+  </h5>
+</div>
+<div class="column-layout group_1">
+  <div class="row-layout group_2">
+    <div class="column-layout group_4">
+      <button mat-raised-button routerLink="/feed">BACK</button>
+      <button mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR</button>
+    </div>
+  </div>
+  <div class="row-layout group_5">
+    <div class="column-layout group_6">
+      <img mat-card-image [src]="item?.images[0]" />
+      <div class="row-layout group_7">
+        <img mat-card-image [src]="item?.images[1]"  class="image_1" />
+        <img mat-card-image [src]="item?.images[2]"  class="image_2" />
+      </div>
+    </div>
+    <div class="column-layout group_8">
+      <mat-card-header>
+        <mat-card-title>{{ item.title }}</mat-card-title>
+       
+      </mat-card-header>
+      <mat-card-subtitle>Detalhes</mat-card-subtitle>
+      <mat-card-content>
+        <p>
+          {{ item?.description }}
+        </p>
+      </mat-card-content>
+    </div>
+    <div class="column-layout group_9">
+      <div class="column-layout group_10">
+        <h5 class="h5">
+          Localização
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="row-layout group_11">
+    <h5 class="h5">
+      Artigos Relacionados
+    </h5>
+  </div>
+</div>
