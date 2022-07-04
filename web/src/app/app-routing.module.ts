@@ -12,6 +12,7 @@ const routes: Routes = [
   Shell.childRoutes([
     { path: 'about', loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) },
     { path: 'contact', loadChildren: () => import('./contact/contact.module').then((m) => m.ContactModule) },
+    { path: 'my-items', loadChildren: () => import('./my-items/my-items.module').then((m) => m.MyItemsModule) },
   ]),
   { path: 'sign-in', component: SignInComponent },
   { path: 'register-user', component: SignUpComponent },

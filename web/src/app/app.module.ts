@@ -65,6 +65,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
   ],
   declarations: [
     AppComponent,
+    // Se adicionar aqui o component remove porque gera o error declared mored than once,
   ],
   providers: [
     {
