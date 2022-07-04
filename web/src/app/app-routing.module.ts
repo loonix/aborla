@@ -13,6 +13,7 @@ const routes: Routes = [
     { path: 'about', loadChildren: () => import('./about/about.module').then((m) => m.AboutModule) },
     { path: 'contact', loadChildren: () => import('./contact/contact.module').then((m) => m.ContactModule) },
     { path: 'my-items', loadChildren: () => import('./my-items/my-items.module').then((m) => m.MyItemsModule) },
+    { path: 'privacy-policy', loadChildren: () => import('./privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule) },
   ]),
   { path: 'sign-in', component: SignInComponent },
   { path: 'register-user', component: SignUpComponent },
