@@ -15,6 +15,7 @@ const routes: Routes = [
     { path: 'my-items', loadChildren: () => import('./my-items/my-items.module').then((m) => m.MyItemsModule) },
     { path: 'my-account', loadChildren: () => import('./my-account/my-account.module').then((m) => m.MyAccountModule) },
     { path: 'my-cards', loadChildren: () => import('./my-cards/my-cards.module').then((m) => m.MyCardsModule) },
+    { path: 'my-sidebar', loadChildren: () => import('./my-sidebar/my-sidebar.module').then((m) => m.MySidebarModule) },
     { path: 'privacy-policy', loadChildren: () => import('./privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule) },
    
   ]),
