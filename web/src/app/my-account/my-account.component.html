@@ -14,7 +14,7 @@
 <div class="footer">
   <mat-dialog-actions class="button" style="background-color:rgb(228, 229, 229) ;" align="center">
     <mat-button-toggle class="button-toggle" mat-button mat-dialog-close>Remover</mat-button-toggle>
-    <mat-button-toggle class="button-toggle" >Editar</mat-button-toggle>
-    <mat-button-toggle class="button-toggle" mat-button mat-dialog-close>Ver</mat-button-toggle>
+    <mat-button-toggle class="button-toggle"  (click)="onEdit(item)" >Editar</mat-button-toggle>
+    <mat-button-toggle class="button-toggle"   (click)="onView(item)">Ver</mat-button-toggle>
   </mat-dialog-actions>
 </div>
