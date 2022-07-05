@@ -9,8 +9,8 @@
   <div class="row-layout group_2">
     <!-- caixa superior com botões -->
     <div class="column-layout group_4">
-      <button mat-raised-button routerLink="/feed">BACK</button>
-      <button mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR</button>
+     <!-- <button mat-raised-button routerLink="/feed">BACK</button>-->
+      <button class="button" mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR ANUNCIO</button>
     </div>
   </div>
   <div class="row-layout group_5">
@@ -19,7 +19,7 @@
       <img mat-card-image [src]="item?.images[0]" class="image" />
       <div class="row-layout group_7">
         <img mat-card-image [src]="item?.images[1]"  class="image_1" />
-        <img mat-card-image [src]="item?.images[2]"  class="image_2" />
+        <!-- <img mat-card-image [src]="item?.images[2]"  class="image_2" />-->
       </div>
     </div>
     <!-- caixa detalhe produto -->
@@ -42,6 +42,8 @@
         <h5 class="h5">
           Localização
         </h5>
+
+        
       </div>
     </div>
   </div>
@@ -50,5 +52,8 @@
     <h5 class="h5">
       Artigos Relacionados
     </h5>
+
+    
+
   </div>
 </div>
