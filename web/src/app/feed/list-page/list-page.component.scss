@@ -1,40 +1,35 @@
-.center {
-  margin-left: 55pt;
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+  margin-top: 10px;
 }
 
-.content {
-  height: 92vh;
-  overflow: auto;
-  position: relative;
-}
-
-
-.imglistspan {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  padding: 4% 5%;
-  border-radius: 5%;
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #88b0a0;
   color: white;
-  background: rgba(45, 49, 46, 0.8);
-  opacity: 0.8;
-  z-index: 1;
-
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.bottom-icons {
-  span {
-    padding: .5em;
-    mat-icon {
-      color: #88b0a0;
-      font-size: 1em;
-    }
-  }
+form.example button:hover {
+  background: #f1f1f1;
+}
 
-  .filtros{
-
-    padding-top:20px ;
-    background-color: #88b0a0;
-  }
-
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
 }

@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormComponent } from '@app/@shared/form-group/form.component';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
+import { errorMessages } from '@app/@shared/validators/error-messages';
 
 export interface Tile {
   color: string;
@@ -15,7 +17,7 @@ export interface Tile {
   templateUrl: './add-edit-list-item.component.html',
   styleUrls: ['./add-edit-list-item.component.scss'],
 })
-export class AddEditListItemComponent implements OnInit {
+export class AddEditListItemComponent extends FormComponent implements OnInit {
   form: FormGroup;
   titleFormControl: FormControl;
   categoryFormControl: FormControl;
@@ -25,7 +27,7 @@ export class AddEditListItemComponent implements OnInit {
 
   validationMessages = {
     title: {
-      required: 'required',
+      required: errorMessages.required,
     },
   };
   isEdit: boolean;
@@ -65,17 +67,18 @@ export class AddEditListItemComponent implements OnInit {
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    super();
     this.setData(data);
   }
-  ngOnInit(): void {
+  override ngOnInit(): void {
+
     this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
-    this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', Validators.required);
-    this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', Validators.required);
-    this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', Validators.required);
-    this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', Validators.required);
+    this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', [Validators.required]);
+    this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', [Validators.required]);
+    this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', [Validators.required]);
+    this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', [Validators.required]);
     this.acceptsTradeFormControl = new FormControl(
-      this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '',
-      Validators.required
+      this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '',[]
     );
 
     this.form = new FormGroup({
@@ -85,6 +88,7 @@ export class AddEditListItemComponent implements OnInit {
       expirationDate: this.expirationDateFormControl,
       acceptsTrade: this.acceptsTradeFormControl,
     });
+    super.ngOnInit();
   }
 
   setData(data: any) {

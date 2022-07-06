@@ -1,6 +1,15 @@
 <mat-grid-list cols="4" rowHeight="100%" class="list-view-grid">
+
+
+
+
   <mat-grid-tile class="filtros" >
-    <h3 >Filtros</h3>
+    <form class="example" action="action_page.php">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+   
+    <h3 style="margin-top:15px;">Filtros</h3>
 
     <mat-button-toggle-group #group="matButtonToggleGroup" name="tipoDeAnuncio" aria-label="Tipo de anuncio"
       [value]="selectedType" (change)="onSelectedType(group.value)" multiple>

@@ -1,17 +1,13 @@
-<div class="form-group" [ngClass]="{ 'has-error': control.touched && validationErrors[name] }">
-  <label>
-    <span *ngIf="required">*</span>{{ label }}
+<div class="formGroup" [ngClass]="{ 'has-error': control.touched && validationErrors[name] }">
+  <label translate>
+    <span *ngIf="required">*</span>{{label}}
     <div *ngIf="tooltipText" class="tooltip-circle">
-      <i
-        class="fa fa-info-circle"
-        [matTooltipPosition]="tooltipPlacement ? tooltipPlacement : 'above'"
-        [matTooltip]="tooltipText"
-      ></i>
+      <i class="fa fa-info-circle" [matTooltipPosition]="tooltipPlacement ? tooltipPlacement : 'above'"
+        [matTooltip]="tooltipText"></i>
     </div>
   </label>
-
   <ng-content></ng-content>
   <div *ngIf="validationErrors[name] && control.touched" class="text-error">
-    <i class="fa fa-warning"></i> {{ validationErrors[name] }}
+    <i class="fas fa-exclamation-triangle"></i> {{ validationErrors[name] }}
   </div>
 </div>
