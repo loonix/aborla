@@ -6,7 +6,7 @@ label {
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  margin-bottom: 0.1em;
   float: left;
   width: 100%;
 }
@@ -41,7 +41,6 @@ input:-ms-input-placeholder {
 input:-moz-placeholder {
   color: #bbbbbb;
 }
-
 
 .text-error {
   font-size: smaller;

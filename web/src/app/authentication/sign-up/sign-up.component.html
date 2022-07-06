@@ -16,38 +16,45 @@
           </mat-button-toggle-group>
         </div>
 
-        <mat-grid-list cols="2" class="block-grid-list" rows="1">
-          <mat-grid-tile>
+        <mat-grid-list cols="2" class="block-grid-list" rows="4" rowHeight="6rem">
 
+          <mat-grid-tile [colspan]="1" [rowspan]="1">
             <app-form-group name="name" label="Name" [control]="nameFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="name" class="formControl" formControlName="name" placeholder="{{ 'Name' | translate }}"
                   #userName required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile [colspan]="1" [rowspan]="1">
             <app-form-group name="email" label="Email" [control]="emailFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="email" class="formControl" formControlName="email"
                   placeholder="{{ 'Email Address' | translate }}" #userEmail required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile>
             <app-form-group name="password" label="Password" [control]="passwordFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="password" class="formControl" formControlName="password"
                   placeholder="{{ 'Password' | translate }}" #userPwd required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile>
             <app-form-group name="confirmPassword" label="Confirm Password" [control]="confirmPasswordFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="password" class="formControl" formControlName="confirmPassword"
                   placeholder="{{ 'Confirm Password' | translate }}" #userConfirmPwd required />
               </div>
             </app-form-group>
+            </mat-grid-tile>
 
-          </mat-grid-tile>
+         
           <mat-grid-tile>
             <app-form-group name="address" label="Address" [control]="addressFormControl"
               [validationErrors]="validationErrors">
@@ -56,21 +63,27 @@
                   placeholder="{{ 'Address' | translate }}" #address required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile>
             <app-form-group name="postcode" label="Postcode" [control]="postcodeFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="name" class="formControl" formControlName="postcode"
                   placeholder="{{ 'Postcode' | translate }}" #postcode required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile>
             <app-form-group name="county" label="County" [control]="countyFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
                 <input type="name" class="formControl" formControlName="county" placeholder="{{ 'County' | translate }}"
                   #county required />
               </div>
             </app-form-group>
+          </mat-grid-tile>
 
+          <mat-grid-tile>
             <app-form-group name="phoneNumber" label="Phone Number" [control]="phoneNumberFormControl" [validationErrors]="validationErrors">
               <div class="formGroup">
 
@@ -79,6 +92,7 @@
               </div>
             </app-form-group>
           </mat-grid-tile>
+
         </mat-grid-list>
 
       </form>
