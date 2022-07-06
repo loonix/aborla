@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { FeedDataService } from '../feed-data.service';
@@ -8,6 +8,7 @@ import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-it
 import { Item } from 'src/app/@shared/models/item.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SeoService } from '@app/@shared/seo.service';
+declare var google: any;
 
 @Component({
   selector: 'app-detail-page',
@@ -17,6 +18,7 @@ import { SeoService } from '@app/@shared/seo.service';
 export class DetailPageComponent implements OnInit {
   itemId: any;
   item: Item | any;
+  map: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +26,7 @@ export class DetailPageComponent implements OnInit {
     private seo: SeoService,
     public data: FeedDataService,
     public dialog: MatDialog
+    
   ) {}
 
   ngOnInit() {
@@ -78,4 +81,35 @@ export class DetailPageComponent implements OnInit {
       typeOfRequest: 1,
     });
   }
+
+
+  
+  
+  @ViewChild('map') mapElement: any;
+  lat = 41.1359;
+  lng = -8.63319;
+  markers = [
+    { lat: 41.1359, lng: -8.63319 },
+  ];
+
+
+  ngAfterViewInit(): void {
+    const mapProperties = {
+      center: new google.maps.LatLng(this.lat, this.lng),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
+    this.markers.forEach(location => {
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location.lat, location.lng),
+        map: this.map
+      });
+    });
+  }
+}
+
+interface marker {
+  lat: number;
+  lng: number;
 }

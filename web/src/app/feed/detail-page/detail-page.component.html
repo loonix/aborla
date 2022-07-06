@@ -24,16 +24,19 @@
     </div>
     <!-- caixa detalhe produto -->
     <div class="column-layout group_8">
+      
       <mat-card-header>
-        <mat-card-title>{{ item.title }}</mat-card-title>
+          <mat-card-title>{{ item.title }}</mat-card-title>
        
       </mat-card-header>
-      <mat-card-subtitle>Detalhes</mat-card-subtitle>
+      <mat-card-subtitle>Descrição</mat-card-subtitle>
       <mat-card-content>
         <p>
           {{ item?.description }}
         </p>
       </mat-card-content>
+
+
     </div>
 
     <div class="column-layout group_9">
@@ -42,8 +45,14 @@
         <h5 class="h5">
           Localização
         </h5>
-
         
+        <div #map style="width:100%;height:450px"></div>
+
+        <span>
+          <mat-icon>place</mat-icon>
+          {{ item.location }}
+        </span>
+       
       </div>
     </div>
   </div>
