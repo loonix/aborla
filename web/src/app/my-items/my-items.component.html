@@ -27,10 +27,28 @@
             </span>
 
           </mat-card-actions>
-          <mat-dialog-actions class="button" style="background-color:rgb(228, 229, 229) ;" align="center">
-            <mat-button-toggle class="button-toggle" mat-button (click)="onRemove(anuncio)">Remover</mat-button-toggle>
-            <mat-button-toggle class="button-toggle" (click)="onEdit(anuncio)">Editar</mat-button-toggle>
-            <mat-button-toggle class="button-toggle" (click)="onView(anuncio)">Ver</mat-button-toggle>
+          <mat-dialog-actions class="button" align="center">
+
+
+            <mat-button-toggle class="button-toggle" mat-button (click)="onRemove(anuncio)" >
+              <mat-icon style=" margin:10px;"> delete_sweep</mat-icon>
+              <div translate>
+                Remove
+               </div> 
+            </mat-button-toggle>
+
+            <mat-button-toggle class="button-toggle" (click)="onEdit(anuncio)" >
+              <mat-icon style=" margin:10px;"> create</mat-icon>
+              <div translate>
+                Edit
+               </div> 
+            </mat-button-toggle>
+            <mat-button-toggle class="button-toggle" (click)="onView(anuncio)" >
+              <mat-icon style=" margin:10px;"> forward </mat-icon>
+             <div translate>
+              View
+             </div> 
+            </mat-button-toggle>
           </mat-dialog-actions>
         </mat-card>
       </div>

@@ -36,5 +36,12 @@
   "Address": "Address",
   "Postcode": "Postcode",
   "Create Account": "Create Account",
-  "Description": "Description"
+  "Description": "Description",
+  "Adverts": "Adverts",
+  "Cards": "Cards",
+  "Profile": "Profile",
+  "Remove":"Remove",
+  "Edit":"Edit",
+  "View":"View"
+ 
 }
