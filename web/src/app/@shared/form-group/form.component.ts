@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { map, mapValues } from 'lodash';
 import { HttpErrorResponse } from '@angular/common/http';
 
+// Abstract class implementing common functionality used in the app's forms.
 @Component({
   template: ''
 })
-// Abstract class implementing common functionality used in the app's forms.
 export abstract class FormComponent implements OnInit, OnDestroy {
   // The form which we are working with in this modal.
   abstract form: FormGroup;

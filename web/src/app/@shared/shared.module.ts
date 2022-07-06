@@ -5,11 +5,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from '@app/material.module';
 import { LoaderComponent } from './loader/loader.component';
+import { FormGroupComponent } from './form-group/form-group.component';
 
 @NgModule({
   imports: [FlexLayoutModule, MaterialModule, TranslateModule, CommonModule],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent],
+  declarations: [LoaderComponent, FormGroupComponent],
+  exports: [LoaderComponent, FormGroupComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}
