@@ -1,4 +1,44 @@
-<p>
+<div class="lista">
+
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let anuncio of data.feed">
+        <mat-card class="mat-elevation-z4">
+          <div>
+            <span class="imglistspan">{{ anuncio.requestTypeName }}</span>
+            <img mat-card-image src="{{ anuncio.images[0] }}" />
+          </div>
+
+
+          <mat-card-header>
+            <mat-card-subtitle>{{ anuncio.category }}</mat-card-subtitle>
+            <mat-card-title>{{ anuncio.title }}</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-actions class="bottom-icons">
+            <span>
+              <mat-icon>place</mat-icon>
+              {{ anuncio.location}}
+            </span>
+
+            <span>
+              <mat-icon>person</mat-icon>
+              {{ anuncio.username}}
+            </span>
+
+          </mat-card-actions>
+          <mat-dialog-actions class="button" style="background-color:rgb(228, 229, 229) ;" align="center">
+            <mat-button-toggle class="button-toggle" mat-button (click)="onRemove(anuncio)">Remover</mat-button-toggle>
+            <mat-button-toggle class="button-toggle" (click)="onEdit(anuncio)">Editar</mat-button-toggle>
+            <mat-button-toggle class="button-toggle" (click)="onView(anuncio)">Ver</mat-button-toggle>
+          </mat-dialog-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <p>
   my-items works!
 </p>
 <p>
@@ -22,4 +62,4 @@
   <mat-button-toggle class="button-toggle"  (click)="onEdit(item)" >Editar</mat-button-toggle>
   <mat-button-toggle class="button-toggle"  (click)="onView(item)">Ver</mat-button-toggle>
 </mat-dialog-actions>
-</div>
+</div> -->

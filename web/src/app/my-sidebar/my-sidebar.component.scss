@@ -4,7 +4,7 @@
 
 .nav-sidebar {
     height: 100%;
-    background: #2A3F54;
+    background: #88b0a0a6;
     color: white;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     padding: 0em;
@@ -18,9 +18,22 @@
     padding: 1em;
 }
 
-.card-text{
-display: flex;
-padding: 10px;
+.card-text {
+    display: flex;
+    padding: 10px;
 
 
+}
+
+ul {
+    padding: 0;
+    text-align: center;
+
+    li {
+        list-style-type: none;
+
+        a {
+            justify-content: center;
+        }
+    }
 }

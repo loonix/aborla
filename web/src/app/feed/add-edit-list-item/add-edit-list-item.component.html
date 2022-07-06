@@ -9,24 +9,20 @@
         <mat-grid-tile colspan="1" rowspan="5">
           <section class="formulario">
             <div class="child-formulario">
-              <app-form-group name="title" [control]="titleFormControl">
-                <!-- [validationErrors]="validationErrors"-->
+              <app-form-group name="title" [control]="titleFormControl" label="Title" [validationErrors]="validationErrors">
                 <mat-form-field appearance="fill">
-                  <mat-label>Titulo</mat-label>
                   <input matInput value="" formControlName="title" />
                 </mat-form-field>
               </app-form-group>
 
-              <app-form-group name="description" [control]="descriptionFormControl">
+              <app-form-group name="description" [control]="descriptionFormControl" label="Description">
                 <mat-form-field appearance="fill">
-                  <mat-label>Descrição</mat-label>
                   <textarea matInput formControlName="description"></textarea>
                 </mat-form-field>
               </app-form-group>
 
-              <app-form-group name="category" [control]="categoryFormControl">
+              <app-form-group name="category" [control]="categoryFormControl" label="Category">
                 <mat-form-field appearance="fill">
-                  <mat-label>Categoria</mat-label>
                   <mat-select>
                     <mat-option value="one">Veiculos</mat-option>
                     <mat-option value="two">Servicos</mat-option>
@@ -44,9 +40,8 @@
             </div>
 
             <div class="child-expira-data">
-              <app-form-group name="expirationDate" [control]="expirationDateFormControl">
+              <app-form-group name="expirationDate" [control]="expirationDateFormControl" label="Due in">
                 <mat-form-field appearance="fill">
-                  <mat-label>Expira em</mat-label>
                   <mat-select>
                     <mat-option value="one">3 Dias</mat-option>
                     <mat-option value="two">7 Dias</mat-option>
