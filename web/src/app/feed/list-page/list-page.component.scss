@@ -36,5 +36,44 @@
     padding-top:20px ;
     background-color: #88b0a0;
   }
+  
+}
+* {
+  box-sizing: border-box;
+}
 
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+  margin-top: 10px;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #88b0a0;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+form.example button:hover {
+  background: #f1f1f1;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
 }
