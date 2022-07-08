@@ -1,18 +1,18 @@
-.footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    }
-    
-    .button{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    }
-    
-    .button-toggle{
-    width: 100px;
-    margin: 2px;
-    text-align: center;
-    
-    }
+.example-card {
+  text-align: center;
+  margin: 1em;
+  height: 30vh;
+
+  mat-card-title {
+    padding: 1em;
+  }
+  
+  mat-card-subtitle {
+    padding: 1em;
+  }
+  mat-progress-bar {
+    height: 45px;
+}
+
+}
+
