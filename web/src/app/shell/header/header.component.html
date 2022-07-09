@@ -21,22 +21,6 @@
       <mat-icon>contacts</mat-icon>
       <span translate>Contacto</span>
     </button>
-    <button mat-button routerLink="/my-items" routerLinkActive="active">
-      <mat-icon>shopping_basket</mat-icon>
-      <span translate>My Items</span>
-    </button>
-    <button mat-button routerLink="/my-account" routerLinkActive="active">
-      <mat-icon>person_pin</mat-icon>
-      <span translate>My Account</span>
-    </button>
-    <button mat-button routerLink="/my-cards" routerLinkActive="active">
-      <mat-icon>card_membership</mat-icon>
-      <span translate>My Cards</span>
-    </button>
-    <button mat-button routerLink="/my-sidebar" routerLinkActive="active">
-      <mat-icon></mat-icon>
-      <span translate>My Sidebar</span>
-    </button>
     <button mat-button routerLink="/privacy-policy" routerLinkActive="active">
       <mat-icon>policy</mat-icon>
       <span translate>Privacy Policy</span>
@@ -51,6 +35,15 @@
     <mat-list>
       <mat-list-item *ngIf="username">
         <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
+      </mat-list-item>
+      <mat-list-item *ngIf="username" routerLink="/account/my-account">
+        <span translate>My Account</span>
+      </mat-list-item>
+      <mat-list-item *ngIf="username" routerLink="/account/my-items">
+        <span translate>My Adverts</span>
+      </mat-list-item>
+      <mat-list-item *ngIf="username" routerLink="/account/my-cards">
+        <span translate>My Cards</span>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
