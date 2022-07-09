@@ -8,11 +8,18 @@ import { AuthService } from '@app/@shared/services/auth.service';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
-  constructor(public authService: AuthService, public router: Router) {}
+  serverError: string;
+  constructor(public authService: AuthService, public router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   navigateTo(link: string) {
     this.router.navigate([link]);
+  }
+
+  forgotPassword(passwordResetEmail: any) {
+    this.authService.ForgotPassword(passwordResetEmail.value).catch(error => {
+      this.serverError = error;
+    })
   }
 }
