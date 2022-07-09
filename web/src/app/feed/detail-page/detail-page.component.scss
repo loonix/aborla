@@ -4,6 +4,30 @@ mat-card {
   margin: 0 auto 10px;
 }
 
+mat-card-title {
+  color: #88b0a0;
+  margin: 6px;
+}
+
+mat-card-content {
+  margin-left: 6px;
+
+}
+
+
+mat-card-subtitle {
+  color: #88b0a0;
+  margin: 6px;
+}
+
+.descricao {
+  font-size: 15px;
+  margin-top: 20px;
+  margin-left: 6px;
+  font-weight: bold;
+  color: #88b0a0;
+ }
+
 
 .Tipo {
  font-size: 15px;
@@ -127,7 +151,19 @@ mat-card {
   min-height: 50px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   margin: 0px 15px 0px 0px;
+  
 }
+
+.group_8_5 {
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  position: relative;
+  width: 100%;
+  height: 100%;
+ 
+}
+
 .group_9 {
   justify-content: flex-start;
   align-items: stretch;
@@ -138,6 +174,7 @@ mat-card {
   min-height: 50px;
  
 }
+
 .group_10 {
   justify-content: flex-start;
   align-items: stretch;
@@ -194,16 +231,26 @@ mat-card {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   margin: 15px 15px 0px 0px;
 }
-.button {
+.button_1 {
   background-color: #88B0A0;
-  width: 116px;
-  height: max-content;
-  min-width: min-content;
   margin: 15px 15px 0px 0px;
-  text-decoration-color: azure;
   color: white;
+  border-radius: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
+
+.button_2 {
+  background-color: #88B0A0;
+  color: white;
+  position: absolute;
+  bottom: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 15px;
+
+}
 
   span {
     padding: .5em;

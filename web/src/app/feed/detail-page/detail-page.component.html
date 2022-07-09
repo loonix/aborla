@@ -16,7 +16,7 @@
     <!-- caixa superior com botões -->
     <div class="column-layout group_4">
      <!-- <button mat-raised-button routerLink="/feed">BACK</button>-->
-      <button class="button" mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR ANUNCIO</button>
+      <button class="button_1" mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">EDITAR ANUNCIO</button>
     </div>
   </div>
   <div class="row-layout group_5">
@@ -40,19 +40,19 @@
 
       <div class="Tipo">{{ item.requestTypeName }}</div>
       <mat-card-header>
-
           <mat-card-title>{{ item.title }}</mat-card-title>
-          
-       
+ 
       </mat-card-header>
-      <mat-card-subtitle>Descrição</mat-card-subtitle>
+      <mat-card-subtitle>{{ item.category }}</mat-card-subtitle>
+      <div class="descricao">Descrição</div>
       <mat-card-content>
         <p>
           {{ item?.description }}
         </p>
       </mat-card-content>
-
-
+      <div class="column-layout group_8_5">
+      <button class="button_2" mat-raised-button mat-raised-button color="primary" cdkDragDisabled (click)="onEdit(item)">RESPONDER</button>
+    </div>
     </div>
 
     <div class="column-layout group_9">
