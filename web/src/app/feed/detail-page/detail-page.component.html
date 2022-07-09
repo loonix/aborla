@@ -4,6 +4,12 @@
   <h5 class="h5">
     Artigos Destacados
   </h5>
+
+
+ 
+
+
+
 </div>
 <div class="column-layout group_1">
   <div class="row-layout group_2">
@@ -16,10 +22,15 @@
   <div class="row-layout group_5">
     <!-- caixa que contém as imagens -->
     <div class="column-layout group_6">
-      <img mat-card-image [src]="item?.images[0]" class="image" />
+
+     
+      <img [src]="item?.images[0]" class="image" />
       <div class="row-layout group_7">
-        <img mat-card-image [src]="item?.images[1]"  class="image_1" />
-        <!-- <img mat-card-image [src]="item?.images[2]"  class="image_2" />-->
+        <img [src]="item?.images[1]"  class="image_1" />
+
+
+      
+
       </div>
     </div>
     <!-- caixa detalhe produto -->
@@ -48,6 +59,7 @@
         
         <div #map style="width:100%;height:450px"></div>
 
+      
         <span>
           <mat-icon>place</mat-icon>
           {{ item.location }}
@@ -62,7 +74,12 @@
       Artigos Relacionados
     </h5>
 
-    
+
+
+
+
+
+
 
   </div>
 </div>

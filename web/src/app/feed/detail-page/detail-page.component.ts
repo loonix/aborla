@@ -82,8 +82,6 @@ export class DetailPageComponent implements OnInit {
     });
   }
 
-
-  
   
   @ViewChild('map') mapElement: any;
   lat = 41.1359;
@@ -107,9 +105,4 @@ export class DetailPageComponent implements OnInit {
       });
     });
   }
-}
-
-interface marker {
-  lat: number;
-  lng: number;
 }
