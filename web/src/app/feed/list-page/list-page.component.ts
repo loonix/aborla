@@ -21,7 +21,7 @@ export class ListPageComponent implements OnInit {
   gridColumns = 3;
 
   toggleGridColumns() {
-    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+    this.gridColumns = this.gridColumns === 3 ? 1 : 3;
   }
 
   constructor(
