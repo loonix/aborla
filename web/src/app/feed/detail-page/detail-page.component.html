@@ -28,6 +28,8 @@
       <div class="row-layout group_7">
         <img [src]="item?.images[1]"  class="image_1" />
 
+        <img [src]="item?.images[2]"  class="image_2" />
+
 
       
 
@@ -35,9 +37,12 @@
     </div>
     <!-- caixa detalhe produto -->
     <div class="column-layout group_8">
-      
+
+      <div class="Tipo">{{ item.requestTypeName }}</div>
       <mat-card-header>
+
           <mat-card-title>{{ item.title }}</mat-card-title>
+          
        
       </mat-card-header>
       <mat-card-subtitle>Descrição</mat-card-subtitle>
