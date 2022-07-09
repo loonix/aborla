@@ -4,72 +4,30 @@
   <div class="nav-sidebar" fxFlex="230px">
     <ul  class="nolist" >
       <li>
-        <a  class="card-text" >
+        <a  class="card-text" routerLink="my-items">
           <mat-icon >shopping_basket</mat-icon>
           <mat-card-title style="font-size: 25px" translate>Adverts</mat-card-title>
         </a>
       </li>
       <li>
-        <a  class="card-text" >
+        <a  class="card-text" routerLink="my-account">
           <mat-icon >person_pin</mat-icon>
           <mat-card-title style="font-size: 25px" translate>Profile</mat-card-title>
         </a>
       </li>
       <li>
-        <a  class="card-text" >
+        <a  class="card-text" routerLink="my-cards">
           <mat-icon>card_membership</mat-icon>
           <mat-card-title style="font-size: 25px" translate>Cards</mat-card-title>
         </a>
       </li>
     </ul>
-
-    <!-- <mat-button-toggle style="border-radius: 0.8em; display: flex; margin: 10px;height:100px ;" class="destacar-anuncio" value="flour">
-     
-      <div class="card-text">
-        <mat-icon >shopping_basket</mat-icon>
-        <mat-card-title style="font-size: 25px">Anuncios</mat-card-title>
-        <mat-card-content>
-          <div >
-           
-          </div>
-        </mat-card-content>
-      </div>
-    </mat-button-toggle>
-
-    <mat-button-toggle style="border-radius: 0.8em; display: flex; margin: 10px; height:100px;" class="destacar-anuncio" value="flour">
-     
-      <div class="card-text">
-        <mat-icon>person_pin</mat-icon>
-        <mat-card-title style="font-size: 25px">Perfil</mat-card-title>
-        <mat-card-content>
-          <div >
-           
-          </div>
-        </mat-card-content>
-      </div>
-    </mat-button-toggle>
-
-    <mat-button-toggle style="border-radius: 0.8em; display: flex; margin: 10px;height:100px;" class="destacar-anuncio" value="flour">
-     
-      <div class="card-text">
-        <mat-icon>card_membership</mat-icon>
-        <mat-card-title style="font-size: 25px">Cartões</mat-card-title>
-        <mat-card-content>
-          <div >
-           
-          </div>
-        </mat-card-content>
-      </div>
-    </mat-button-toggle> -->
-
-
-
   </div>
 
 
 
   <div class="main-content" fxFlex>
-    Content
+    <router-outlet></router-outlet>
   </div>
 
 

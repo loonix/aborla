@@ -5,7 +5,16 @@ import { MySidebarComponent } from './my-sidebar.component';
 
 const routes: Routes = [
   // Module is lazy loaded, see app-routing.module.ts
-  { path: '', component: MySidebarComponent, data: { title: marker('My Sidebar') } },
+  {
+    path: '',
+    component: MySidebarComponent,
+    data: { title: marker('My Sidebar') },
+    children: [
+      { path: 'my-account', loadChildren: () => import('../my-account/my-account.module').then((m) => m.MyAccountModule) },
+      { path: 'my-items', loadChildren: () => import('../my-items/my-items.module').then((m) => m.MyItemsModule) },
+      { path: 'my-cards', loadChildren: () => import('../my-cards/my-cards.module').then((m) => m.MyCardsModule) },
+    ]
+  },
 
 ];
 
@@ -14,4 +23,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [],
 })
-export class MySidebarRoutingModule {}
+export class MySidebarRoutingModule { }
