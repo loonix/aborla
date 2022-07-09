@@ -15,3 +15,4 @@ export enum TypeOfRequest {
   Trade = 2,
   Offer = 3,
 }
+

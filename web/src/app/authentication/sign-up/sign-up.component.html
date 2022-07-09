@@ -95,6 +95,10 @@
 
         </mat-grid-list>
 
+        <div *ngIf="serverError" class="text-error">
+          <i class="fas fa-exclamation-triangle"></i> {{ serverError }}
+        </div>
+
       </form>
 
       <div class="formGroup">

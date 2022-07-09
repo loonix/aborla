@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Role } from '@app/@shared/enums/role.enum';
 import { FormComponent } from '@app/@shared/form-group/form.component';
+import { User } from '@app/@shared/models/user.model';
 import { AuthService } from '@app/@shared/services/auth.service';
 import { errorMessages } from '@app/@shared/validators/error-messages';
 import { matchControlValidator } from '@app/@shared/validators/match-validator';
@@ -80,8 +82,6 @@ export class SignUpComponent extends FormComponent implements OnInit {
       Validators.pattern(emailAddressRegex),
       // mustNotExistValidator(otherEmails, false)
     ]);
-
-    this.emailFormControl = new FormControl(null, Validators.required);
     this.nameFormControl = new FormControl(null, Validators.required);
     this.addressFormControl = new FormControl('', Validators.required);
     this.postcodeFormControl = new FormControl(null, Validators.required);
@@ -116,8 +116,26 @@ export class SignUpComponent extends FormComponent implements OnInit {
   }
 
   register() {
+    console.log(this.form.controls)
     if (this.validateForm()) {
       console.log('Valid form')
+      const command: User = {
+        accountType: this.accountTypeFormControl.value,
+        password: this.passwordFormControl.value as any,
+        email: this.emailFormControl.value,
+        displayName: this.nameFormControl.value,
+        address: this.addressFormControl.value,
+        postcode: this.postcodeFormControl.value,
+        county: this.countyFormControl.value,
+        phoneNumber: this.phoneNumberFormControl.value,
+        uid: null as any,
+        emailVerified: false,
+        photoURL: '',
+        role: Role.User,
+        isActive: false,
+        country: ''
+      }
+      this.authService.SignUp(command).then(result => { }).catch(error => this.serverError = error);
       return;
     }
     console.log('invalid form')
