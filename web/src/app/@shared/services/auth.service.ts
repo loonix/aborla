@@ -53,6 +53,11 @@ export class AuthService {
       });
   }
 
+  EditProfile(command: any) {
+    throw "Not Implemented Yet";
+    
+  }
+
   // Sign up with email/password
   SignUp(userData: User) {
     return this.afAuth
