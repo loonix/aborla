@@ -5,6 +5,7 @@ import { FeedDataService } from '../feed-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
 import { SeoService } from '@app/@shared/seo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-page',
@@ -13,6 +14,7 @@ import { SeoService } from '@app/@shared/seo.service';
 })
 export class ListPageComponent implements OnInit {
   feed: any;
+  subscription: Subscription = new Subscription();
 
   title = 'Card View Demo';
   selectedType: any;
@@ -20,6 +22,7 @@ export class ListPageComponent implements OnInit {
   tempFeed: any;
 
   gridColumns = 3;
+  loading = true;
 
   toggleGridColumns() {
     this.gridColumns = this.gridColumns === 3 ? 1 : 3;
@@ -30,7 +33,7 @@ export class ListPageComponent implements OnInit {
     private db: AngularFirestore,
     public data: FeedDataService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.seo.generateTags({
@@ -40,16 +43,31 @@ export class ListPageComponent implements OnInit {
 
     // this.customers = this.db.collection('customers').valueChanges({ idField: 'id' });
 
-    this.data.subscribeToFeed();
-    this.tempFeed = this.data;
-    console.log(this.data);
+    const $obs = this.db
+      .collection('feed')
+      .valueChanges({ idField: 'id' });
+
+    $obs.subscribe((data: any) => {
+      this.feed = data;
+      this.tempFeed = data;
+      this.loading = false;
+
+      console.log(this.data);
+      console.log(this.feed);
+      console.log(this.tempFeed);
+    });
+
+  
   }
 
-  search() {
-    console.log(this.searchText);
-    (this.data.feed as any).filter((i: { title: string; }) => this.searchText.includes(i.title))
-
+  search(clear?: boolean) {
+    if(clear) this.searchText = '';
+    if (clear || this.searchText === '' || this.searchText == null) this.tempFeed = this.data;
+    this.tempFeed = this.feed.filter((item: any) =>
+      item.title.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase())
+    )
   }
+
   create() {
     const dialogRef = this.dialog.open(AddEditListItemComponent, {
       data: {

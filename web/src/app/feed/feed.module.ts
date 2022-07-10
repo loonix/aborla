@@ -8,6 +8,8 @@ import { MaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/@shared';
+import { I18nModule } from '@app/i18n';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ListPageComponent, DetailPageComponent, AddEditListItemComponent],
@@ -19,6 +21,8 @@ import { SharedModule } from '@app/@shared';
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
+    I18nModule,
+TranslateModule
   ],
   entryComponents: [AddEditListItemComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,13 +1,16 @@
 <mat-grid-list cols="4" rowHeight="100%" class="list-view-grid">
 
-
-
-
   <mat-grid-tile class="filtros" >
-    <form class="example">
-      <input type="text" placeholder="Search.." name="search" [(ngModel)]="searchText"  (input)="search()">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>{{ 'Search' | translate }}</mat-label>
+      <span matPrefix><mat-icon>search</mat-icon></span>
+
+      <input matInput type="text"  name="search" [(ngModel)]="searchText"  (input)="search()">
+      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="search(true)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
    
     <h3 style="margin-top:15px;">Filtros</h3>
 
@@ -65,9 +68,9 @@
         <mat-button-toggle class="criar_anuncio" value="green" (click)="create()">Create new</mat-button-toggle>
       </mat-toolbar>
 
-      <div class="content">
+      <div class="content" *ngIf="!loading">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of data.feed"
+          <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of tempFeed"
             [routerLink]="item.id">
             <mat-card class="mat-elevation-z4">
               <div>
