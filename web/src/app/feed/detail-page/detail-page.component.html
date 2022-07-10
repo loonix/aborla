@@ -6,7 +6,6 @@
   </h5>
 
 
-
 </div>
 <div class="column-layout group_1">
   <div class="row-layout group_2">
@@ -66,19 +65,51 @@
         </span>
        
       </div>
+
+      <div class="column-layout group_12">
+
+       
+
+      </div>
     </div>
+
+
+
   </div>
   <!-- caixa Artigos Relacionados-->
-  <div class="row-layout group_11">
+  <div class="column-layout group_11">
     <h5 class="h5">
       Artigos Relacionados
     </h5>
 
 
 
-
-
-
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of data.feed"
+          [routerLink]="item.id">
+          <mat-card class="mat-elevation-z4">
+            <div>
+              <span class="imglistspan">{{ item.requestTypeName }}</span>
+              <img mat-card-image src="{{ item.images[0] }}" />
+            </div>
+  
+  
+            <mat-card-header>
+              <mat-card-subtitle>{{ item.category }}</mat-card-subtitle>
+              <mat-card-title>{{ item.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-actions class="bottom-icons">
+              <span>
+                <mat-icon>place</mat-icon>
+                {{ item.location}}
+              </span>
+  
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
 
 
   </div>

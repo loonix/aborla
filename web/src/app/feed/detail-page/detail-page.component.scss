@@ -1,7 +1,7 @@
 
 mat-card {
-  max-width: 450px;
-  margin: 0 auto 10px;
+  margin: 15px 0px 0px 0px;
+  height: 100%;
 }
 
 mat-card-title {
@@ -19,6 +19,8 @@ mat-card-subtitle {
   color: #88b0a0;
   margin: 6px;
 }
+
+
 
 .descricao {
   font-size: 15px;
@@ -71,9 +73,7 @@ mat-card-subtitle {
   align-content: flex-start;
   position: relative;
   width: 80%;
-  min-width: 50px;
-  min-height: 50px;
-  
+
 }
 .row-layout {
   display: flex;
@@ -195,9 +195,20 @@ mat-card-subtitle {
   height: 50%;
   min-width: 50px;
   min-height: 50px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   margin: 15px 15px 0px 0px;
 }
+
+.group_12 {
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  position: relative;
+  height: 20%;
+ }
+
+
+
+
 .h5 {
   color: #88B0A0;
   margin: 15px;
@@ -231,6 +242,17 @@ mat-card-subtitle {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   margin: 15px 15px 0px 0px;
 }
+
+.image_3 {
+  object-fit: cover;
+  width: 50%;
+  min-width: 0;
+  min-height: 0;
+  
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  margin: 15px 15px 0px 0px;
+}
+
 .button_1 {
   background-color: #88B0A0;
   margin: 15px 15px 0px 0px;
@@ -263,3 +285,6 @@ mat-card-subtitle {
     }
   }
 
+
+  
+  

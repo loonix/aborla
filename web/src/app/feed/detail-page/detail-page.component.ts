@@ -19,19 +19,24 @@ export class DetailPageComponent implements OnInit {
   itemId: any;
   item: Item | any;
   map: any;
+  gridColumns = 5;
 
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore,
     private seo: SeoService,
     public data: FeedDataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router
+   
     
   ) {}
 
   ngOnInit() {
     this.itemId = this.route.snapshot.paramMap.get('id');
 
+    this.data.subscribeToFeed();
+    console.log(this.data);
     // this.customer = this.db
     //   .collection('customers')
     //   .doc<any>(customerId)
@@ -82,6 +87,15 @@ export class DetailPageComponent implements OnInit {
     });
   }
 
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+  }
+
+  onView(item: Item): void {
+    this.router.navigate(['feed', item.id]);
+  }
+
   
   @ViewChild('map') mapElement: any;
   lat = 41.1359;
@@ -105,4 +119,6 @@ export class DetailPageComponent implements OnInit {
       });
     });
   }
+
+  
 }
