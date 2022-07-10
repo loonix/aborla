@@ -1,20 +1,86 @@
-<p>
-  my-account works!
-</p>
-<p>
-  my-account works!
-</p>
-<p>
-  my-account works!
-</p>
-<p>
-  my-account works!
-</p>
+<div class="displayTable">
+  <div class="displayTableCell">
+    <div class="authBlock-register">
+     
+      <h3 translate>Profile <app-language-selector [icon]="true"></app-language-selector>
+      </h3>
+      <form class="form" name="form" [formGroup]="form">
 
-<div class="footer">
-  <mat-dialog-actions class="button" style="background-color:rgb(228, 229, 229) ;" align="center">
-    <mat-button-toggle class="button-toggle" mat-button mat-dialog-close>Remover</mat-button-toggle>
-    <mat-button-toggle class="button-toggle"  (click)="onEdit(item)" >Editar</mat-button-toggle>
-    <mat-button-toggle class="button-toggle"   (click)="onView(item)">Ver</mat-button-toggle>
-  </mat-dialog-actions>
+        <mat-grid-list cols="2" class="block-grid-list" rows="4" rowHeight="6rem">
+
+          <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <app-form-group name="name" label="Name" [control]="nameFormControl" [validationErrors]="validationErrors">
+              <div class="formGroup">
+                <input type="name" class="formControl" formControlName="name" placeholder="{{ 'Name' | translate }}"
+                  #userName required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="1" [rowspan]="1">
+            <app-form-group name="email" label="Email" [control]="emailFormControl"
+              [validationErrors]="validationErrors">
+              <div class="formGroup">
+                <input type="email" class="formControl" formControlName="email"
+                  placeholder="{{ 'Email Address' | translate }}" #userEmail required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <app-form-group name="address" label="Address" [control]="addressFormControl"
+              [validationErrors]="validationErrors">
+              <div class="formGroup">
+                <input type="name" class="formControl" formControlName="address"
+                  placeholder="{{ 'Address' | translate }}" #address required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <app-form-group name="postcode" label="Postcode" [control]="postcodeFormControl"
+              [validationErrors]="validationErrors">
+              <div class="formGroup">
+                <input type="name" class="formControl" formControlName="postcode"
+                  placeholder="{{ 'Postcode' | translate }}" #postcode required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <app-form-group name="county" label="County" [control]="countyFormControl"
+              [validationErrors]="validationErrors">
+              <div class="formGroup">
+                <input type="name" class="formControl" formControlName="county" placeholder="{{ 'County' | translate }}"
+                  #county required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <app-form-group name="phoneNumber" label="Phone Number" [control]="phoneNumberFormControl"
+              [validationErrors]="validationErrors">
+              <div class="formGroup">
+
+                <input type="tel" class="formControl" formControlName="phoneNumber"
+                  placeholder="{{ 'Phone Number' | translate }}" #phoneNumber required />
+              </div>
+            </app-form-group>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+
+        <div *ngIf="serverError" class="text-error">
+          <i class="fas fa-exclamation-triangle"></i> {{ serverError }}
+        </div>
+
+      </form>
+
+      <div class="formGroup">
+        <input type="button" class="btn btnPrimary" value="{{ 'Save' | translate }}" (click)="save()" />
+      </div>
+
+    </div>
+
+  </div>
 </div>

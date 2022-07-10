@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyAccountComponent } from './my-account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -6,6 +6,7 @@ import { MaterialModule } from '@app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MyAccountRoutingModule } from './my-account-routing.module';
+import { SharedModule } from '@app/@shared';
 
 @NgModule({
   imports: [
@@ -15,8 +16,10 @@ import { MyAccountRoutingModule } from './my-account-routing.module';
     MaterialModule, 
     MyAccountRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, SharedModule
   ],
-  declarations: [MyAccountComponent]
+  declarations: [MyAccountComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class MyAccountModule { }

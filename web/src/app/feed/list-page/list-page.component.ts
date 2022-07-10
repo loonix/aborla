@@ -13,10 +13,11 @@ import { SeoService } from '@app/@shared/seo.service';
 })
 export class ListPageComponent implements OnInit {
   feed: any;
-  search = 'Procure artigos';
 
   title = 'Card View Demo';
   selectedType: any;
+  searchText = "";
+  tempFeed: any;
 
   gridColumns = 3;
 
@@ -40,9 +41,15 @@ export class ListPageComponent implements OnInit {
     // this.customers = this.db.collection('customers').valueChanges({ idField: 'id' });
 
     this.data.subscribeToFeed();
+    this.tempFeed = this.data;
     console.log(this.data);
   }
 
+  search() {
+    console.log(this.searchText);
+    (this.data.feed as any).filter((i: { title: string; }) => this.searchText.includes(i.title))
+
+  }
   create() {
     const dialogRef = this.dialog.open(AddEditListItemComponent, {
       data: {

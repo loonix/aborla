@@ -4,8 +4,8 @@
 
 
   <mat-grid-tile class="filtros" >
-    <form class="example" action="action_page.php">
-      <input type="text" placeholder="Search.." name="search">
+    <form class="example">
+      <input type="text" placeholder="Search.." name="search" [(ngModel)]="searchText"  (input)="search()">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
    
