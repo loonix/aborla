@@ -10,6 +10,37 @@
     padding: 0em;
     display: flex;
     flex-direction: column;
+
+    .image-thumbnail {
+        background-color: rgb(76 175 80 / 20%)!important;
+        background-size: cover;
+    }
+
+    ul {
+        padding: 0;
+        text-align: center;
+        margin: 0;
+        border-top: 1px solid white;
+    
+        li {
+            list-style-type: none;
+    
+            a {
+                // justify-content: center;
+                mat-icon {
+                    padding-right: 1.5em;
+                }
+                mat-card-title {
+                    font-size: 1em;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    .active {
+        background: #88b0a0;
+      }
 }
 
 .main-content {
@@ -21,19 +52,7 @@
 .card-text {
     display: flex;
     padding: 10px;
-
-
 }
 
-ul {
-    padding: 0;
-    text-align: center;
 
-    li {
-        list-style-type: none;
 
-        a {
-            justify-content: center;
-        }
-    }
-}
