@@ -79,13 +79,18 @@ export class ListPageComponent implements OnInit {
     });
   }
 
-  onSelectedType(val: []) {
-    this.selectedType = val;
-    let test: any[] = [];
-    val.forEach((el) => {
-      test.push(Number(el));
-    });
+  onSelectedType(val: any[]) {
     console.log(val);
-    this.data.subscribeToFeed(test);
+    if(val.length === 3) {
+      this.tempFeed;
+    }
+    
+    // this.selectedType = val;
+    // let test: any[] = [];
+    // val.forEach((el) => {
+    //   test.push(Number(el));
+    // });
+    // console.log(val);
+    // this.data.subscribeToFeed(test);
   }
 }
