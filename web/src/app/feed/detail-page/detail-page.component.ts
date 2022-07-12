@@ -58,9 +58,11 @@ export class DetailPageComponent implements OnInit {
     .valueChanges({ idField: 'id' });
   
   $obs.subscribe((data: any) => {
-    const limitedData = [data[0],data[1]];
-    this.featuredItems = limitedData
-    console.log(this.data);
+    // excludes the selected item
+    const limitedData = data.filter((d: { id: any; }) => d.id !== this.itemId);
+    // limits to 3 items only
+    this.featuredItems = limitedData.slice(limitedData.length - 3);
+    // TODO: show only featured items
   });
   }
 
