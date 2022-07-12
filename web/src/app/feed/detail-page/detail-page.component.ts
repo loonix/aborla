@@ -19,6 +19,7 @@ export class DetailPageComponent implements OnInit {
   itemId: any;
   item: Item | any;
   map: any;
+  featuredItems: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +49,19 @@ export class DetailPageComponent implements OnInit {
 
     console.log(this.itemId);
     console.log(this.item);
+    this.getFeaturedItems();
+  }
+
+  getFeaturedItems() {
+    const $obs = this.db
+    .collection('feed')
+    .valueChanges({ idField: 'id' });
+  
+  $obs.subscribe((data: any) => {
+    const limitedData = [data[0],data[1]];
+    this.featuredItems = limitedData
+    console.log(this.data);
+  });
   }
 
   onEdit(item: Item): void {
@@ -106,3 +120,5 @@ export class DetailPageComponent implements OnInit {
     });
   }
 }
+
+
