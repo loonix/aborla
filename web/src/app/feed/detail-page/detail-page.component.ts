@@ -8,6 +8,7 @@ import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-it
 import { Item } from 'src/app/@shared/models/item.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SeoService } from '@app/@shared/seo.service';
+import { ContactUserComponent } from '../contact-user/contact-user.component';
 declare var google: any;
 
 @Component({
@@ -68,6 +69,18 @@ export class DetailPageComponent implements OnInit {
 
   onEdit(item: Item): void {
     const dialogRef = this.dialog.open(AddEditListItemComponent, {
+      data: {
+        isEdit: true,
+        item: item,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  onAnswer(item: Item): void {
+    const dialogRef = this.dialog.open(ContactUserComponent, {
       data: {
         isEdit: true,
         item: item,

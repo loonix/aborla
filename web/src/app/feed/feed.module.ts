@@ -10,9 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '@app/@shared';
 import { I18nModule } from '@app/i18n';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContactUserComponent } from './contact-user/contact-user.component';
 
 @NgModule({
-  declarations: [ListPageComponent, DetailPageComponent, AddEditListItemComponent],
+  declarations: [
+    ListPageComponent, 
+    DetailPageComponent, 
+    AddEditListItemComponent, 
+    ContactUserComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -24,7 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     I18nModule,
 TranslateModule
   ],
-  entryComponents: [AddEditListItemComponent],
+  entryComponents: [AddEditListItemComponent, ContactUserComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FeedModule {}

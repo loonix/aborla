@@ -8,6 +8,7 @@ export interface Item {
   categoryId: string;
   id: string;
   expirationDate: Date;
+  username?: string;
 }
 
 export enum TypeOfRequest {

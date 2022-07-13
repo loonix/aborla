@@ -1,0 +1,26 @@
+.trade-hr {
+  text-align: center;
+  padding: 1em;
+  border: 1px solid;
+  margin: 1em;
+  color: white;
+  background: darkseagreen;
+}
+
+.center-content {
+  display: grid;
+
+  button {
+    color: white;
+  }
+}
+
+mat-option {
+  height: 100px !important;
+}
+
+.image-thumbnail {
+  background-color: rgb(76 175 80 / 20%) !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
