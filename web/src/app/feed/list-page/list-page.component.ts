@@ -57,11 +57,10 @@ export class ListPageComponent implements OnInit {
       console.log(this.tempFeed);
     });
 
-  
   }
 
   search(clear?: boolean) {
-    if(clear) this.searchText = '';
+    if (clear) this.searchText = '';
     if (clear || this.searchText === '' || this.searchText == null) this.tempFeed = this.data;
     this.tempFeed = this.feed.filter((item: any) =>
       item.title.toLocaleLowerCase().includes(this.searchText.toLocaleLowerCase())
@@ -81,10 +80,10 @@ export class ListPageComponent implements OnInit {
 
   onSelectedType(val: any[]) {
     console.log(val);
-    if(val.length === 3) {
+    if (val.length === 3) {
       this.tempFeed;
     }
-    
+
     // this.selectedType = val;
     // let test: any[] = [];
     // val.forEach((el) => {

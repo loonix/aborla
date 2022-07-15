@@ -8,7 +8,7 @@
     <div class="featured-item" *ngFor="let featuredItem of featuredItems">
       <mat-card class="mat-elevation-z4">
         <div>
-          <span class="imglistspan Tipo" translate>{{ getRequestTypeName(featuredItem.typeOfRequest) }}</span>
+          <app-request-type [typeOfRequest]="item.typeOfRequest"></app-request-type>
           <img mat-card-image src="{{ featuredItem.images[0] }}" />
         </div>
 
@@ -65,7 +65,7 @@
     <!-- caixa detalhe produto -->
     <div class="column-layout group_8">
 
-      <div class="Tipo" translate>{{ getRequestTypeName(item.typeOfRequest) }}</div>
+      <app-request-type [typeOfRequest]="item.typeOfRequest"></app-request-type>
 
       <mat-card-title>{{ item.title }}</mat-card-title>
 
