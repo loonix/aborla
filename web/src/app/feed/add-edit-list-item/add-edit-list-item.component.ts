@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
+import { LocationDetails, LocationPTAPI } from '@app/@shared/models/location.model';
 import { errorMessages } from '@app/@shared/validators/error-messages';
 
 export interface Tile {
@@ -24,11 +26,25 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   descriptionFormControl: FormControl;
   expirationDateFormControl: FormControl;
   acceptsTradeFormControl: FormControl;
-
+  postcodeFormControl: FormControl;
+  typeOfRequestFormControl: FormControl;
+  itemImagesAvaliable: boolean;
   validationMessages = {
     title: {
       required: errorMessages.required,
     },
+    description: {
+      required: errorMessages.required,
+    },
+    postcode: {
+      required: errorMessages.required,
+    },
+    category: {
+      required: errorMessages.required,
+    },
+    expirationDate: {
+      required: errorMessages.required,
+    }
   };
   isEdit: boolean;
   item: Item;
@@ -62,10 +78,18 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     },
   ];
 
-  itemImagesAvaliable: boolean;
+  dates = [
+    '3 Days',
+    '7 Days',
+  ]
+
+  locationDetails: LocationDetails;
+  dbName = 'feed';
+
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private db: AngularFirestore
   ) {
     super();
     this.setData(data);
@@ -75,11 +99,15 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
     this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', [Validators.required]);
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', [Validators.required]);
+    this.postcodeFormControl = new FormControl(this.isEdit ? this.item.location?.postcode : '', [Validators.required]);
+
     this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', [Validators.required]);
     this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', [Validators.required]);
     this.acceptsTradeFormControl = new FormControl(
-      this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '',[]
+      this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '', []
     );
+    this.typeOfRequestFormControl = new FormControl( this.isEdit ? this.item.typeOfRequest : '', [Validators.required]);
+
 
     this.form = new FormGroup({
       title: this.titleFormControl,
@@ -87,8 +115,40 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       category: this.categoryFormControl,
       expirationDate: this.expirationDateFormControl,
       acceptsTrade: this.acceptsTradeFormControl,
+      postcode: this.postcodeFormControl,
+      typeOfRequest: this.typeOfRequestFormControl,
     });
     super.ngOnInit();
+  }
+
+  onSubmit() {
+    if (this.validateForm()) {
+      this.getLocationDetails(this.postcodeFormControl.value).then(() => {
+        const item: Item = {
+          title: this.titleFormControl.value,
+          description: this.descriptionFormControl.value,
+          categoryId: this.categoryFormControl.value,
+          expirationDate: this.expirationDateFormControl.value,
+          typeOfRequest: this.acceptsTradeFormControl.value ? TypeOfRequest.Trade : TypeOfRequest.Request,
+          location: this.locationDetails,
+          username: this.item.username,
+          id: this.item.id,
+          images: this.item.images,
+          adPackage: this.item.adPackage,
+        };
+
+        // if it is editing an existing item
+        if(this.isEdit) {
+          this.db.collection(this.dbName).doc(this.item.id).update(item);
+        } else {
+          const guid = this.db.createId();
+          item.id = guid;
+          this.db.collection(this.dbName).add(item);
+        }
+        console.log(item);
+        return;
+      });
+    }
   }
 
   setData(data: any) {
@@ -101,6 +161,37 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  removeSpecialCharacters(str: string) {
+    return str.replace(/[^a-zA-Z0-9]/g, '');
+  }
+
+  getLocationDetails(postcode: string) {
+    var onlyNumbersPostCode = this.removeSpecialCharacters(postcode);
+    const url = `https://api.duminio.com/ptcp/v2/ptapi62d153960d1157.90152558/${onlyNumbersPostCode}`;
+    return fetch(url)
+      .then(response => response.json())
+      .then((data: LocationPTAPI[]) => {
+        console.log(data);
+        if (data && data.length) {
+          this.locationDetails = {
+            ID: data[0].ID,
+            postcode: data[0].CodigoPostal,
+            address: data[0].Morada,
+            doorNumber: data[0].NumeroPorta,
+            place: data[0].Localidade,
+            parish: data[0].Freguesia,
+            county: data[0].Concelho,
+            countyCode: data[0].CodigoDistrito,
+            district: data[0].Distrito,
+            latitude: data[0].Latitude,
+            longitude: data[0].Longitude,
+          } as LocationDetails;
+        }
+        return this.locationDetails;
+      });
+  }
+
 }
 
 export interface Tile {
@@ -109,362 +200,3 @@ export interface Tile {
   rows: number;
   text: string;
 }
-
-/**
- * @title Basic grid-list
- */
-// @Component({
-//   selector: 'grid-list-overview-example',
-//   styleUrls: ['grid-list-overview-example.css'],
-//   templateUrl: 'grid-list-overview-example.html',
-// })
-// export class GridListOverviewExample {}
-
-// /**
-//  * @title Basic grid-list
-//  */
-//  @Component({
-//   selector: 'grid-list-overview-example',
-//   styleUrls: ['grid-list-overview-example.css'],
-//   templateUrl: 'grid-list-overview-example.html',
-// })
-// export class GridListOverviewExample {}
-
-// /**
-//  * @title Dynamic grid-list
-//  */
-// @Component({
-//   selector: 'grid-list-dynamic-example',
-//   templateUrl: 'grid-list-dynamic-example.html',
-// })
-// export class GridListDynamicExample {
-//   tiles: Tile[] = [
-//     { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
-//     { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
-//     { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
-//     { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
-//   ];
-// }
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */
-
-// [
-//   {
-//       "typeOfRequest": 1,
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "location": "Vila Nova de Gaia",
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "adPackage": "12312312333",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "id": "31CGn1I0FHOMTf04WTFT"
-//   },
-//   {
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "description": "Uma boa bicicleta",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "location": "Vila Nova de Gaia",
-//       "adPackage": "12312312333",
-//       "typeOfRequest": 1,
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "id": "41h38O8tOayPUnh4gOuk"
-//   },
-//   {
-//       "typeOfRequest": 1,
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "location": "Vila Nova de Gaia",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "id": "49Gyw5RZjVOWI8oALRcD"
-//   },
-//   {
-//       "location": "Vila Nova de Gaia",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "adPackage": "12312312333",
-//       "description": "Uma boa bicicleta",
-//       "typeOfRequest": 1,
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "id": "9L3vtMp4fPDomUz2OxGz"
-//   },
-//   {
-//       "location": "Vila Nova de Gaia",
-//       "typeOfRequest": 1,
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "description": "Uma boa bicicleta",
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "id": "EePoq9SlKqHe4uStjhGo"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "adPackage": "12312312333",
-//       "location": "Vila Nova de Gaia",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "typeOfRequest": 1,
-//       "description": "Uma boa bicicleta",
-//       "id": "Hud8phuOwhxGS9wTPZMW"
-//   },
-//   {
-//       "location": "Vila Nova de Gaia",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "typeOfRequest": 1,
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "adPackage": "12312312333",
-//       "id": "NlwScp9ATFyd6i2ks4zu"
-//   },
-//   {
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "location": "Vila Nova de Gaia",
-//       "description": "Uma boa bicicleta",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "typeOfRequest": 1,
-//       "id": "OnrnVnYyuAcAycBNGzQ1"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta BMX jante 20",
-//       "location": "Vila Nova de Gaia",
-//       "expirationDate": {
-//           "seconds": 1645956000,
-//           "nanoseconds": 0
-//       },
-//       "typeOfRequest": 1,
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrajfV8T6ZJQgqEXozsI2TLQa8GZ4JY3or2A&usqp=CAU",
-//           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj2jDLQUjow-p5M6WDdg6WRj_xs1c3YGO3Fg&usqp=CAU"
-//       ],
-//       "id": "PaT1wzcVn009gQOnmaFg"
-//   },
-//   {
-//       "typeOfRequest": 1,
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "adPackage": "12312312333",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "location": "Vila Nova de Gaia",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____3__640x640.jpg"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "id": "TcfHSalz5K6wsaRpVsw5"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "location": "Vila Nova de Gaia",
-//       "typeOfRequest": 1,
-//       "adPackage": "12312312333",
-//       "id": "UN0c01yis2cDlRvDyS7a"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "location": "Vila Nova de Gaia",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "typeOfRequest": 1,
-//       "id": "V7tO1Ll3vn2fULGPqRLk"
-//   },
-//   {
-//       "location": "Vila Nova de Gaia",
-//       "typeOfRequest": 1,
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "adPackage": "12312312333",
-//       "id": "Vtdua1bbC59kF1tyu1ii"
-//   },
-//   {
-//       "typeOfRequest": 1,
-//       "adPackage": "12312312333",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "location": "Vila Nova de Gaia",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "description": "Uma boa bicicleta",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "id": "XcOVc4GOG55dDAQApxFJ"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "location": "Vila Nova de Gaia",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "typeOfRequest": 1,
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "id": "bNarVLt4K386hxxWDk7Z"
-//   },
-//   {
-//       "description": "Uma boa bicicleta",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "typeOfRequest": 1,
-//       "adPackage": "12312312333",
-//       "location": "Vila Nova de Gaia",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "id": "eZ04ibMU75FfW0H8hDZi"
-//   },
-//   {
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "typeOfRequest": 1,
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "location": "Vila Nova de Gaia",
-//       "adPackage": "12312312333",
-//       "id": "lDyAsAZ0f9916FoJyFVS"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "typeOfRequest": 1,
-//       "location": "Vila Nova de Gaia",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "adPackage": "12312312333",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "id": "mx8U671wiK6T5BBEy5L7"
-//   },
-//   {
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "description": "Uma boa bicicleta",
-//       "adPackage": "12312312333",
-//       "location": "Vila Nova de Gaia",
-//       "typeOfRequest": 1,
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "id": "qqzrlZkxDcAxaN29PROx"
-//   },
-//   {
-//       "typeOfRequest": 1,
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "location": "Vila Nova de Gaia",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "adPackage": "12312312333",
-//       "id": "s6z22kJUyUvyDLCnu2To"
-//   },
-//   {
-//       "adPackage": "12312312333",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "typeOfRequest": 1,
-//       "location": "Vila Nova de Gaia",
-//       "id": "sGxzH2ALd03OfymvdALt"
-//   },
-//   {
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "location": "Vila Nova de Gaia",
-//       "adPackage": "12312312333",
-//       "typeOfRequest": 1,
-//       "description": "Uma boa bicicleta",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "id": "tN2AyCj46LBGfsI4gpqi"
-//   },
-//   {
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "description": "Uma boa bicicleta",
-//       "typeOfRequest": 1,
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "location": "Vila Nova de Gaia",
-//       "adPackage": "12312312333",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "id": "uK0s14nTfnlJ3oJqERBN"
-//   },
-//   {
-//       "location": "Vila Nova de Gaia",
-//       "description": "Uma boa bicicleta",
-//       "categoryId": "ZlkX8zngMC91VYM8wnTy",
-//       "title": "Bicicleta de passeio Urban 26'' B-PRO",
-//       "adPackage": "12312312333",
-//       "images": [
-//           "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/201809/20/00108451201738____1__640x640.jpg",
-//           "https://images.squarespace-cdn.com/content/v1/5abfd225fcf7fd318b9d1fce/1573143514034-5FHMY4QBVYI0DWRA00Q5/DSC_4093+edit.jpg?format=2500w"
-//       ],
-//       "typeOfRequest": 1,
-//       "id": "v1vmSKqruVFbSLJG1UKI"
-//   }
-// ]

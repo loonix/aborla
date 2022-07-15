@@ -125,16 +125,6 @@ export class DetailPageComponent implements OnInit {
     });
   }
 
-  getRequestTypeName(requestType: TypeOfRequest) {
-    switch (requestType) {
-      case TypeOfRequest.Request:
-        return 'Request';
-      case TypeOfRequest.Trade:
-        return 'Trade';
-      case TypeOfRequest.Offer:
-        return 'Offer';
-    }
-  }
 }
 
 
