@@ -7,11 +7,12 @@ import { MaterialModule } from '@app/material.module';
 import { LoaderComponent } from './loader/loader.component';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { PinScrollDirective } from './directives/pin-scroll.directive';
+import { RequestTypeComponent } from './components/request-type/request-type.component';
 
 @NgModule({
   imports: [FlexLayoutModule, MaterialModule, TranslateModule, CommonModule],
-  declarations: [LoaderComponent, FormGroupComponent, PinScrollDirective],
-  exports: [LoaderComponent, FormGroupComponent, PinScrollDirective],
+  declarations: [LoaderComponent, FormGroupComponent, PinScrollDirective, RequestTypeComponent],
+  exports: [LoaderComponent, FormGroupComponent, PinScrollDirective, RequestTypeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}
