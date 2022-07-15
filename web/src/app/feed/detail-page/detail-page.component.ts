@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FeedDataService } from '../feed-data.service';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
-import { Item } from 'src/app/@shared/models/item.model';
+import { Item, TypeOfRequest } from 'src/app/@shared/models/item.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SeoService } from '@app/@shared/seo.service';
 import { ContactUserComponent } from '../contact-user/contact-user.component';
@@ -17,10 +15,16 @@ declare var google: any;
   styleUrls: ['./detail-page.component.scss'],
 })
 export class DetailPageComponent implements OnInit {
+  @ViewChildren('map') mapElement: any;
   itemId: any;
   item: Item | any;
   map: any;
   featuredItems: any;
+  lat = 41.1359;
+  lng = -8.63319;
+  markers = [
+    { lat: 41.1359, lng: -8.63319 },
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -28,16 +32,11 @@ export class DetailPageComponent implements OnInit {
     private seo: SeoService,
     public data: FeedDataService,
     public dialog: MatDialog
-    
-  ) {}
+
+  ) { }
 
   ngOnInit() {
     this.itemId = this.route.snapshot.paramMap.get('id');
-
-    // this.customer = this.db
-    //   .collection('customers')
-    //   .doc<any>(customerId)
-    //   .valueChanges()
     this.data.getFeed(this.itemId).subscribe((prod: Item) => {
       this.seo.generateTags({
         title: prod.title,
@@ -45,26 +44,23 @@ export class DetailPageComponent implements OnInit {
         image: prod.images[0],
       });
       this.item = prod;
-      console.log(prod);
+      this.generateMaps();
     });
-
-    console.log(this.itemId);
-    console.log(this.item);
     this.getFeaturedItems();
   }
 
   getFeaturedItems() {
     const $obs = this.db
-    .collection('feed')
-    .valueChanges({ idField: 'id' });
-  
-  $obs.subscribe((data: any) => {
-    // excludes the selected item
-    const limitedData = data.filter((d: { id: any; }) => d.id !== this.itemId);
-    // limits to 3 items only
-    this.featuredItems = limitedData.slice(limitedData.length - 3);
-    // TODO: show only featured items
-  });
+      .collection('feed')
+      .valueChanges({ idField: 'id' });
+
+    $obs.subscribe((data: any) => {
+      // excludes the selected item
+      const limitedData = data.filter((d: { id: any; }) => d.id !== this.itemId);
+      // limits to 3 items only
+      this.featuredItems = limitedData.slice(limitedData.length - 3);
+      // TODO: show only featured items
+    });
   }
 
   onEdit(item: Item): void {
@@ -111,28 +107,33 @@ export class DetailPageComponent implements OnInit {
     });
   }
 
-  
-  @ViewChild('map') mapElement: any;
-  lat = 41.1359;
-  lng = -8.63319;
-  markers = [
-    { lat: 41.1359, lng: -8.63319 },
-  ];
-
-
-  ngAfterViewInit(): void {
-    const mapProperties = {
-      center: new google.maps.LatLng(this.lat, this.lng),
-      zoom: 12,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
-    this.markers.forEach(location => {
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location.lat, location.lng),
-        map: this.map
+  generateMaps(): void {
+    this.mapElement.changes.subscribe((changes: any) => {
+      if (!changes) return;
+      const mapProperties = {
+        center: new google.maps.LatLng(this.lat, this.lng),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      this.map = new google.maps.Map(changes.first.nativeElement, mapProperties);
+      this.markers.forEach(location => {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(location.lat, location.lng),
+          map: this.map
+        });
       });
     });
+  }
+
+  getRequestTypeName(requestType: TypeOfRequest) {
+    switch (requestType) {
+      case TypeOfRequest.Request:
+        return 'Request';
+      case TypeOfRequest.Trade:
+        return 'Trade';
+      case TypeOfRequest.Offer:
+        return 'Offer';
+    }
   }
 }
 
