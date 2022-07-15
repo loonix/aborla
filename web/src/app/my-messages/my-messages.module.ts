@@ -6,6 +6,7 @@ import { MaterialModule } from '@app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyMessagesRoutingModule } from './my-messages-routing.module';
 import { MyMessagesComponent } from './my-messages.component';
+import { SharedModule } from '@app/@shared';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MyMessagesComponent } from './my-messages.component';
     MaterialModule, 
     MyMessagesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [MyMessagesComponent]
 })

@@ -23,7 +23,7 @@
     <mat-label>Add items to trade</mat-label>
 
     <mat-select [formControl]="userItems" multiple>
-        <mat-option *ngFor="let userItem of userItemsList" [value]="userItem">
+        <mat-option *ngFor="let userItem of userItemsList" [value]="userItem.id">
           <mat-card class="example-card">
             <mat-card-header>
               <div mat-card-avatar class="image-thumbnail" style="background:url('{{userItem.images[0]}}')"></div>

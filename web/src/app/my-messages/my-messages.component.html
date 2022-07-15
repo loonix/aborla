@@ -4,88 +4,37 @@
 
 <div class="chat">
   <div class="userlist">
-    <mat-card class="example-card active">
-      <mat-card-header>
-        <div mat-card-avatar class="image-thumbnail">
-          <mat-icon>swap_horiz</mat-icon>
-                </div>
-        <mat-card-title>Antonio Mota</mat-card-title>
-        <mat-card-subtitle>Trade</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>Bicicleta BMX jante 20</mat-card-content>
-    </mat-card>
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="image-thumbnail">
-          <mat-icon>pan_tool</mat-icon>
-        </div>
-        <mat-card-title>Carolina Matias</mat-card-title>
-        <mat-card-subtitle>Offer</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>Bicicleta BMX jante 20</mat-card-content>
-    </mat-card>
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="image-thumbnail">
-          <mat-icon> directions</mat-icon>
-        </div>
-        <mat-card-title>Jaime Delgado</mat-card-title>
-        <mat-card-subtitle>Request</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>Onde posso encontrar disquetes</mat-card-content>
-    </mat-card>
- 
+
+    <ng-container *ngFor="let message of messagesToShow">
+      <mat-card class="example-card" (click)="selectMessage(message.uid)"
+        [ngClass]="{'active': selectedMessage && selectedMessage.uid == message.uid}">
+        <mat-card-header>
+          <div mat-card-avatar class="image-thumbnail">
+            <mat-icon *ngIf="message.requestType == 1">directions</mat-icon>
+            <mat-icon *ngIf="message.requestType == 2">pan_tool</mat-icon>
+            <mat-icon *ngIf="message.requestType == 3">swap_horiz</mat-icon>
+          </div>
+          <mat-card-title>{{ getSellerName(message.sellerId, message.buyerId) }}</mat-card-title>
+          <mat-card-subtitle>{{ getRequestTypeName(message.requestType) }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{ getProductTitleFromId(message.itemId) }}</mat-card-content>
+      </mat-card>
+    </ng-container>
 
   </div>
-  <ul id="messages">
-    <li class="sent">
-      <span>10:00</span>
-      <p>This is a message</p>
+  <ul id="messages" pinScroll>
+
+    <li class="no-messages" *ngIf="!selectedMessage">
+      <p>No messages to show.</p>
     </li>
-    <li class="sent">
-      <span>10:01</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:30</span>
-      <p>This is a message</p>
-    </li>
-    <li class="receive">
-      <span>11:34</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:00</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:01</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:30</span>
-      <p>This is a message</p>
-    </li>
-    <li class="receive">
-      <span>11:34</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:00</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:01</span>
-      <p>This is a message</p>
-    </li>
-    <li class="sent">
-      <span>10:30</span>
-      <p>This is a message</p>
-    </li>
-    <li class="receive">
-      <span>11:34</span>
-      <p>This is a message</p>
-    </li>
+
+    <ng-container *ngIf="selectedMessage">
+      <li *ngFor="let msg of selectedMessage.messages" class="sent"
+        [ngClass]="{'sent': msg.senderId === currentUser.uid, 'received': msg.senderId !== currentUser.uid}">
+        <span>{{ msg.timestamp.toDate() | date:'medium' }}</span>
+        <p>{{ msg.message }}</p>
+      </li>
+    </ng-container>
   </ul>
 
   <form id="message-form">
