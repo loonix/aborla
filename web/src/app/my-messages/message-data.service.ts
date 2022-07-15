@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { of, Subscription } from 'rxjs';
+import { Message } from './message.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class MessageDataService {
   subscription: Subscription = new Subscription();
   dbName = 'messages';
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore) { }
 
   subscribeToMessages(typeOfRequest?: any[]) {
     if (!this.messages) {
@@ -46,6 +47,11 @@ export class MessageDataService {
     }
   }
 
+  sendMessage(messageId: string , message: Message) {
+    this.db.collection(this.dbName).doc(messageId).update(message);
+  }
+
+ 
   dispose() {
     this.subscription.unsubscribe();
     this.messages = null;

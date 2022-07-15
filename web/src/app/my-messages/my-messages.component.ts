@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, Timestamp } from '@angular/fire/firestore';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { AuthService } from '@app/@shared/services/auth.service';
-import { combineLatest, forkJoin } from 'rxjs';
+import { combineLatest, interval, Subscription } from 'rxjs';
 import { MessageDataService } from './message-data.service';
+import { Message } from './message.model';
 
 @Component({
   selector: 'app-my-messages',
@@ -20,6 +22,10 @@ export class MyMessagesComponent implements OnInit {
   selectedUser: any;
   currentUser: any;
   selectedMessage: any;
+  message: string;
+  typeOfRequest = TypeOfRequest;
+  timerCalled: boolean;
+  sub: Subscription;
 
   constructor(
     private db: AngularFirestore,
@@ -40,11 +46,8 @@ export class MyMessagesComponent implements OnInit {
       .collection('feed')
       .valueChanges({ idField: 'id' });
 
-    // forkJoin([$obsMessage, $obsUsers, $obsFeed]).subscribe(data => {
-    //   console.log(data);
-    // })
+    this.currentUser = this.authService.GetUser();
 
-    this.currentUser = this.authService.GetUser()
     const obs$ = combineLatest(
       [$obsMessage, $obsUsers, $obsFeed,]
     );
@@ -55,43 +58,40 @@ export class MyMessagesComponent implements OnInit {
       this.feed = latest[2];
 
       this.messagesToShow = this.messages.filter((message: any) => message.buyerId == this.currentUser.uid || message.sellerId == this.currentUser.uid);
-      console.log(this.messagesToShow);
       this.loading = false;
-      console.log(this.data);
-      this.selectedMessage = this.messagesToShow.length ? this.messagesToShow[0] : null;
+      if (!this.selectedMessage) {
+        this.selectedMessage = this.messagesToShow.length ? this.messagesToShow[0] : null;
+      }
     });
-    // const message = `<li class=${
-    //   username === messages.username ? "sent" : "receive"
-    // }><span>${messages.username}: </span>${messages.message}</li>`;
+    this.timerCalledFunction();
   }
 
-  // send message to db
+  // TODO: fix this - currently not refreshing the messages
+  timerCalledFunction() {
+    if (this.timerCalled == true) return;
+    this.timerCalled = true;
+    this.sub = (interval(5000)
+      .subscribe((val) => { this.ngOnInit(); }));
+      
+  }
+
   sendMessage() {
-    // e.preventDefault();
-
-    // // get values to be submitted
-    // const timestamp = Date.now();
-    // const messageInput = document.getElementById("message-input");
-    // const message = messageInput.value;
-
-    // // clear the input box
-    // messageInput.value = "";
-
-    // //auto scroll to bottom
-    // document
-    //   .getElementById("messages")
-    //   .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-
-    // // create db collection and send in the data
-    // db.ref("messages/" + timestamp).set({
-    //   username,
-    //   message,
-    // });
+    console.log(this.message);
+    if (this.message) {
+      const message: Message = {
+        message: this.message,
+        timestamp: Timestamp.now(),
+        senderId: this.currentUser.uid,
+      }
+      this.selectedMessage.messages.push(message);
+      this.data.sendMessage(this.selectedMessage.id, this.selectedMessage);
+      this.message = '';
+    }
   }
 
   getSellerName(sellerId: string, buyerId: string) {
     const sellerUser = this.users.find((u: User) => u.uid === sellerId);
-    if(sellerUser.uid === this.currentUser.uid) {
+    if (sellerUser.uid === this.currentUser.uid) {
       const buyerUser = this.users.find((u: User) => u.uid === buyerId);
       return buyerUser.displayName;
     }
@@ -117,10 +117,32 @@ export class MyMessagesComponent implements OnInit {
     return item.title;
   }
 
-  selectMessage(messageId: string) {
-    this.selectedMessage = null;
-    const message = this.messagesToShow.find((m:any) => m.uid === messageId);
+  // gets the messageId and finds in messagesToShow then if the uid matches it will set that message as selectedMessage
+  selectMessageFromId(messageId: string) {
+    const message = this.messagesToShow.find((m: any) => m.id === messageId);
     this.selectedMessage = message;
   }
 
+  getTimeSinceMessage(timestamp: any) {
+    var date = timestamp.toDate();
+    const time = Date.now() - date;
+    const minutes = Math.floor(time / 60000);
+    const hours = Math.floor(time / 3600000);
+    const days = Math.floor(time / 86400000);
+    if (minutes < 1) {
+      return 'Just now';
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days == 1) {
+      return `Yesterday at ${date.getHours()}:${date.getMinutes()}`;
+    } else {
+      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
+    }
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }
