@@ -43,5 +43,10 @@
   "Remove":"Remove",
   "Edit":"Edit",
   "View":"View",
-  "Save": "Save"
+  "Save": "Save",
+  "Search": "Search",
+  "Offer": "Offer",
+  "Request": "Request",
+  "Trade": "Trade",
+  "I want this!": "I want this!"
 }

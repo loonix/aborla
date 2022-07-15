@@ -43,7 +43,10 @@
   "Remove": "Remover",
   "Edit": "Editar",
   "View": "Ver",
-  "Save": "Salvar"
-
-
+  "Save": "Salvar",
+  "Search": "Pesquisa",
+  "Offer": "Oferta",
+  "Request": "Pedido",
+  "Trade": "Troca",
+  "I want this!": "Quero isto!"
 }

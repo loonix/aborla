@@ -1,14 +1,18 @@
+import { LocationDetails } from './location.model';
+
 export interface Item {
   typeOfRequest: TypeOfRequest;
   images: string[];
-  location: string;
   description: string;
   title: string;
   adPackage: string;
   categoryId: string;
   id: string;
   expirationDate: Date;
+  username?: string;
+  location: LocationDetails;
 }
+
 
 export enum TypeOfRequest {
   Request = 1,

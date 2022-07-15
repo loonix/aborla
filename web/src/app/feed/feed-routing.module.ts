@@ -4,6 +4,7 @@ import { ListPageComponent } from './list-page/list-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Shell } from '@app/shell/shell.service';
+import { SharedModule } from '@app/@shared';
 
 const routes: Routes = [
   Shell.childRoutes([
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), MatDialogModule],
+  imports: [RouterModule.forChild(routes), MatDialogModule, SharedModule],
   exports: [RouterModule],
 })
 export class FeedRoutingModule {}

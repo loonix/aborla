@@ -12,8 +12,9 @@
     flex-direction: column;
 
     .image-thumbnail {
-        background-color: rgb(76 175 80 / 20%)!important;
-        background-size: cover;
+        background-color: rgb(76 175 80 / 20%) !important;
+        background-position: center!important;
+        background-size: cover !important;
     }
 
     ul {
@@ -21,10 +22,10 @@
         text-align: center;
         margin: 0;
         border-top: 1px solid white;
-    
+
         li {
             list-style-type: none;
-    
+
             a {
                 // justify-content: center;
                 mat-icon {
@@ -40,19 +41,17 @@
 
     .active {
         background: #88b0a0;
-      }
+    }
 }
 
 .main-content {
-    height: 100%;
     background: #eeeeee;
     padding: 1em;
+    height: calc(100vh - 64px);
+    position: relative;
 }
 
 .card-text {
     display: flex;
     padding: 10px;
 }
-
-
-

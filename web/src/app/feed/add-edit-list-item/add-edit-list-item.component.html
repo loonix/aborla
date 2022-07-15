@@ -9,19 +9,22 @@
         <mat-grid-tile colspan="1" rowspan="5">
           <section class="formulario">
             <div class="child-formulario">
-              <app-form-group name="title" [control]="titleFormControl" label="Title" [validationErrors]="validationErrors">
+              <app-form-group name="title" [control]="titleFormControl" label="Title"
+                [validationErrors]="validationErrors">
                 <mat-form-field appearance="fill">
                   <input matInput value="" formControlName="title" />
                 </mat-form-field>
               </app-form-group>
 
-              <app-form-group name="description" [control]="descriptionFormControl" label="Description">
+              <app-form-group name="description" [control]="descriptionFormControl" label="Description"
+                [validationErrors]="validationErrors">
                 <mat-form-field appearance="fill">
                   <textarea matInput formControlName="description"></textarea>
                 </mat-form-field>
               </app-form-group>
 
-              <app-form-group name="category" [control]="categoryFormControl" label="Category">
+              <app-form-group name="category" [control]="categoryFormControl" label="Category"
+                [validationErrors]="validationErrors">
                 <mat-form-field appearance="fill">
                   <mat-select>
                     <mat-option value="one">Veiculos</mat-option>
@@ -31,27 +34,48 @@
               </app-form-group>
             </div>
 
+            <app-form-group name="postcode" [control]="postcodeFormControl" label="Postcode"
+              [validationErrors]="validationErrors">
+              <mat-form-field appearance="fill">
+                <input matInput formControlName="postcode" />
+              </mat-form-field>
+            </app-form-group>
+
             <div class="child-opcoes">
+              <app-form-group name="typeOfRequest" [control]="typeOfRequestFormControl" label="Type of Request"
+                [validationErrors]="validationErrors">
+                <mat-button-toggle-group formControlName="typeOfRequest">
+                  <mat-button-toggle value="offer" translate>Offer</mat-button-toggle>
+                  <mat-button-toggle value="request" translate>Request</mat-button-toggle>
+                  <mat-button-toggle value="trade" translate>Trade</mat-button-toggle>
+                </mat-button-toggle-group>
+              </app-form-group>
+            </div>
+
+            <!-- <div class="child-opcoes">
               <mat-button-toggle-group>
                 <mat-button-toggle value="red">Oferta</mat-button-toggle>
                 <mat-button-toggle value="green">Pedido</mat-button-toggle>
                 <mat-button-toggle value="blue">Troca</mat-button-toggle>
               </mat-button-toggle-group>
-            </div>
+            </div> -->
 
             <div class="child-expira-data">
-              <app-form-group name="expirationDate" [control]="expirationDateFormControl" label="Due in">
+              <app-form-group name="expirationDate" [control]="expirationDateFormControl" label="Expiration Date"
+                [validationErrors]="validationErrors">
                 <mat-form-field appearance="fill">
-                  <mat-select>
-                    <mat-option value="one">3 Dias</mat-option>
-                    <mat-option value="two">7 Dias</mat-option>
+                  <mat-select formControlName="expirationDate">
+                    <mat-option *ngFor="let date of dates" [value]="date">
+                      {{ date }}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
               </app-form-group>
 
-              <app-form-group name="expirationDate" [control]="acceptsTradeFormControl">
+              <app-form-group name="acceptsTrade" [control]="acceptsTradeFormControl">
                 <mat-checkbox formControlName="acceptsTrade">Aceita trocas</mat-checkbox>
               </app-form-group>
+
             </div>
           </section>
         </mat-grid-tile>
@@ -65,12 +89,8 @@
               </div>
             </mat-grid-tile>
             <mat-grid-tile class="mat-grid-tile-images" colspan="1" rowspan="2" style="background: rgb(0, 255, 179)">
-              <img
-                class="image-tile"
-                *ngIf="itemImagesAvaliable && item.images[1]"
-                mat-card-image
-                src="{{ item.images[1] }}"
-              />
+              <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image
+                src="{{ item.images[1] }}" />
               <div *ngIf="!itemImagesAvaliable || !item.images[1]" class="no-image">
                 <i class="fa fa-camera"></i>
               </div>
@@ -117,5 +137,6 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions class="test" align="center">
-  <mat-button-toggle mat-button mat-dialog-close>Criar Anuncio</mat-button-toggle>
+  <mat-button-toggle mat-button (click)="onSubmit()" translate>{{ isEdit ? 'Save' : 'Create'}}</mat-button-toggle>
+  <mat-button-toggle mat-button mat-dialog-close>Close</mat-button-toggle>
 </mat-dialog-actions>

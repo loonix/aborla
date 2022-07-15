@@ -1,0 +1,27 @@
+.type {
+    font-size: 0.8em;
+    margin: 0.5em;
+    text-align: center;
+    padding: 0.5em;
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+    mat-icon {
+        margin-right: 0.2em;
+    }
+}
+
+.request {
+    background-color: darkorange;
+    color: white;
+}
+.trade {
+    background-color: darkseagreen;
+    color: white;
+}
+.offer {
+    background-color: rgb(136, 115, 88);
+    color: white;
+}

@@ -1,0 +1,45 @@
+<header>
+  <h2>Messages</h2>
+</header>
+
+<div class="chat">
+  <div class="userlist">
+
+    <ng-container *ngFor="let message of messagesToShow">
+      <mat-card class="example-card" (click)="selectMessageFromId(message.id)"
+        [ngClass]="{'active': selectedMessage && selectedMessage.id == message.id}">
+        <mat-card-header>
+          <div mat-card-avatar class="image-thumbnail">
+            <mat-icon *ngIf="message.requestType == typeOfRequest.Request">directions</mat-icon>
+            <mat-icon *ngIf="message.requestType == typeOfRequest.Offer">pan_tool</mat-icon>
+            <mat-icon *ngIf="message.requestType == typeOfRequest.Trade">swap_horiz</mat-icon>
+          </div>
+          <mat-card-title>{{ getSellerName(message.sellerId, message.buyerId) }}</mat-card-title>
+          <mat-card-subtitle translate>{{ getRequestTypeName(message.requestType) }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{ getProductTitleFromId(message.itemId) }}</mat-card-content>
+      </mat-card>
+    </ng-container>
+
+  </div>
+  <ul id="messages" pinScroll>
+
+    <li class="no-messages" *ngIf="!selectedMessage">
+      <p>No messages to show.</p>
+    </li>
+
+    <ng-container *ngIf="selectedMessage">
+      <li *ngFor="let msg of selectedMessage.messages" class="sent"
+        [ngClass]="{'sent': msg.senderId === currentUser.uid, 'received': msg.senderId !== currentUser.uid}">
+        <span>{{ getTimeSinceMessage(msg.timestamp) }}</span>
+        <p>{{ msg.message }}</p>
+      </li>
+    </ng-container>
+  </ul>
+
+  <form id="message-form">
+    <input type="text" id="message-input" placeholder="Type a message..." [(ngModel)]="message" (keyup.enter)="sendMessage()" [ngModelOptions]="{standalone: true}" autocomplete="off">
+    <!-- <input matInput id="message-input" type="text"  [(ngModel)]="messageText" /> -->
+    <!-- <button mat-button color="secondary" id="message-btn" type="submit" (click)>Send</button> -->
+  </form>
+</div>
