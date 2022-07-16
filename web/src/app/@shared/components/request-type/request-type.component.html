@@ -1,7 +1,6 @@
 <div class="type" class="{{textClass}}" translate>
-  <mat-icon *ngIf="typeOfRequest == TypeOfRequestEnum.Request">directions</mat-icon>
-  <mat-icon *ngIf="typeOfRequest == TypeOfRequestEnum.Offer">pan_tool</mat-icon>
+  <mat-icon *ngIf="typeOfRequest == TypeOfRequestEnum.Request">pan_tool_alt</mat-icon>
+  <mat-icon *ngIf="typeOfRequest == TypeOfRequestEnum.Offer">volunteer_activism</mat-icon>
   <mat-icon *ngIf="typeOfRequest == TypeOfRequestEnum.Trade">swap_horiz</mat-icon>
   {{ typeOfRequestText }}
-
 </div>
