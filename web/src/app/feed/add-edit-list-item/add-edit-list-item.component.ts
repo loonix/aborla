@@ -95,7 +95,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     this.setData(data);
   }
   override ngOnInit(): void {
-
+console.log(this.item)
     this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
     this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', [Validators.required]);
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', [Validators.required]);
