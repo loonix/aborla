@@ -37,7 +37,7 @@
         <span translate>Logged in as</span>&nbsp;<b>{{ username }}</b>
       </mat-list-item>
       <mat-list-item *ngIf="username" routerLink="/account/my-account">
-        <span translate>My Account</span>
+        <span translate>My Profile</span>
       </mat-list-item>
       <mat-list-item *ngIf="username" routerLink="/account/my-items">
         <span translate>My Adverts</span>
@@ -46,8 +46,12 @@
         <span translate>My Cards</span>
       </mat-list-item>
       <mat-divider></mat-divider>
+      <mat-list-item *ngIf="username" (click)="logout()">
+        <span translate>Logout</span>
+      </mat-list-item>
+      <mat-list-item *ngIf="!username" (click)="login()">
+        <span translate>Login</span>
+      </mat-list-item>
     </mat-list>
-    <button *ngIf="username" mat-menu-item (click)="logout()" translate>Logout</button>
-    <button *ngIf="!username" mat-menu-item (click)="login()" translate>Login</button>
   </mat-menu>
 </mat-toolbar>

@@ -25,3 +25,9 @@
     filter: drop-shadow(1px 0 0 white) drop-shadow(0 1px 0 white) drop-shadow(-1px 0 0 white) drop-shadow(0 -1px 0 white);
   }
 }
+mat-list-item:not(:first-child) {
+  cursor: pointer;
+  &:hover{
+    background: darkseagreen;
+  }
+}
