@@ -19,24 +19,46 @@ export class DetailPageComponent implements OnInit {
   itemId: any;
   item: Item | any;
   map: any;
+<<<<<<< HEAD
+  gridColumns = 5;
+=======
   featuredItems: any;
   lat = 41.1359;
   lng = -8.63319;
   markers = [
     { lat: 41.1359, lng: -8.63319 },
   ];
+>>>>>>> b9e197ae1db32f91a39adaacecf0ece49d31ecad
 
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore,
     private seo: SeoService,
     public data: FeedDataService,
+<<<<<<< HEAD
+    public dialog: MatDialog,
+    public router: Router
+   
+    
+  ) {}
+
+  ngOnInit() {
+    this.itemId = this.route.snapshot.paramMap.get('id');
+
+    this.data.subscribeToFeed();
+    console.log(this.data);
+    // this.customer = this.db
+    //   .collection('customers')
+    //   .doc<any>(customerId)
+    //   .valueChanges()
+=======
     public dialog: MatDialog
 
   ) { }
 
   ngOnInit() {
     this.itemId = this.route.snapshot.paramMap.get('id');
+>>>>>>> b9e197ae1db32f91a39adaacecf0ece49d31ecad
     this.data.getFeed(this.itemId).subscribe((prod: Item) => {
       this.seo.generateTags({
         title: prod.title,
@@ -107,6 +129,37 @@ export class DetailPageComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
+
+  toggleGridColumns() {
+    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+  }
+
+  onView(item: Item): void {
+    this.router.navigate(['feed', item.id]);
+  }
+
+  
+  @ViewChild('map') mapElement: any;
+  lat = 41.1359;
+  lng = -8.63319;
+  markers = [
+    { lat: 41.1359, lng: -8.63319 },
+  ];
+
+
+  ngAfterViewInit(): void {
+    const mapProperties = {
+      center: new google.maps.LatLng(this.lat, this.lng),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
+    this.markers.forEach(location => {
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location.lat, location.lng),
+        map: this.map
+=======
   generateMaps(): void {
     this.mapElement.changes.subscribe((changes: any) => {
       if (!changes) return;
@@ -121,10 +174,15 @@ export class DetailPageComponent implements OnInit {
           position: new google.maps.LatLng(location.lat, location.lng),
           map: this.map
         });
+>>>>>>> b9e197ae1db32f91a39adaacecf0ece49d31ecad
       });
     });
   }
 
+<<<<<<< HEAD
+  
+=======
+>>>>>>> b9e197ae1db32f91a39adaacecf0ece49d31ecad
 }
 
 
