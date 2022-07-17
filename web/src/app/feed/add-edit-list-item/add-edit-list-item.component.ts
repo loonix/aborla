@@ -53,27 +53,27 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   cards: any = [
     {
       title: 'Destacar anuncio no site',
-      icon: 'fa fa-solid fa-globe',
+      icon: 'public',
       days: 3,
       amount: 3.0,
     },
     {
       title: 'Destacar anuncio na app',
-      icon: 'fa fa-solid fa-mobile',
+      icon: 'smartphone',
       days: 3,
       amount: 3.0,
     },
     {
       title: 'Destacar anuncio no site na app',
       icon: null,
-      iconStacked1: 'fa fa-solid fa-globe fa-stack-2x',
-      iconStacked2: 'fa fab fa-solid fa-mobile fa-stack-1x fa-inverse',
+      iconStacked1: 'public',
+      iconStacked2: 'smartphone',
       days: 3,
       amount: 5.0,
     },
     {
       title: 'Nao destacar anuncio',
-      icon: 'fa fa-times',
+      icon: 'close',
       days: 0,
       amount: 0.0,
     },

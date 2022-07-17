@@ -51,3 +51,11 @@ input:-moz-placeholder {
   color: rgb(198, 53, 53);
   font-weight: 600;
 }
+
+.has-error {
+    color: #c63535;
+    input.ng-invalid {
+      border: none!important;
+
+    }
+}
