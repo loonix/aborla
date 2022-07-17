@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore/';
 
 import { FeedDataService } from '../feed-data.service';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
 import { SeoService } from '@app/@shared/seo.service';
 import { Subscription } from 'rxjs';
+import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 
 @Component({
   selector: 'app-list-page',
@@ -24,8 +25,29 @@ export class ListPageComponent implements OnInit {
   gridColumns = 3;
   loading = true;
 
+  typeOfRequest:any;
+  category: any
+  postcode:any;
+  picker:any;
+  selectedDueIn:any;
+  county: any;
+
+  counties:any;
+  categories: any;
+  // list of all request typeOfRequest
+  typeOfRequests: any[] = [
+    { value: '', viewValue: 'All' },
+    { value: TypeOfRequest.Request, viewValue: 'Request' },
+    { value: TypeOfRequest.Offer, viewValue: 'Offer' },
+    { value: TypeOfRequest.Trade, viewValue: 'Trade' }
+  ];
+
   toggleGridColumns() {
     this.gridColumns = this.gridColumns === 3 ? 1 : 3;
+  }
+
+  displayFn(item: Item): string {
+    return item && item.title ? item.title : '';
   }
 
   constructor(
@@ -51,6 +73,16 @@ export class ListPageComponent implements OnInit {
       this.feed = data;
       this.tempFeed = data;
       this.loading = false;
+      this.counties = this.feed.map((item: Item) => item.location.county);
+      this.counties = this.counties.filter((item: any, index: number) =>
+        this.counties.indexOf(item) === index
+      );
+
+      this.categories = this.feed.map((item: any) => item.category);
+      this.categories = this.categories.filter((item: any, index: number) =>
+        this.categories.indexOf(item) === index
+      );
+
 
       console.log(this.data);
       console.log(this.feed);
@@ -92,4 +124,5 @@ export class ListPageComponent implements OnInit {
     // console.log(val);
     // this.data.subscribeToFeed(test);
   }
+  
 }

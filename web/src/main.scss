@@ -27,24 +27,26 @@
 @import "theme/theme";
 
 @import "theme/parts/all.scss";
-// html,
-// body {
-//   height: 100%;
-// }
-// body {
-//   margin: 0;
-//   font-family: sofia-pro, sans-serif;
-// }
+
 a {
   color: white;
   text-decoration: none;
 }
 
-// requrired for filtros
-mat-grid-list.mat-grid-list.list-view-grid .mat-grid-tile-content {
-  flex-direction: column;
-  margin: 0 auto;
-  justify-content: flex-start;
+.feed {
+  .mat-grid-tile-content {
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: flex-start;
+  }
+  .filtros .mat-grid-tile-content{
+    max-width: 95%;
+    display: block;
+
+    mat-card {
+      margin: .5em;
+    }
+  }
 }
 
 /// mat toggle styles override
@@ -567,8 +569,7 @@ body .table thead th {
   }
 
   .authBlock {
-    box-shadow:none;
-  
+    box-shadow: none;
   }
 
   .px-logo {

@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { LocationDetails, LocationPTAPI } from '@app/@shared/models/location.model';
+import { AuthService } from '@app/@shared/services/auth.service';
 import { errorMessages } from '@app/@shared/validators/error-messages';
 
 export interface Tile {
@@ -89,7 +90,8 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    public authService: AuthService
   ) {
     super();
     this.setData(data);
@@ -123,6 +125,7 @@ console.log(this.item)
 
   onSubmit() {
     if (this.validateForm()) {
+      const user = this.authService.GetUser();
       this.getLocationDetails(this.postcodeFormControl.value).then(() => {
         const item: Item = {
           title: this.titleFormControl.value,
@@ -135,6 +138,7 @@ console.log(this.item)
           id: this.item.id,
           images: this.item.images,
           adPackage: this.item.adPackage,
+          userId: user.uid,
         };
 
         // if it is editing an existing item

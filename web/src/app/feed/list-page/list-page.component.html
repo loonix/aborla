@@ -1,62 +1,63 @@
-<mat-grid-list cols="4" rowHeight="100%" class="list-view-grid">
+<mat-grid-list cols="4" rowHeight="100%" class="list-view-grid feed">
 
   <mat-grid-tile class="filtros">
 
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>{{ 'Search' | translate }}</mat-label>
-      <span matPrefix>
-        <mat-icon>search</mat-icon>
-      </span>
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title translate>Search</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>{{ 'Search' | translate }}</mat-label>
+          <span matPrefix>
+            <mat-icon>search</mat-icon>
+          </span>
 
-      <input matInput type="text" name="search" [(ngModel)]="searchText" (input)="search()">
-      <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="search(true)">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+          <input matInput type="text" name="search" [(ngModel)]="searchText" (input)="search()">
+          <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="search(true)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
 
-    <h3 style="margin-top:15px;">Filtros</h3>
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title translate>Filters</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
 
-    <mat-button-toggle-group #group="matButtonToggleGroup" name="tipoDeAnuncio" aria-label="Tipo de anuncio"
-      [value]="selectedType" (change)="onSelectedType(group.value)" multiple>
-      <mat-button-toggle value="1" translate>Offer</mat-button-toggle>
-      <mat-button-toggle value="2" translate>Request</mat-button-toggle>
-      <mat-button-toggle value="3" translate>Trade</mat-button-toggle>
-    </mat-button-toggle-group>
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>{{ 'Category' | translate }}</mat-label>
+          <mat-select placeholder="{{ 'Category' | translate }}" [(ngModel)]="category" (ngModelChange)="search()">
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>{{ 'County' | translate }}</mat-label>
+          <mat-select placeholder="{{ 'County' | translate }}" [(ngModel)]="county" (ngModelChange)="search()">
+            <mat-option *ngFor="let county of counties" [value]="county">
+              {{ county }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label class=""> </mat-label>
 
-      <mat-select #mode value="side">
-        <mat-option value="side">Veiculos</mat-option>
-        <mat-option value="over">Vestuário</mat-option>
-        <mat-option value="push">Push</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label class="">
-        <mat-icon> location_on</mat-icon> Localização
-      </mat-label>
-      <mat-select #hasBackdrop>
-        <mat-option>Porto</mat-option>
-        <mat-option [value]="true">True</mat-option>
-        <mat-option [value]="false">False</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label class="">
-        <mat-icon>calendar_today</mat-icon> Válido até
-      </mat-label>
-      <input matInput [matDatepicker]="picker" />
-      <mat-hint></mat-hint>
-
-      <mat-datepicker-toggle matSuffix [for]="picker">
-        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-      </mat-datepicker-toggle>
-
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+   
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]="3">
@@ -89,12 +90,7 @@
               <mat-card-actions class="bottom-icons">
                 <span>
                   <mat-icon>place</mat-icon>
-                  {{ item.location}}
-                </span>
-
-                <span>
-                  <mat-icon>person</mat-icon>
-                  {{ item.username}}
+                  {{ item.location.county }}, {{ item.location.district }}
                 </span>
 
               </mat-card-actions>

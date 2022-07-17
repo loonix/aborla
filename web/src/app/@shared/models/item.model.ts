@@ -11,6 +11,7 @@ export interface Item {
   expirationDate: Date;
   username?: string;
   location: LocationDetails;
+  userId: string;
 }
 
 

@@ -1,5 +1,5 @@
 /* Style the search field */
-form.example input[type=text] {
+form.example input[type="text"] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
@@ -32,4 +32,13 @@ form.example::after {
   content: "";
   clear: both;
   display: table;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-toolbar {
+  justify-content: right;
+  background: none
 }
