@@ -8,10 +8,10 @@
           <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="sidenav.close()">
             <span translate>Home</span>
           </a>
-          <a mat-list-item routerLink="/login" routerLinkActive="active" (click)="sidenav.close()">
+          <a mat-list-item routerLink="/login" routerLinkActive="active" (click)="sidenav.close()" *ngIf="!username">
             <span translate>Login</span>
           </a>
-          <a mat-list-item routerLink="/registar" routerLinkActive="active" (click)="sidenav.close()">
+          <a mat-list-item routerLink="/registar" routerLinkActive="active" (click)="sidenav.close()" *ngIf="!username">
             <span translate>Register</span>
           </a>
           <mat-divider></mat-divider>
@@ -19,9 +19,8 @@
             <span translate>About</span>
           </a>
           <a mat-list-item routerLink="/contact" routerLinkActive="active" (click)="sidenav.close()">
-            <span translate>Contato</span>
+            <span translate>Contact</span>
           </a>
-  
           <a mat-list-item routerLink="/privacy-policy" routerLinkActive="active" (click)="sidenav.close()">
             <span translate>Privacy Policy</span>
           </a>
