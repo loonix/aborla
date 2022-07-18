@@ -3,17 +3,11 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
-import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
+import { Item, ItemModel, TypeOfRequest } from '@app/@shared/models/item.model';
 import { LocationDetails, LocationPTAPI } from '@app/@shared/models/location.model';
 import { AuthService } from '@app/@shared/services/auth.service';
 import { errorMessages } from '@app/@shared/validators/error-messages';
-
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
+import { FeedDataService } from '../feed-data.service';
 
 @Component({
   selector: 'app-add-edit-list-item',
@@ -86,19 +80,49 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
 
   locationDetails: LocationDetails;
   dbName = 'feed';
+  typeOfRequest = TypeOfRequest;
+
+  imagesToUpdate: string[] = [];
+
+  selectedFile: any = null;
+  allCategories: any;
+  categories: any;
+  feed: any;
 
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private db: AngularFirestore,
-    public authService: AuthService
+    public authService: AuthService,
+    public feedService: FeedDataService,
   ) {
     super();
     this.setData(data);
   }
   override ngOnInit(): void {
-console.log(this.item)
-    this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
+    console.log(this.item)
+    // if the item is empty then it creates a new empty item else it loads the item
+    if (this.item === undefined) {
+      this.item = new ItemModel();
+      this.isEdit = false;
+    }
+
+    const $obs = this.db
+      .collection('feed')
+      .valueChanges({ idField: 'id' });
+
+    $obs.subscribe((feedData: any) => {
+      this.feed = feedData;
+      this.allCategories = feedData.map((item: any) => item.category);
+      // remove duplicates from allCategories
+      const removeDupCategories = this.item = this.allCategories.filter((el: any, i: any, a: string | any[]) => i === a.indexOf(el));
+      this.allCategories = removeDupCategories;
+      this.categories = this.allCategories;
+    });
+
+
+    this.item = this.item ? this.item : new ItemModel();
+    this.areImagesAvailable();
     this.titleFormControl = new FormControl(this.isEdit ? this.item.title : '', [Validators.required]);
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', [Validators.required]);
     this.postcodeFormControl = new FormControl(this.isEdit ? this.item.location?.postcode : '', [Validators.required]);
@@ -108,7 +132,7 @@ console.log(this.item)
     this.acceptsTradeFormControl = new FormControl(
       this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '', []
     );
-    this.typeOfRequestFormControl = new FormControl( this.isEdit ? this.item.typeOfRequest : '', [Validators.required]);
+    this.typeOfRequestFormControl = new FormControl(this.item.typeOfRequest, [Validators.required]);
 
 
     this.form = new FormGroup({
@@ -121,18 +145,38 @@ console.log(this.item)
       typeOfRequest: this.typeOfRequestFormControl,
     });
     super.ngOnInit();
+
+    //detect changes on categories
+    this.categoryFormControl.valueChanges.subscribe((value: any) => {
+      // if empt categories will be allCategories
+      if (value === '') {
+        this.categories = this.allCategories;
+      }
+      // else filter the categories
+      else {
+        this.categories = this.allCategories.filter((item: any) => item.toLowerCase().includes(value.toLowerCase()));
+      }
+    });
+
+    this.typeOfRequestFormControl.patchValue(this.isEdit ? this.item.typeOfRequest.toString() : TypeOfRequest.Request.toString());
+
+  }
+
+  areImagesAvailable() {
+    this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
   }
 
   onSubmit() {
     if (this.validateForm()) {
       const user = this.authService.GetUser();
+
       this.getLocationDetails(this.postcodeFormControl.value).then(() => {
         const item: Item = {
           title: this.titleFormControl.value,
           description: this.descriptionFormControl.value,
           categoryId: this.categoryFormControl.value,
           expirationDate: this.expirationDateFormControl.value,
-          typeOfRequest: this.acceptsTradeFormControl.value ? TypeOfRequest.Trade : TypeOfRequest.Request,
+          typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
           location: this.locationDetails,
           username: this.item.username,
           id: this.item.id,
@@ -142,7 +186,7 @@ console.log(this.item)
         };
 
         // if it is editing an existing item
-        if(this.isEdit) {
+        if (this.isEdit) {
           this.db.collection(this.dbName).doc(this.item.id).update(item);
         } else {
           const guid = this.db.createId();
@@ -196,11 +240,24 @@ console.log(this.item)
       });
   }
 
-}
+  convertFileToBase64(file: File): any {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
+  async onFileSelected(event: any, position: number): Promise<void> {
+    const base64Image = await this.convertFileToBase64(event.target.files[0]);
+    this.item.images[position] = base64Image;
+    this.selectedFile = event.target.files[0] ?? null;
+    this.areImagesAvailable();
+  }
+
+  displayFn(option: any): string {
+    return option ? option : '';
+  }
+
 }

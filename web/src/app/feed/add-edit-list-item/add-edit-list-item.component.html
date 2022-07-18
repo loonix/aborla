@@ -27,10 +27,12 @@
         <app-form-group name="category" [control]="categoryFormControl" label="Category"
           [validationErrors]="validationErrors">
           <mat-form-field appearance="fill">
-            <mat-select>
-              <mat-option value="one">Veiculos</mat-option>
-              <mat-option value="two">Servicos</mat-option>
-            </mat-select>
+            <input type="text" matInput formControlName="category" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let category of categories" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </app-form-group>
 
@@ -44,9 +46,9 @@
         <app-form-group name="typeOfRequest" [control]="typeOfRequestFormControl" label="Type of Request"
           [validationErrors]="validationErrors">
           <mat-button-toggle-group formControlName="typeOfRequest">
-            <mat-button-toggle value="offer" translate>Offer</mat-button-toggle>
-            <mat-button-toggle value="request" translate>Request</mat-button-toggle>
-            <mat-button-toggle value="trade" translate>Trade</mat-button-toggle>
+            <mat-button-toggle value="{{typeOfRequest.Offer.toString()}}" translate>Offer</mat-button-toggle>
+            <mat-button-toggle value="{{typeOfRequest.Request.toString()}}" translate>Request</mat-button-toggle>
+            <mat-button-toggle value="{{typeOfRequest.Trade.toString()}}" translate>Trade</mat-button-toggle>
           </mat-button-toggle-group>
         </app-form-group>
 
@@ -67,22 +69,30 @@
       </div>
 
       <div class="form-right">
-        <img *ngIf="itemImagesAvaliable && item.images[0]" mat-card-image src="{{ item.images[0] }}" />
-        <div *ngIf="!itemImagesAvaliable || !item.images[0]" class="no-image">
+        <img *ngIf="itemImagesAvaliable && item.images[0]" mat-card-image src="{{ item.images[0] }}"
+          (click)="fileInput0.click()" (change)="onFileSelected($event, 0)" />
+        <div *ngIf="!itemImagesAvaliable || !item.images[0]" class="no-image" (change)="onFileSelected($event, 0)"
+          (click)="fileInput0.click()">
           <i class="fa fa-camera"></i>
         </div>
-        <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image
-          src="{{ item.images[1] }}" />
-        <div *ngIf="!itemImagesAvaliable || !item.images[1]" class="no-image">
+        <img class="image-tile" *ngIf="itemImagesAvaliable && item.images[1]" mat-card-image src="{{ item.images[1] }}"
+          (click)="fileInput1.click()" (change)="onFileSelected($event, 1)" />
+        <div *ngIf="!itemImagesAvaliable || !item.images[1]" class="no-image" (click)="fileInput1.click()"
+          (change)="onFileSelected($event, 1)">
           <i class="fa fa-camera"></i>
         </div>
-        <img *ngIf="itemImagesAvaliable && item.images[2]" mat-card-image src="{{ item.images[2] }}" />
-        <div *ngIf="!itemImagesAvaliable || !item.images[2]" class="no-image">
+        <img *ngIf="itemImagesAvaliable && item.images[2]" mat-card-image src="{{ item.images[2] }}"
+          (click)="fileInput2.click()" (change)="onFileSelected($event, 2)" />
+        <div *ngIf="!itemImagesAvaliable || !item.images[2]" class="no-image" (click)="fileInput2.click()"
+          (change)="onFileSelected($event, 2)">
           <i class="fa fa-camera"></i>
         </div>
       </div>
     </div>
 
+    <input hidden (change)="onFileSelected($event, 0)" #fileInput0 type="file">
+    <input hidden (change)="onFileSelected($event, 1)" #fileInput1 type="file">
+    <input hidden (change)="onFileSelected($event, 2)" #fileInput2 type="file">
 
 
     <div class="wrapper">
@@ -111,7 +121,6 @@
         </mat-button-toggle>
       </div>
     </div>
-
 
   </form>
 </mat-dialog-content>
