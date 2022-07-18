@@ -1,10 +1,13 @@
-.lista, .featured-item {
+.lista,
+.featured-item {
   min-width: 100%;
+
   .content {
     height: 92vh;
     overflow: auto;
     position: relative;
   }
+
   .imglistspan {
     position: absolute;
     top: 5%;
@@ -32,18 +35,33 @@
 
   mat-card {
     height: 100%;
+    padding: 0 0 1em 0;
     mat-card-title {
       font-size: 1em !important;
     }
     app-request-type {
       position: absolute;
-      opacity: .5;
+      opacity: 0.5;
     }
     mat-card-subtitle {
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
+    }
+    mat-card-actions {
+      margin: 0 0.5em;
     }
   }
   .mat-card-image {
     min-height: 225px;
   }
+}
+
+.feed-image {
+  height: 250px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(76 175 80 / 20%) !important;
+  background-position: center !important;
+  background-size: cover !important;
+  margin-bottom: 0.5em;
 }

@@ -20,7 +20,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
   itemId: any;
   item: Item | any;
   map: any;
-  gridColumns = 5;
+  gridColumns = 3;
   featuredItems: any;
   lat = 41.1359;
   lng = -8.63319;
@@ -99,7 +99,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
   }
 
   toggleGridColumns() {
-    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
+    this.gridColumns = 3;
   }
 
   onView(item: Item): void {
