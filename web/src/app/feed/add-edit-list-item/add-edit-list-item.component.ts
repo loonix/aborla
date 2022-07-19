@@ -251,6 +251,9 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
 
   async onFileSelected(event: any, position: number): Promise<void> {
     const base64Image = await this.convertFileToBase64(event.target.files[0]);
+    if (!this.item.images) {
+      this.item.images = [];
+    }
     this.item.images[position] = base64Image;
     this.selectedFile = event.target.files[0] ?? null;
     this.areImagesAvailable();
