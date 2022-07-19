@@ -1,117 +1,97 @@
-<mat-grid-list cols="2" rowHeight="100px">
-  <mat-grid-tile colspan="1" rowspan="6" class="formcontato">
+<!-- <mat-grid-list cols="2" rowHeight="100px">
+  <mat-grid-tile colspan="1" rowspan="6" class="formcontato"> -->
+<div class="mapouter" style="width: 100%;">
+  <div class="gmap_canvas"><iframe width="100%" height="700" id="gmap_canvas"
+      src="https://maps.google.com/maps?q=4500-164&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no"
+      marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com/divi-discount/">
+      divi discount</a><br>
+    <style>
+      .mapouter {
+        position: relative;
 
-    <div class="authBlockformcontato ">
-      <!-- Default form contact -->
-      <form class="text-center border border-light p-5" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <p class="h4 mb-4">Contact us</p>
-        <!-- Name -->
-        <div class="formGroup">
-          <input type="text" class="formControl" formControlName="contactFormName"
-            placeholder="{{ 'Name' | translate }}" required />
-        </div>
-        <!-- Email -->
-        <div class="formGroup">
-          <input type="email" class="formControl" formControlName="contactFormEmail"
-            placeholder="{{ 'Email' | translate }}" required />
-        </div>
-        <!-- Subject -->
-        <div class="formGroup">
-          <mat-form-field appearance="fill">
-            <mat-label translate>Subject</mat-label>
-            <select matNativeControl formControlName="contactFormSubjects" required>
-              <option value="" disabled>Choose option</option>
-              <option value="1" selected>Feedback</option>
-              <option value="2">Report a bug</option>
-              <option value="3">Feature request</option>
-              <option value="4">Feature request</option>
-            </select>
-          </mat-form-field>
-        </div>
+        height: 700px;
+        width: 900px;
+      }
+    </style><a href="https://www.embedgooglemap.net">embedding google maps on website</a>
+    <style>
+      .gmap_canvas {
+        overflow: hidden;
+        background: none !important;
+        height: 500px;
+        width: 900px;
+      }
+    </style>
+  </div>
 
-        <!-- Message -->
-        <div class="formGroup">
-          <textarea formControlName="contactFormMessage" class="formControl" rows="3" placeholder="Message"></textarea>
-        </div>
-        <!-- Copy -->
-        <!-- Send button -->
-        <button mat-button color="primary" type="submit" [disabled]="disabledSubmitButton" translate>Send</button>
+  <div class="cards">
+    <mat-card class="example-card">
+      <mat-card-title>
+        <mat-icon>business</mat-icon> Address
+      </mat-card-title>
+      <mat-card-content>
+        <p>Rua da boneca</p>
+        <p>Edifício Fórum Q34 Piso 10</p>
+        <p>Complexo bonecomydear</p>
+        <p>4410-164 Gaia</p>
+      </mat-card-content>
+    </mat-card>
 
-      </form>
-      <!-- Default form contact -->
-    </div>
-  </mat-grid-tile>
-
-  <mat-grid-tile colspan="1" rowspan="6">
-
-
-    <mat-grid-list cols="2" rowHeight="300px" gutterSize="5px" class="authBlockinfocontato">
-      <mat-grid-tile>
-        <div class="moradasede">
-          <div style="display:flex ;">
-          <mat-icon style="font-size: 60px; flex:1; ">business</mat-icon>
-          <h3 style="display:flex; flex:2; justify-content:start; padding: 20px;">SEDE</h3>
-        </div>
-          <p style="display:flex ; " > Rua da boneca
-            Edifício Fórum Q34 Piso 10
-            Complexo bonecomydear
-            4410-164 Gaia</p>
-        </div>
+    <mat-card class="example-card">
+      <mat-card-title>
+        <mat-icon>contact_phone</mat-icon> Contact
+      </mat-card-title>
+      <mat-card-content>
+        <p>+351 227 897 781</p>
+      </mat-card-content>
+    </mat-card>
 
 
+    <mat-card class="example-card">
+      <mat-card-title>
+        <mat-icon> contact_mail</mat-icon> Email
+      </mat-card-title>
+      <mat-card-content>
+        <p>clientes@aborla.pt</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-      </mat-grid-tile>
-      <mat-grid-tile>
+  <div class="authBlockformcontato ">
+    <!-- Default form contact -->
+    <form class="text-center border border-light p-5" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <p class="h4 mb-4">Contact us</p>
+      <!-- Name -->
+      <div class="formGroup">
+        <input type="text" class="formControl" formControlName="contactFormName" placeholder="{{ 'Name' | translate }}"
+          required />
+      </div>
+      <!-- Email -->
+      <div class="formGroup">
+        <input type="email" class="formControl" formControlName="contactFormEmail"
+          placeholder="{{ 'Email' | translate }}" required />
+      </div>
+      <!-- Subject -->
+      <div class="formGroup">
+        <mat-form-field appearance="fill">
+          <mat-label translate>Subject</mat-label>
+          <select matNativeControl formControlName="contactFormSubjects" required>
+            <option value="" disabled>Choose option</option>
+            <option value="1" selected>Feedback</option>
+            <option value="2">Report a bug</option>
+            <option value="3">Feature request</option>
+            <option value="4">Feature request</option>
+          </select>
+        </mat-form-field>
+      </div>
 
-        <div class="moradasede">
-          <div style="display:flex;">
-          <div style="display: flex; flex-direction: column;">
-            <mat-icon style="font-size: 60px; display: flex;"> contact_phone</mat-icon>
-            <p style="font-size: 19px;margin-top: 40px;"> 808999999
-            </p>
-          </div>
-          <div style="display: flex; flex-direction: column; margin-left: 15px; ">
-            <mat-icon style="font-size: 60px; display: flex; "> contact_mail</mat-icon> 
-            
-            <p style="font-size: 19px; display: flex; margin-top: 40px;">
-              cliente@aborla.pt
-            </p>
-         
-          </div>
-        </div>
-        </div>
-      </mat-grid-tile>
+      <!-- Message -->
+      <div class="formGroup">
+        <textarea formControlName="contactFormMessage" class="formControl" rows="3" placeholder="Message"></textarea>
+      </div>
+      <!-- Copy -->
+      <!-- Send button -->
+      <button mat-button color="primary" type="submit" [disabled]="disabledSubmitButton" translate>Send</button>
 
-      <mat-grid-tile colspan="2" style="border-radius: 20px; ">
-        <div class="mapouter" style="width: 100%;">
-          <div class="gmap_canvas"><iframe width="900" height="700" id="gmap_canvas"
-              src="https://maps.google.com/maps?q=4500-164&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-              scrolling="no" marginheight="0" marginwidth="0"></iframe><a
-              href="https://www.whatismyip-address.com/divi-discount/">
-              divi discount</a><br>
-            <style>
-              .mapouter {
-                position: relative;
-             
-                height: 700px;
-                width: 900px;
-              }
-            </style><a href="https://www.embedgooglemap.net">embedding google maps on website</a>
-            <style>
-              .gmap_canvas {
-                overflow: hidden;
-                background: none !important;
-                height: 500px;
-                width: 900px;
-              }
-            </style>
-          </div>
-        </div>
-
-      </mat-grid-tile>
-
-
-    </mat-grid-list>
-
-
-  </mat-grid-tile>
+    </form>
+    <!-- Default form contact -->
+  </div>

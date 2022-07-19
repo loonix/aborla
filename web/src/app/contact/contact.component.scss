@@ -1,11 +1,9 @@
 form {
     border-color: #e0e0e0;
     margin: 20px;
-
 }
 
 .authBlockinfocontato {
-
     margin-left: 0px;
     margin: 0%;
     padding: 0%;
@@ -13,8 +11,7 @@ form {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color:rgb(237, 243, 243);
-  
+    background-color: rgb(237, 243, 243);
 }
 
 .mat-grid-tile-infoform {
@@ -23,18 +20,17 @@ form {
     width: 100%;
     height: 100%;
     display: block;
-
 }
 
-.moradasede {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding: 20%;
-
+.formcontato {
+    background-color: rgb(237, 243, 243);
 }
 
-.formcontato{
-    background-color:rgb(237, 243, 243);
+.cards {
+    width: 40%;
+    float: left;
+}
+
+.gmap_canvas {
+    width: 100%!important;
 }
