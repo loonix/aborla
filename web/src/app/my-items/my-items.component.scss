@@ -1,25 +1,30 @@
-.footer{
-display: flex;
-flex-direction: row;
-justify-content: center;
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.button{
-display: flex;
-flex-direction: row;
-justify-content: center;
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.button-toggle{
-width: 130px;
-margin: 2px;
-display: flex;
-justify-content: center;
-align-items: center;
+.button-toggle {
+    width: 130px;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-
-
-
-
+.btns {
+    display: flex;
+        color: #c63535;
+    :nth-child(2) {
+        color: #88b0a0;
+    }
+    :nth-child(3) {
+        color: steelblue;
+    }
 }

@@ -5,8 +5,8 @@
       <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let anuncio of data.feed">
         <mat-card class="mat-elevation-z4">
           <div>
-            <span class="imglistspan">{{ anuncio.requestTypeName }}</span>
-            <img mat-card-image src="{{ anuncio.images[0] }}" />
+            <app-request-type [typeOfRequest]="anuncio.typeOfRequest"></app-request-type>
+            <div class="feed-image" style="background:url('{{anuncio.images[0]}}')"></div>
           </div>
 
 
@@ -18,37 +18,25 @@
           <mat-card-actions class="bottom-icons">
             <span>
               <mat-icon>place</mat-icon>
-              {{ anuncio.location}}
-            </span>
-
-            <span>
-              <mat-icon>person</mat-icon>
-              {{ anuncio.username}}
+              {{ anuncio.location.county }}, {{ anuncio.location.district }}
             </span>
 
           </mat-card-actions>
-          <mat-dialog-actions class="button" align="center">
+          <mat-dialog-actions class="button" align="center" class="btns">
 
 
-            <mat-button-toggle class="button-toggle" mat-button (click)="onRemove(anuncio)" >
-              <mat-icon style=" margin:10px;"> delete_sweep</mat-icon>
-              <div translate>
-                Remove
-               </div> 
-            </mat-button-toggle>
+            <button class="button-toggle" mat-button (click)="onRemove(anuncio)">
+              <mat-icon style=" margin:10px;">delete</mat-icon>
+            </button>
 
-            <mat-button-toggle class="button-toggle" (click)="onEdit(anuncio)" >
-              <mat-icon style=" margin:10px;"> create</mat-icon>
-              <div translate>
-                Edit
-               </div> 
-            </mat-button-toggle>
-            <mat-button-toggle class="button-toggle" (click)="onView(anuncio)" >
-              <mat-icon style=" margin:10px;"> forward </mat-icon>
-             <div translate>
-              View
-             </div> 
-            </mat-button-toggle>
+            <button class="button-toggle" mat-button (click)="onEdit(anuncio)">
+              <mat-icon style=" margin:10px;">create</mat-icon>
+
+            </button>
+            <button class="button-toggle" mat-button (click)="onView(anuncio)">
+              <mat-icon style=" margin:10px;">remove_red_eye </mat-icon>
+
+            </button>
           </mat-dialog-actions>
         </mat-card>
       </div>
