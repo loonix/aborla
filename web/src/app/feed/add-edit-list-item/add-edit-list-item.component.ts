@@ -127,7 +127,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     this.descriptionFormControl = new FormControl(this.isEdit ? this.item.description : '', [Validators.required]);
     this.postcodeFormControl = new FormControl(this.isEdit ? this.item.location?.postcode : '', [Validators.required]);
 
-    this.categoryFormControl = new FormControl(this.isEdit ? this.item.categoryId : '', [Validators.required]);
+    this.categoryFormControl = new FormControl(this.isEdit ? this.item.category : '', [Validators.required]);
     this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', [Validators.required]);
     this.acceptsTradeFormControl = new FormControl(
       this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '', []
@@ -176,6 +176,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           description: this.descriptionFormControl.value,
           categoryId: this.categoryFormControl.value,
           expirationDate: this.expirationDateFormControl.value,
+          category: this.categoryFormControl.value, // todo
           typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
           location: this.locationDetails,
           username: this.item.username,

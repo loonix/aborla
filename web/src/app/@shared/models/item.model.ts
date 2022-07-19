@@ -7,6 +7,7 @@ export interface Item {
   title: string;
   adPackage: string;
   categoryId: string;
+  category: string;
   id: string;
   expirationDate: Date;
   username?: string;
@@ -21,6 +22,7 @@ export class ItemModel implements Item {
   description: string;
   title: string;
   adPackage: string;
+  category: string;
   categoryId: string;
   id: string;
   expirationDate: Date;
@@ -35,6 +37,7 @@ export class ItemModel implements Item {
     this.title = '';
     this.adPackage = '';
     this.categoryId = '';
+    this.category = '';
     this.id = '';
     this.expirationDate = new Date();
     this.username = '';
