@@ -8,6 +8,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SeoService } from '@app/@shared/seo.service';
 import { ContactUserComponent } from '../contact-user/contact-user.component';
 import { AuthService } from '@app/@shared/services/auth.service';
+import { ImageDialogComponent } from '@app/@shared/components/image-dialog/image-dialog.component';
 declare var google: any;
 
 @Component({
@@ -41,7 +42,10 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
 
   ngOnInit() {
     this.itemId = this.route.snapshot.paramMap.get('id');
+    this.reloadData();
+  }
 
+  reloadData() {
     this.data.subscribeToFeed();
     this.data.getFeed(this.itemId).subscribe((itm: Item) => {
       this.seo.generateTags({
@@ -69,7 +73,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
       // excludes the selected item
       const limitedData = data.filter((d: { id: any; }) => d.id !== this.itemId);
       // limits to 3 items only
-      this.featuredItems = limitedData.slice(limitedData.length - 3);
+      this.featuredItems = limitedData.length >= 3 ? limitedData.slice(limitedData.length - 3) : limitedData;
       // TODO: show only featured items
     });
   }
@@ -126,6 +130,25 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
         });
       });
     });
+  }
+
+  onImageClick(item: Item, position: number): void {
+    const dialogRef = this.dialog.open(ImageDialogComponent, {
+      data: {
+        images: item.images,
+        position: position,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  navigateToItem(itemId: string) {
+    this.item = null;
+    this.router.navigate(['feed', itemId]);
+    this.itemId = itemId
+    this.reloadData();
   }
 
   ngOnDestroy() {

@@ -1,16 +1,16 @@
 <ng-container *ngIf="mapElement">
   <!-- Artigos Destacados -->
-  <div class="column-layout group">
+  <div class="column-layout group" *ngIf="featuredItems && featuredItems.length">
     <h5 class="h5">
       Artigos Destacados
     </h5>
-
-    <div *ngIf="featuredItems && featuredItems.length">
-      <div class="featured-item" *ngFor="let featuredItem of featuredItems">
+    <div class="content">
+      <div class="featured-item featured-bg" *ngFor="let featuredItem of featuredItems"
+        (click)="navigateToItem(featuredItem.id)">
         <mat-card class="mat-elevation-z4">
           <div>
-            <app-request-type [typeOfRequest]="item.typeOfRequest"></app-request-type>
-            <div class="feed-image" style="background:url('{{item.images[0]}}')"></div>
+            <app-request-type [typeOfRequest]="featuredItem.typeOfRequest"></app-request-type>
+            <div class="feed-image" style="background:url('{{featuredItem.images[0]}}')"></div>
           </div>
 
           <mat-card-header>
@@ -46,14 +46,17 @@
       <div class="column-layout group_6">
 
 
-        <img *ngIf="item?.images[0]" [src]="item?.images[0]" class="image-style image-big" />
+        <img *ngIf="item?.images[0]" [src]="item?.images[0]" class="image-style image-big"
+          (click)="onImageClick(item, 0)" />
         <div *ngIf="!item?.images[0]" class="image-style image-big"><i class="fa fa-image"></i></div>
 
         <div class="row-layout group_7">
-          <img *ngIf="item?.images[1]" [src]="item?.images[1]" class="image-style image-small" />
+          <img *ngIf="item?.images[1]" [src]="item?.images[1]" class="image-style image-small"
+            (click)="onImageClick(item, 1)" />
           <div *ngIf="!item?.images[1]" class="image-style image-small"><i class="fa fa-image"></i></div>
 
-          <img *ngIf="item?.images[2]" [src]="item?.images[2]" class="image-style image-small" />
+          <img *ngIf="item?.images[2]" [src]="item?.images[2]" class="image-style image-small"
+            (click)="onImageClick(item, 2)" />
           <div *ngIf="!item?.images[2]" class="image-style image-small"><i class="fa fa-image"></i></div>
 
 
@@ -109,26 +112,25 @@
         Artigos Relacionados
       </h5>
 
-
       <div class="content featured-item">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of data.feed"
-            [routerLink]="'feed/item.id'">
+          <div class="related-bg" [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
+            *ngFor="let related of data.feed" (click)="navigateToItem(related.id)">
             <mat-card class="mat-elevation-z4">
               <div>
-                <app-request-type [typeOfRequest]="item.typeOfRequest"></app-request-type>
-                <div class="feed-image" style="background:url('{{item.images[0]}}')"></div>
+                <app-request-type [typeOfRequest]="related.typeOfRequest"></app-request-type>
+                <div class="feed-image" style="background:url('{{related.images[0]}}')"></div>
               </div>
 
               <mat-card-header>
-                <mat-card-subtitle>{{ item.category }}</mat-card-subtitle>
-                <mat-card-title>{{ item.title }}</mat-card-title>
+                <mat-card-subtitle>{{ related.category }}</mat-card-subtitle>
+                <mat-card-title>{{ related.title }}</mat-card-title>
               </mat-card-header>
 
               <mat-card-actions class="bottom-icons">
                 <span>
                   <mat-icon>place</mat-icon>
-                  {{ item.location.county }}, {{ item.location.district }}
+                  {{ related.location.county }}, {{ related.location.district }}
                 </span>
 
               </mat-card-actions>
@@ -136,34 +138,6 @@
           </div>
         </div>
       </div>
-
-
-      <!-- <div class="content featured-items">
-        <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of data.feed"
-            [routerLink]="item.id">
-            <mat-card class="mat-elevation-z4">
-              <div>
-                <span class="imglistspan">{{ item.requestTypeName }}</span>
-                <div class="feed-image" style="background:url('{{item.images[0]}}')"></div>
-              </div>
-
-
-              <mat-card-header>
-                <mat-card-subtitle>{{ item.category }}</mat-card-subtitle>
-                <mat-card-title>{{ item.title }}</mat-card-title>
-              </mat-card-header>
-              <mat-card-actions class="bottom-icons">
-                <span>
-                  <mat-icon>place</mat-icon>
-                  {{ item.location.county }}, {{ item.location.district }}
-                </span>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-        </div>
-      </div> -->
-
 
     </div>
   </div>

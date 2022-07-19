@@ -34,6 +34,7 @@ mat-card-subtitle {
   flex-direction: column;
 }
 .group {
+  background: #a8dfdf3b;
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
@@ -158,6 +159,7 @@ mat-card-subtitle {
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 .group_11 {
+  background: #f5fff0;
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
@@ -247,5 +249,25 @@ span {
 
   .mat-card-image {
     min-height: 225px;
+  }
+}
+
+.featured-bg {
+  opacity: 0.8;
+  mat-card {
+    margin-bottom: 1.5em;
+  }
+  .content {
+    padding: 0.5em;
+  }
+}
+
+.related-bg {
+  opacity: 0.8;
+  .feed-image {
+    max-height: 125px;
+  }
+  .content {
+    padding: 0.5em;
   }
 }
