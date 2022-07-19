@@ -40,5 +40,14 @@ mat-form-field {
 
 mat-toolbar {
   justify-content: right;
-  background: none
+  background: none;
+}
+
+.content {
+  padding: 0.5em;
+}
+
+.green-btn {
+  color: white;
+  background: #88b0a0;
 }
