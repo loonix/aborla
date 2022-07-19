@@ -65,8 +65,8 @@
       <mat-toolbar color="">
         <span></span>
         <button mat-button (click)="toggleGridColumns()" fxHide.lt-md>
-          <span *ngIf="gridColumns === 1">Grid</span>
-          <span *ngIf="gridColumns === 3">List</span>
+          <span class="gridList" *ngIf="gridColumns === 1"><mat-icon>apps</mat-icon> Grid</span>
+          <span class="gridList" *ngIf="gridColumns === 3"><mat-icon>menu</mat-icon> List</span>
         </button>
         <button (click)="create()" class="green-btn" mat-raised-button translate>Create New</button>
       </mat-toolbar>
