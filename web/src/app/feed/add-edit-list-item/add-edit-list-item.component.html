@@ -98,7 +98,7 @@
     <div class="wrapper">
       <div class="card-list-item" *ngFor="let card of cards" (click)="selectedAd = !isEdit ? card.id : selectedAd">
         <mat-button-toggle style="border-radius: 0.8em; display: flex" class="destacar-anuncio" value="card.id"
-        [ngClass]="(selectedAd == card.id) ? 'active' : ''">
+          [ngClass]="(selectedAd == card.id) ? 'active' : ''">
           <ng-container *ngIf="card.icon != null">
             <mat-icon>{{card.icon}}</mat-icon>
           </ng-container>
@@ -124,6 +124,10 @@
     </div>
 
   </form>
+
+  <div *ngIf="serverError" class="server-error-messages">
+    <mat-error>{{ serverError }}</mat-error>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions class="test" align="center">
   <mat-button-toggle mat-button (click)="onSubmit()" translate>{{ isEdit ? 'Save' : 'Create'}}</mat-button-toggle>

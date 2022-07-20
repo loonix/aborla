@@ -198,14 +198,14 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   }
 
   areImagesAvailable() {
-    this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length);
+    this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length > 0);
   }
 
   onSubmit() {
     if (this.validateForm()) {
       const user = this.authService.GetUser();
 
-      this.getLocationDetails(this.postcodeFormControl.value).then(() => {
+      this.getLocationDetails(this.postcodeFormControl.value).then((loc) => {
         const item: Item = {
           timestamp: this.isEdit ? this.item.timestamp : Timestamp.now(),
           title: this.titleFormControl.value,
@@ -214,7 +214,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           expirationDate: this.expirationDateFormControl.value,
           category: this.categoryFormControl.value, // todo
           typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
-          location: this.locationDetails,
+          location: loc,
           id: this.item.id,
           images: this.item.images,
           adPackage: this.isEdit ? this.item.adPackage : this.selectedAd, //this.adPackageFormControl.value,
@@ -224,13 +224,18 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
         // if it is editing an existing item
         if (this.isEdit) {
           this.db.collection(this.dbName).doc(this.item.id).update(item);
+          this.dialogRef.close();
         } else {
           const guid = this.db.createId();
           item.id = guid;
-          this.db.collection(this.dbName).add(item);
+          this.db.collection(this.dbName).doc(this.item.id).update(item);
+          this.dialogRef.close();
         }
         console.log(item);
         return;
+      }).catch((err) => {
+        console.log(err);
+        this.serverError = err;
       });
     }
   }
@@ -288,7 +293,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   async onFileSelected(event: any, position: number): Promise<void> {
     const base64Image = await this.convertFileToBase64(event.target.files[0]);
     if (!this.item.images) {
-      this.item.images = [];
+      this.item.images = ['','',''];
     }
     this.item.images[position] = base64Image;
     this.selectedFile = event.target.files[0] ?? null;
