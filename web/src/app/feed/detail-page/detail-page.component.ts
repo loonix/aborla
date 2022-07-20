@@ -87,6 +87,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.reloadData();
     });
   }
 

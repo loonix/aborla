@@ -149,7 +149,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       this.feed = latest[0];
       this.allCategories = this.feed.map((item: any) => item.category);
       // remove duplicates from allCategories
-      const removeDupCategories = this.item = this.allCategories.filter((el: any, i: any, a: string | any[]) => i === a.indexOf(el));
+      const removeDupCategories = this.allCategories.filter((el: any, i: any, a: string | any[]) => i === a.indexOf(el));
       this.allCategories = removeDupCategories;
       this.categories = this.allCategories;
       this.users = latest[1];
@@ -262,7 +262,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
 
       const user = this.authService.GetUser();
 
-      this.getLocationDetails(this.postcodeFormControl.value).then((loc) => {
+      this.getLocationDetails(this.postcodeFormControl.value).then(async (loc) => {
         let imgUrls: string[] = [];
 
         this.imageFiles.forEach((imageFile: File, index: number) => {
@@ -298,10 +298,10 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
         // if it is editing an existing item
         if (this.isEdit) {
           this.db.collection(this.dbName).doc(this.item.id).update(item);
-          this.dialogRef.close();
+          this.dialogRef.close(item);
         } else {
           item.id = guid;
-          this.db.collection(this.dbName).add(item);
+          this.db.collection(this.dbName).doc(item.id).set(item);
           this.dialogRef.close();
         }
         console.log(item);
