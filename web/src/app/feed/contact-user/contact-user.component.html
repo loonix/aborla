@@ -7,9 +7,9 @@
   <mat-card class="example-card">
     <mat-card-title-group>
       <mat-card-title>{{ item.title}}</mat-card-title>
-      <mat-card-subtitle>
+      <mat-card-subtitle *ngIf="!isLoading">
         <mat-icon>person</mat-icon>
-        {{ item.username}}
+        {{ getUserFromId(item.userId)}}
       </mat-card-subtitle>
       <img mat-card-sm-image src="{{ item.images[0]}}">
     </mat-card-title-group>
