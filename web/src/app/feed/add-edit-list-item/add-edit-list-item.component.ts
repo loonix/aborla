@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Timestamp } from '@angular/fire/firestore';
+import { Storage, StorageReference, UploadTask } from '@angular/fire/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
@@ -9,8 +10,9 @@ import { LocationDetails, LocationPTAPI } from '@app/@shared/models/location.mod
 import { User } from '@app/@shared/models/user.model';
 import { AuthService } from '@app/@shared/services/auth.service';
 import { errorMessages } from '@app/@shared/validators/error-messages';
-import { combineLatest } from 'rxjs';
+import { combineLatest, finalize } from 'rxjs';
 import { FeedDataService } from '../feed-data.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-add-edit-list-item',
@@ -104,13 +106,17 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   feed: any;
   users: User[];
   selectedAd: AdPackages = AdPackages.None;
-
+  ref: StorageReference;
+  task: UploadTask;
+  imageFiles: any[] = [];
+  uploadPercent: any
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private db: AngularFirestore,
     public authService: AuthService,
     public feedService: FeedDataService,
+    private storage: AngularFireStorage,
   ) {
     super();
     this.setData(data);
@@ -131,7 +137,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       .collection('users')
       .valueChanges({ idField: 'id' });
 
-      const obsAds$ = this.db
+    const obsAds$ = this.db
       .collection('users')
       .valueChanges({ idField: 'id' });
 
@@ -165,7 +171,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
 
     // this.adPackageFormControl = new FormControl(this.item.adPackage, [Validators.required]);
 
-    if(this.isEdit){
+    if (this.isEdit) {
       this.selectedAd = this.item.adPackage;
     }
 
@@ -201,11 +207,81 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     this.itemImagesAvaliable = !!(this.item && this.item.images && this.item.images.length > 0);
   }
 
+  uploadFile(file: File, itemId: string, position: number) {
+    return new Promise((resolve, reject) => {
+      const filePath = itemId + '/' + position;
+      const ref = this.storage.ref(filePath);
+      const task = ref.put(file)
+      resolve(task);
+    });
+  }
+
+
+  compressImage(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let image = new Image();
+        image.src = reader.result as any;
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          (ctx as any).drawImage(image, 0, 0);
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 600;
+          let width = image.width;
+          let height = image.height;
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx2 = canvas.getContext('2d');
+          (ctx2 as any).drawImage(image, 0, 0, width, height);
+          const dataurl = canvas.toDataURL('image/jpeg');
+          resolve(dataurl);
+        }
+      }
+    });
+  }
+
+
+
   onSubmit() {
     if (this.validateForm()) {
+      const guid = this.db.createId();
+
       const user = this.authService.GetUser();
 
       this.getLocationDetails(this.postcodeFormControl.value).then((loc) => {
+        let imgUrls: string[] = [];
+
+        // // upload all images to firebase
+        this.imageFiles.forEach((imageFile: File, index: number) => {
+          // this.uploadFile(imageFile, this.item.id, index);
+
+          const filePath = (this.item && this.item.id ? this.item.id : guid) + '/' + index;
+          const ref = this.storage.ref(filePath);
+          const task = ref.put(imageFile)
+          this.uploadPercent = task.percentageChanges();
+          console.log(this.uploadPercent);
+          // get notified when the download URL is available
+          task.snapshotChanges().pipe(
+            finalize(() => {
+              ref.getDownloadURL().subscribe((url: string) => {
+                imgUrls.push(url);
+              });
+            }))
+        })
         const item: Item = {
           timestamp: this.isEdit ? this.item.timestamp : Timestamp.now(),
           title: this.titleFormControl.value,
@@ -216,7 +292,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
           location: loc,
           id: this.item.id,
-          images: this.item.images,
+          images: imgUrls.length ? imgUrls : this.item.images,
           adPackage: this.isEdit ? this.item.adPackage : this.selectedAd, //this.adPackageFormControl.value,
           userId: user.uid,
         };
@@ -226,13 +302,13 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           this.db.collection(this.dbName).doc(this.item.id).update(item);
           this.dialogRef.close();
         } else {
-          const guid = this.db.createId();
           item.id = guid;
-          this.db.collection(this.dbName).doc(this.item.id).update(item);
+          this.db.collection(this.dbName).add(item);
           this.dialogRef.close();
         }
         console.log(item);
         return;
+
       }).catch((err) => {
         console.log(err);
         this.serverError = err;
@@ -290,12 +366,27 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     });
   }
 
-  async onFileSelected(event: any, position: number): Promise<void> {
-    const base64Image = await this.convertFileToBase64(event.target.files[0]);
-    if (!this.item.images) {
-      this.item.images = ['','',''];
+  convertBase64ToFile(base64: string, fileName: string): File {
+    const arr = base64.split(',');
+    const mime = (arr as any)[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
     }
-    this.item.images[position] = base64Image;
+    return new File([u8arr], fileName, { type: mime });
+  }
+
+  async onFileSelected(event: any, position: number): Promise<void> {
+    const compressedImage: any = await this.compressImage(event.target.files[0]);
+    const file = this.convertBase64ToFile(compressedImage, event.target.files[0].name);
+
+    this.imageFiles[position] = file;
+    if (!this.item.images) {
+      this.item.images = ['', '', ''];
+    }
+    this.item.images[position] = compressedImage;
     this.selectedFile = event.target.files[0] ?? null;
     this.areImagesAvailable();
   }

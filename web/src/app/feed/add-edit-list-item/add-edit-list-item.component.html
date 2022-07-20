@@ -90,9 +90,9 @@
       </div>
     </div>
 
-    <input hidden (change)="onFileSelected($event, 0)" #fileInput0 type="file">
-    <input hidden (change)="onFileSelected($event, 1)" #fileInput1 type="file">
-    <input hidden (change)="onFileSelected($event, 2)" #fileInput2 type="file">
+    <input hidden (change)="onFileSelected($event, 0)" #fileInput0 accept=".png,.jpg" type="file">
+    <input hidden (change)="onFileSelected($event, 1)" #fileInput1 accept=".png,.jpg" type="file">
+    <input hidden (change)="onFileSelected($event, 2)" #fileInput2 accept=".png,.jpg" type="file">
 
 
     <div class="wrapper">
