@@ -31,6 +31,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthService } from './@shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import {AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 
 @NgModule({
   imports: [
@@ -62,6 +64,8 @@ import { AuthenticationModule } from './authentication/authentication.module';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()), // must be imported as the last module as it contains the fallback route
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule
   ],
   declarations: [
     AppComponent,
@@ -83,6 +87,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
       useClass: RouteReusableStrategy,
     },
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: BUCKET, useValue: 'images' },
     ScreenTrackingService,
     UserTrackingService,
     AuthService,
