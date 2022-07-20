@@ -265,9 +265,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       this.getLocationDetails(this.postcodeFormControl.value).then((loc) => {
         let imgUrls: string[] = [];
 
-        // // upload all images to firebase
         this.imageFiles.forEach((imageFile: File, index: number) => {
-          // this.uploadFile(imageFile, this.item.id, index);
 
           const filePath = (this.item && this.item.id ? this.item.id : guid) + '/' + index;
           const ref = this.storage.ref(filePath);
@@ -289,7 +287,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           categoryId: this.categoryFormControl.value,
           expirationDate: this.expirationDateFormControl.value,
           category: this.categoryFormControl.value, // todo
-          typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
+          typeOfRequest: this.typeOfRequestFormControl.value ? Number(this.typeOfRequestFormControl.value) : TypeOfRequest.Request,
           location: loc,
           id: this.item.id,
           images: imgUrls.length ? imgUrls : this.item.images,
