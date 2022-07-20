@@ -585,3 +585,8 @@ body .table thead th {
     padding: 0.5em;
   }
 }
+
+mat-button-toggle.active {
+  background-color: #88b0a0!important;
+  color: white!important;
+}

@@ -1,12 +1,15 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Timestamp } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
-import { Item, ItemModel, TypeOfRequest } from '@app/@shared/models/item.model';
+import { AdPackages, DateExpiration, Item, ItemModel, TypeOfRequest } from '@app/@shared/models/item.model';
 import { LocationDetails, LocationPTAPI } from '@app/@shared/models/location.model';
+import { User } from '@app/@shared/models/user.model';
 import { AuthService } from '@app/@shared/services/auth.service';
 import { errorMessages } from '@app/@shared/validators/error-messages';
+import { combineLatest } from 'rxjs';
 import { FeedDataService } from '../feed-data.service';
 
 @Component({
@@ -23,6 +26,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   acceptsTradeFormControl: FormControl;
   postcodeFormControl: FormControl;
   typeOfRequestFormControl: FormControl;
+  // adPackageFormControl: FormControl;
   itemImagesAvaliable: boolean;
   validationMessages = {
     title: {
@@ -50,12 +54,14 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       icon: 'public',
       days: 3,
       amount: 3.0,
+      id: AdPackages.SiteOnly,
     },
     {
       title: 'Destacar anuncio na app',
       icon: 'smartphone',
       days: 3,
       amount: 3.0,
+      id: AdPackages.AppOnly,
     },
     {
       title: 'Destacar anuncio no site na app',
@@ -64,18 +70,26 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       iconStacked2: 'smartphone',
       days: 3,
       amount: 5.0,
+      id: AdPackages.SiteAndApp,
     },
     {
       title: 'Nao destacar anuncio',
       icon: 'close',
       days: 0,
       amount: 0.0,
+      id: AdPackages.None,
     },
   ];
 
   dates = [
-    '3 Days',
-    '7 Days',
+    {
+      id: DateExpiration.THREEDAYS,
+      name: '3 Days',
+    },
+    {
+      id: DateExpiration.SEVENDAYS,
+      name: '7 Days',
+    }
   ]
 
   locationDetails: LocationDetails;
@@ -88,6 +102,8 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
   allCategories: any;
   categories: any;
   feed: any;
+  users: User[];
+  selectedAd: AdPackages = AdPackages.None;
 
   constructor(
     @Optional() public dialogRef: MatDialogRef<AddEditListItemComponent>,
@@ -107,17 +123,30 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       this.isEdit = false;
     }
 
-    const $obs = this.db
+    const obsFeed$ = this.db
       .collection('feed')
       .valueChanges({ idField: 'id' });
 
-    $obs.subscribe((feedData: any) => {
-      this.feed = feedData;
-      this.allCategories = feedData.map((item: any) => item.category);
+    const obsUsers$ = this.db
+      .collection('users')
+      .valueChanges({ idField: 'id' });
+
+      const obsAds$ = this.db
+      .collection('users')
+      .valueChanges({ idField: 'id' });
+
+    const obs$ = combineLatest(
+      [obsFeed$, obsUsers$]
+    );
+
+    obs$.subscribe((latest: any) => {
+      this.feed = latest[0];
+      this.allCategories = this.feed.map((item: any) => item.category);
       // remove duplicates from allCategories
       const removeDupCategories = this.item = this.allCategories.filter((el: any, i: any, a: string | any[]) => i === a.indexOf(el));
       this.allCategories = removeDupCategories;
       this.categories = this.allCategories;
+      this.users = latest[1];
     });
 
 
@@ -128,12 +157,17 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
     this.postcodeFormControl = new FormControl(this.isEdit ? this.item.location?.postcode : '', [Validators.required]);
 
     this.categoryFormControl = new FormControl(this.isEdit ? this.item.category : '', [Validators.required]);
-    this.expirationDateFormControl = new FormControl(this.isEdit ? this.item.expirationDate : '', [Validators.required]);
+    this.expirationDateFormControl = new FormControl(this.item.expirationDate, [Validators.required]);
     this.acceptsTradeFormControl = new FormControl(
       this.isEdit ? this.item.typeOfRequest == TypeOfRequest.Trade : '', []
     );
     this.typeOfRequestFormControl = new FormControl(this.item.typeOfRequest, [Validators.required]);
 
+    // this.adPackageFormControl = new FormControl(this.item.adPackage, [Validators.required]);
+
+    if(this.isEdit){
+      this.selectedAd = this.item.adPackage;
+    }
 
     this.form = new FormGroup({
       title: this.titleFormControl,
@@ -143,6 +177,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
       acceptsTrade: this.acceptsTradeFormControl,
       postcode: this.postcodeFormControl,
       typeOfRequest: this.typeOfRequestFormControl,
+      // adPackage: this.adPackageFormControl,
     });
     super.ngOnInit();
 
@@ -172,6 +207,7 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
 
       this.getLocationDetails(this.postcodeFormControl.value).then(() => {
         const item: Item = {
+          timestamp: this.isEdit ? this.item.timestamp : Timestamp.now(),
           title: this.titleFormControl.value,
           description: this.descriptionFormControl.value,
           categoryId: this.categoryFormControl.value,
@@ -179,10 +215,9 @@ export class AddEditListItemComponent extends FormComponent implements OnInit {
           category: this.categoryFormControl.value, // todo
           typeOfRequest: this.acceptsTradeFormControl.value ? Number(this.acceptsTradeFormControl.value) : TypeOfRequest.Request,
           location: this.locationDetails,
-          username: this.item.username,
           id: this.item.id,
           images: this.item.images,
-          adPackage: this.item.adPackage,
+          adPackage: this.isEdit ? this.item.adPackage : this.selectedAd, //this.adPackageFormControl.value,
           userId: user.uid,
         };
 

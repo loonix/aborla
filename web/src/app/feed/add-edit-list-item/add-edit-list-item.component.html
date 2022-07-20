@@ -56,8 +56,8 @@
           [validationErrors]="validationErrors">
           <mat-form-field appearance="fill">
             <mat-select formControlName="expirationDate">
-              <mat-option *ngFor="let date of dates" [value]="date">
-                {{ date }}
+              <mat-option *ngFor="let date of dates" [value]="date.id">
+                {{ date.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -96,8 +96,9 @@
 
 
     <div class="wrapper">
-      <div class="card-list-item" *ngFor="let card of cards">
-        <mat-button-toggle style="border-radius: 0.8em; display: flex" class="destacar-anuncio" value="flour">
+      <div class="card-list-item" *ngFor="let card of cards" (click)="selectedAd = !isEdit ? card.id : selectedAd">
+        <mat-button-toggle style="border-radius: 0.8em; display: flex" class="destacar-anuncio" value="card.id"
+        [ngClass]="(selectedAd == card.id) ? 'active' : ''">
           <ng-container *ngIf="card.icon != null">
             <mat-icon>{{card.icon}}</mat-icon>
           </ng-container>
