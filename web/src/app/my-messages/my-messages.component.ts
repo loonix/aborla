@@ -14,6 +14,7 @@ import { Message, RequestStatus } from './message.model';
   styleUrls: ['./my-messages.component.scss']
 })
 export class MyMessagesComponent implements OnInit {
+  dbName = 'messages';
   messages: any;
   feed: any;
   users: any;
@@ -39,6 +40,29 @@ export class MyMessagesComponent implements OnInit {
   get showMessageControls() {
     return this.selectedMessage && this.selectedMessage.status === this.status.ACCEPTED;
   }
+
+  get activateCancelButton() {
+    return this.selectedMessage.status === this.status.PENDING && this.isBuyerViewing;
+  }
+
+  get activateAcceptButton() {
+    return this.selectedMessage.status === this.status.PENDING && this.isSellerViewing;
+  }
+
+  get activateRejectButton() {
+    return this.selectedMessage.status === this.status.PENDING && this.isSellerViewing;
+  }
+
+  get activateReActivateRequest() {
+    return (this.selectedMessage.status === this.status.REJECTED && this.isSellerViewing) ||
+      this.selectedMessage.status === this.status.CANCELLED && this.isBuyerViewing;
+  }
+
+  get activateFinishButton() {
+    return this.selectedMessage.status === this.status.FINISHED;
+  }
+
+
 
   constructor(
     private db: AngularFirestore,
@@ -162,18 +186,34 @@ export class MyMessagesComponent implements OnInit {
 
   acceptRequest() {
     this.selectedMessage.status = this.status.ACCEPTED;
+    this.updateStatus();
+
   }
 
   rejectRequest() {
     this.selectedMessage.status = this.status.REJECTED;
+    this.updateStatus();
+
   }
 
   cancelRequest() {
     this.selectedMessage.status = this.status.CANCELLED;
+    this.updateStatus();
+
   }
 
   finishRequest() {
     this.selectedMessage.status = this.status.FINISHED;
+    this.updateStatus();
+  }
+
+  reActivateRequest() {
+    this.selectedMessage.status = this.status.PENDING;
+    this.updateStatus();
+  }
+
+  updateStatus() {
+    this.db.collection(this.dbName).doc(this.selectedMessage.messageId).update(this.selectedMessage);
   }
 
   ngOnDestroy() {

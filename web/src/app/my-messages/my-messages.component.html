@@ -53,12 +53,18 @@
 
 
       </div>
-      <div class="confirmation-buttons" *ngIf="selectedMessage.status === status.PENDING">
-        <button *ngIf="isSellerViewing" (click)="acceptRequest()" class="green-btn" mat-raised-button translate>Accept</button>
-        <button *ngIf="isSellerViewing" (click)="rejectRequest()" class="red-btn" mat-raised-button
+      <div class="confirmation-buttons">
+        <button *ngIf="activateAcceptButton" (click)="acceptRequest()" class="green-btn" mat-raised-button
+          translate>Accept</button>
+        <button *ngIf="activateRejectButton" (click)="rejectRequest()" class="red-btn" mat-raised-button
           translate>Reject</button>
-        <button *ngIf="isBuyerViewing" (click)="cancelRequest()" class="red-btn" mat-raised-button
+        <button *ngIf="activateCancelButton" (click)="cancelRequest()" class="red-btn" mat-raised-button
           translate>Cancel</button>
+        <button *ngIf="activateReActivateRequest" (click)="reActivateRequest()" class="green-btn" mat-raised-button
+          translate>Re-Activate</button>
+          <button *ngIf="activateFinishButton" (click)="finishRequest()" class="green-btn" mat-raised-button
+          translate>Finish</button>
+
       </div>
 
       <ng-container *ngFor="let msg of selectedMessage.messages; let i = index ">
