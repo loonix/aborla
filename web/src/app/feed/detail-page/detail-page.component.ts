@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FeedDataService } from '../feed-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditListItemComponent } from '../add-edit-list-item/add-edit-list-item.component';
-import { Item, TypeOfRequest } from 'src/app/@shared/models/item.model';
+import { AdPackages, Item, ItemModel, TypeOfRequest } from 'src/app/@shared/models/item.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SeoService } from '@app/@shared/seo.service';
 import { ContactUserComponent } from '../contact-user/contact-user.component';
@@ -29,7 +29,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
     { lat: 41.1359, lng: -8.63319 },
   ];
   showEditOptions: boolean = false;
-
+  relatedItems: any;
   constructor(
     private route: ActivatedRoute,
     private db: AngularFirestore,
@@ -62,6 +62,7 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
       }
     });
     this.getFeaturedItems();
+    this.getRelatedItems();
   }
 
   getFeaturedItems() {
@@ -71,10 +72,24 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
 
     $obs.subscribe((data: any) => {
       // excludes the selected item
-      const limitedData = data.filter((d: { id: any; }) => d.id !== this.itemId);
+      const limitedData = data.filter((d: ItemModel) => 
+      d.id !== this.itemId && (d.adPackage === AdPackages.SiteAndApp || d.adPackage === AdPackages.SiteOnly));
       // limits to 3 items only
       this.featuredItems = limitedData.length >= 3 ? limitedData.slice(limitedData.length - 3) : limitedData;
-      // TODO: show only featured items
+    });
+  }
+
+  getRelatedItems() {
+    const $obs = this.db
+      .collection('feed')
+      .valueChanges({ idField: 'id' });
+
+    $obs.subscribe((data: any) => {
+      // excludes the selected item
+      const limitedData = data.filter((d: ItemModel) => 
+      d.id !== this.itemId && d.category === this.item.category);
+      // limits to 3 items only
+      this.relatedItems = limitedData.length >= 3 ? limitedData.slice(limitedData.length - 3) : limitedData;
     });
   }
 

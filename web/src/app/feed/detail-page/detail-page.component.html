@@ -115,7 +115,7 @@
       <div class="content featured-item">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
           <div class="related-bg" [fxFlex]="100 / gridColumns + '%'" fxFlex.xs="100%" fxFlex.sm="33%"
-            *ngFor="let related of data.feed" (click)="navigateToItem(related.id)">
+            *ngFor="let related of relatedItems" (click)="navigateToItem(related.id)">
             <mat-card class="mat-elevation-z4">
               <div>
                 <app-request-type [typeOfRequest]="related.typeOfRequest"></app-request-type>
