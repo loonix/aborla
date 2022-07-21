@@ -3,69 +3,109 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '@app/@shared/form-group/form.component';
-import { Item } from '@app/@shared/models/item.model';
+import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { User } from '@app/@shared/models/user.model';
+import { AuthService } from '@app/@shared/services/auth.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-contact-user',
   templateUrl: './contact-user.component.html',
   styleUrls: ['./contact-user.component.scss'],
 })
-export class ContactUserComponent extends FormComponent implements OnInit {
-  validationMessages: { [key: string]: { [key: string]: string; }; };
+export class ContactUserComponent implements OnInit {
   isEdit: boolean;
   item: Item;
   modalTitle: any;
   itemImagesAvaliable: boolean;
-  userItems: FormControl;
-  comment: FormControl;
   userItemsList: any = [];
   users: User[];
   isLoading = true;
   form: FormGroup;
-  commentFormControl: FormControl;
-  userItemsFormControl: FormControl;
+  feed: Item[];
+  currentUser: User;
+  selectedUserItems: any;
+  message: string;
+  typeOfRequest = TypeOfRequest
+  serverError: string;
   constructor(
     @Optional() public dialogRef: MatDialogRef<ContactUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public db: AngularFirestore,
+    public authService: AuthService,
   ) {
-    super();
     this.setData(data);
   }
-  override ngOnInit(): void {
-    const $obs = this.db
+  ngOnInit(): void {
+    const obsUsers$ = this.db
       .collection('users')
       .valueChanges({ idField: 'id' });
 
-    $obs.subscribe((users: any) => {
-      this.users = users;
+    const obsFeed$ = this.db
+      .collection('feed')
+      .valueChanges({ idField: 'id' });
+
+    const obs$ = combineLatest(
+      [obsUsers$, obsFeed$]
+    );
+
+    obs$.subscribe((latest: any) => {
+      this.users = latest[0];
+      this.currentUser = this.authService.GetUser();
+      console.log(this.currentUser);
+      console.log(latest[1]);
+      this.feed = latest[1].filter((item: Item) => item.userId === this.currentUser.uid);
+      this.userItemsList = this.feed;
+      console.log(this.userItemsList);
       this.isLoading = false;
     });
-
-    this.comment = new FormControl('', [Validators.required]);
-    this.userItems = new FormControl('', [Validators.required]);
-
-    this.form = new FormGroup({
-      comment: this.commentFormControl,
-      userItems: this.userItemsFormControl
-    });
-
   }
 
   setData(data: any) {
     this.isEdit = data.isEdit;
     this.modalTitle = `Answer`;
     if (this.isEdit) this.item = this.data?.item;
-    this.userItemsList.push(this.item); // TODO: Add here the user's items to be able to trade
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  displayFn(option: any): string {
+    return option ? option.title : '';
+  }
+
   getUserFromId(id: string) {
     return this.users.find((user) => user.uid === id)?.displayName;
+  }
+
+  onSubmit() {
+    console.log(this.message);
+    console.log(this.selectedUserItems);
+    switch (this.item.typeOfRequest) {
+      case this.typeOfRequest.Request:
+      case this.typeOfRequest.Offer:
+        // create a new message on messages collection with the message and the userId
+        this.db.collection('messages').add({
+          message: this.message,
+          userId: this.selectedUserItems.userId,
+          itemId: this.selectedUserItems.id,
+          timestamp: Timestamp.now(),
+        });
+        break;
+      case this.typeOfRequest.Trade:
+        if (!this.selectedUserItems) {
+          this.serverError = 'Please select at least one item';
+          return;
+        }
+
+        break;
+
+    }
+  }
+
+  onSelectedItemChange(event: any) {
+    console.log(event);
   }
 
 }

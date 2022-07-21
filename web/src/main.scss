@@ -39,12 +39,12 @@ a {
     margin: 0 auto;
     justify-content: flex-start;
   }
-  .filtros .mat-grid-tile-content{
+  .filtros .mat-grid-tile-content {
     max-width: 95%;
     display: block;
 
     mat-card {
-      margin: .5em;
+      margin: 0.5em;
     }
   }
 }
@@ -587,6 +587,16 @@ body .table thead th {
 }
 
 mat-button-toggle.active {
-  background-color: #88b0a0!important;
-  color: white!important;
+  background-color: #88b0a0 !important;
+  color: white !important;
+}
+
+.trade-hr {
+  app-request-type {
+    div {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+  }
 }

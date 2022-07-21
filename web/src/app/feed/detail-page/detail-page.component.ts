@@ -72,8 +72,8 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
 
     $obs.subscribe((data: any) => {
       // excludes the selected item
-      const limitedData = data.filter((d: ItemModel) => 
-      d.id !== this.itemId && (d.adPackage === AdPackages.SiteAndApp || d.adPackage === AdPackages.SiteOnly));
+      const limitedData = data.filter((d: ItemModel) =>
+        d.id !== this.itemId && (d.adPackage === AdPackages.SiteAndApp || d.adPackage === AdPackages.SiteOnly));
       // limits to 3 items only
       this.featuredItems = limitedData.length >= 3 ? limitedData.slice(limitedData.length - 3) : limitedData;
     });
@@ -86,8 +86,8 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
 
     $obs.subscribe((data: any) => {
       // excludes the selected item
-      const limitedData = data.filter((d: ItemModel) => 
-      d.id !== this.itemId && d.category === this.item.category);
+      const limitedData = data.filter((d: ItemModel) => this.item && (
+        d.id !== this.itemId && d.category === this.item.category));
       // limits to 3 items only
       this.relatedItems = limitedData.length >= 3 ? limitedData.slice(limitedData.length - 3) : limitedData;
     });

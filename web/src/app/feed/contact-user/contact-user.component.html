@@ -2,7 +2,7 @@
   <h2 mat-dialog-title align="center">{{ modalTitle }}</h2>
 </div>
 
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="mat-typography" *ngIf="!isLoading">
 
   <mat-card class="example-card">
     <mat-card-title-group>
@@ -16,40 +16,35 @@
   </mat-card>
 
   <div class="trade-hr">
-    <mat-icon>swap_horiz</mat-icon>
+    <app-request-type [typeOfRequest]="item.typeOfRequest"></app-request-type>
+
   </div>
 
-  <form class="form" name="form" [formGroup]="form">
+  <mat-form-field appearance="fill" *ngIf="item.typeOfRequest === typeOfRequest.Trade">
+    <mat-label>Add items to trade</mat-label>
+    <mat-select multiple>
+      <mat-option *ngFor="let userItem of userItemsList" [value]="userItem.id">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="image-thumbnail" style="background:url('{{userItem.images[0]}}')"></div>
+            <mat-card-title>{{ userItem.title }}</mat-card-title>
+          </mat-card-header>
 
-    <app-form-group name="title" [control]="userItemsFormControl" label="Title" [validationErrors]="validationErrors">
-      <mat-form-field appearance="fill">
-        <mat-label>Add items to trade</mat-label>
-        <mat-select formControlName="userItems" multiple>
-          <mat-option *ngFor="let userItem of userItemsList" [value]="userItem.id">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div mat-card-avatar class="image-thumbnail" style="background:url('{{userItem.images[0]}}')"></div>
-                <mat-card-title>{{ userItem.title }}</mat-card-title>
-              </mat-card-header>
+        </mat-card>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-            </mat-card>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </app-form-group>
+  <mat-form-field appearance="fill">
+    <textarea matInput rows="8" [(ngModel)]="message" placeholder="Write here your message..."></textarea>
+  </mat-form-field>
 
-    <app-form-group name="comment" [control]="commentFormControl" label="Comment"
-      [validationErrors]="validationErrors">
-      <mat-form-field appearance="fill">
-        <textarea matInput formControlName="comment"></textarea>
-      </mat-form-field>
-    </app-form-group>
-
-  </form>
-
+  <div *ngIf="serverError" class="server-error-messages">
+    <mat-error>{{ serverError }}</mat-error>
+  </div>
 
 </mat-dialog-content>
 <mat-dialog-actions class="test" align="center">
   <mat-button-toggle mat-button mat-dialog-close>Cancel</mat-button-toggle>
-  <mat-button-toggle mat-button mat-dialog-close>Send</mat-button-toggle>
+  <mat-button-toggle mat-button (click)="onSubmit()">Send</mat-button-toggle>
 </mat-dialog-actions>

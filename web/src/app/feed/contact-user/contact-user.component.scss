@@ -4,7 +4,7 @@
   border: 1px solid;
   margin: 1em;
   color: white;
-  background: darkseagreen;
+  // background: darkseagreen;
 }
 
 .center-content {
@@ -26,4 +26,8 @@ mat-option {
 }
 mat-card-title {
   padding: 0.5em;
+}
+
+mat-form-field {
+  width: 100%;
 }
