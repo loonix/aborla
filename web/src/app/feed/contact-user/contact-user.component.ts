@@ -50,7 +50,7 @@ export class ContactUserComponent implements OnInit {
   }
 
   getUserFromId(id: string) {
-    return this.users.find((user) => user.uid === id);
+    return this.users.find((user) => user.uid === id)?.displayName;
   }
 
 }
