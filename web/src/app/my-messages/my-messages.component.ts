@@ -59,7 +59,7 @@ export class MyMessagesComponent implements OnInit {
   }
 
   get activateFinishButton() {
-    return this.selectedMessage.status === this.status.FINISHED;
+    return this.selectedMessage.status === this.status.ACCEPTED;
   }
 
 
