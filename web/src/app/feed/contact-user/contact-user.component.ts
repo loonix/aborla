@@ -86,12 +86,12 @@ export class ContactUserComponent implements OnInit {
       case this.typeOfRequest.Request:
       case this.typeOfRequest.Offer:
         // create a new message on messages collection with the message and the userId
-        this.db.collection('messages').add({
-          message: this.message,
-          userId: this.selectedUserItems.userId,
-          itemId: this.selectedUserItems.id,
-          timestamp: Timestamp.now(),
-        });
+        // this.db.collection('messages').add({
+        //   message: this.message,
+        //   userId: this.selectedUserItems.userId,
+        //   itemId: this.selectedUserItems.id,
+        //   timestamp: Timestamp.now(),
+        // });
         break;
       case this.typeOfRequest.Trade:
         if (!this.selectedUserItems) {
