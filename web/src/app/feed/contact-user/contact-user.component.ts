@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormComponent } from '@app/@shared/form-group/form.component';
 import { Item } from '@app/@shared/models/item.model';
 import { User } from '@app/@shared/models/user.model';
 
@@ -10,23 +11,29 @@ import { User } from '@app/@shared/models/user.model';
   templateUrl: './contact-user.component.html',
   styleUrls: ['./contact-user.component.scss'],
 })
-export class ContactUserComponent implements OnInit {
+export class ContactUserComponent extends FormComponent implements OnInit {
+  validationMessages: { [key: string]: { [key: string]: string; }; };
   isEdit: boolean;
   item: Item;
   modalTitle: any;
   itemImagesAvaliable: boolean;
-  userItems = new FormControl('');
+  userItems: FormControl;
+  comment: FormControl;
   userItemsList: any = [];
   users: User[];
   isLoading = true;
+  form: FormGroup;
+  commentFormControl: FormControl;
+  userItemsFormControl: FormControl;
   constructor(
     @Optional() public dialogRef: MatDialogRef<ContactUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public db: AngularFirestore,
   ) {
+    super();
     this.setData(data);
   }
-  ngOnInit(): void {
+  override ngOnInit(): void {
     const $obs = this.db
       .collection('users')
       .valueChanges({ idField: 'id' });
@@ -34,6 +41,14 @@ export class ContactUserComponent implements OnInit {
     $obs.subscribe((users: any) => {
       this.users = users;
       this.isLoading = false;
+    });
+
+    this.comment = new FormControl('', [Validators.required]);
+    this.userItems = new FormControl('', [Validators.required]);
+
+    this.form = new FormGroup({
+      comment: this.commentFormControl,
+      userItems: this.userItemsFormControl
     });
 
   }
