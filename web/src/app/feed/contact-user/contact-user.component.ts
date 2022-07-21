@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Timestamp } from '@angular/fire/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormComponent } from '@app/@shared/form-group/form.component';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { User } from '@app/@shared/models/user.model';
 import { AuthService } from '@app/@shared/services/auth.service';
+import { MessageModel } from '@app/my-messages/message.model';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -21,7 +21,6 @@ export class ContactUserComponent implements OnInit {
   userItemsList: any = [];
   users: User[];
   isLoading = true;
-  form: FormGroup;
   feed: Item[];
   currentUser: User;
   selectedUserItems: any;
@@ -85,27 +84,38 @@ export class ContactUserComponent implements OnInit {
     switch (this.item.typeOfRequest) {
       case this.typeOfRequest.Request:
       case this.typeOfRequest.Offer:
-        // create a new message on messages collection with the message and the userId
-        // this.db.collection('messages').add({
-        //   message: this.message,
-        //   userId: this.selectedUserItems.userId,
-        //   itemId: this.selectedUserItems.id,
-        //   timestamp: Timestamp.now(),
-        // });
         break;
       case this.typeOfRequest.Trade:
         if (!this.selectedUserItems) {
           this.serverError = 'Please select at least one item';
           return;
         }
-
         break;
-
     }
+    var message: MessageModel = {
+      messageId: this.db.createId(),
+      itemId: this.item.id,
+      requestType: this.item.typeOfRequest,
+      buyerId: this.currentUser.uid,
+      sellerId: this.item.userId,
+      messages: [
+        {
+          senderId: this.currentUser.uid,
+          message: this.message,
+          timestamp: Timestamp.now(),
+
+        },
+      ],
+      items: this.selectedUserItems,
+    };
+    this.db.collection('messages').doc(message.messageId).set(message);
+    this.dialogRef.close();
+
   }
 
-  onSelectedItemChange(event: any) {
-    console.log(event);
+  onSelectedItemChange(item: any) {
+    const itemIds = item.value;
+    this.selectedUserItems = itemIds;
   }
 
 }

@@ -8,15 +8,21 @@ export interface Message {
 }
 
 // create class model from interface message  
-export class MessageModel implements Message {
-  senderId: string;
-  message: string;
-  typeOfRequest: TypeOfRequest;
+export class MessageModel {
+  messageId: string;
+  itemId: string;
+  requestType: TypeOfRequest | null;
+  buyerId: string;
+  sellerId: string;
+  messages: Message[];
   items: string[];
-  timestamp: Timestamp;
   constructor() {
-    this.senderId = '';
-    this.message = '';
-    this.timestamp = Timestamp.now();
+    this.buyerId = '';
+    this.sellerId = '';
+    this.messages = [];
+    this.items = [];
+    this.itemId = '';
+    this.requestType = null;
+    this.messageId = '';
   }
 }

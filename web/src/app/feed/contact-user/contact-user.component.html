@@ -22,7 +22,7 @@
 
   <mat-form-field appearance="fill" *ngIf="item.typeOfRequest === typeOfRequest.Trade">
     <mat-label>Add items to trade</mat-label>
-    <mat-select multiple>
+    <mat-select (selectionChange)="onSelectedItemChange($event)" multiple>
       <mat-option *ngFor="let userItem of userItemsList" [value]="userItem.id">
         <mat-card class="example-card">
           <mat-card-header>
