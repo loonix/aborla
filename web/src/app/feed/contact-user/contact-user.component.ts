@@ -107,7 +107,7 @@ export class ContactUserComponent implements OnInit {
 
         },
       ],
-      items: this.selectedUserItems,
+      items: this.selectedUserItems ? this.selectedUserItems : [],
     };
     this.db.collection('messages').doc(message.messageId).set(message);
     this.dialogRef.close();
