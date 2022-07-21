@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { User } from '@app/@shared/models/user.model';
 import { AuthService } from '@app/@shared/services/auth.service';
-import { MessageModel } from '@app/my-messages/message.model';
+import { MessageModel, RequestStatus } from '@app/my-messages/message.model';
 import { combineLatest } from 'rxjs';
 
 @Component({
@@ -93,6 +93,7 @@ export class ContactUserComponent implements OnInit {
         break;
     }
     var message: MessageModel = {
+      status: RequestStatus.PENDING,
       messageId: this.db.createId(),
       itemId: this.item.id,
       requestType: this.item.typeOfRequest,

@@ -7,8 +7,18 @@ export interface Message {
   timestamp: Timestamp;
 }
 
+export enum RequestStatus {
+  PENDING,
+  ACCEPTED,
+  REJECTED,
+  CANCELLED,
+  FINISHED,
+  UNKNOWN,
+}
+
 // create class model from interface message  
 export class MessageModel {
+  status: RequestStatus;
   messageId: string;
   itemId: string;
   requestType: TypeOfRequest | null;
@@ -17,6 +27,7 @@ export class MessageModel {
   messages: Message[];
   items: string[];
   constructor() {
+    this.status = RequestStatus.UNKNOWN;
     this.buyerId = '';
     this.sellerId = '';
     this.messages = [];

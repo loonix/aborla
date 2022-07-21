@@ -61,7 +61,7 @@
   padding: 0.5em;
   &:hover {
     mat-card-content {
-      .curency:last-child() {
+      .curency:last-child {
         border-left: 3px solid white;
       }
     }

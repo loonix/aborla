@@ -97,3 +97,44 @@ input {
         color: white;
     }
 }
+
+.selected-item {
+    margin: 1em;
+    padding: 0;
+    mat-card-title {
+        padding: 0.5em;
+    }
+}
+.image-thumbnail-item {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(76 175 80 / 20%) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    border-radius: 0;
+}
+
+.customer-first-interaction {
+    margin: 1em;
+    padding: 0;
+    mat-card-title {
+        padding: 0.5em;
+    }
+    hr {
+        border: 2px solid darkseagreen;
+    }
+}
+.confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+
+    button:first-child {
+        margin-right: 1em;
+    }
+}
+
+.full-width {
+    width: 100% !important;
+    background-color: #6e6e6e;
+}

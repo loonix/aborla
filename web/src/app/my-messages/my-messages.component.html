@@ -29,17 +29,54 @@
     </li>
 
     <ng-container *ngIf="selectedMessage">
-      <li *ngFor="let msg of selectedMessage.messages" class="sent"
-        [ngClass]="{'sent': msg.senderId === currentUser.uid, 'received': msg.senderId !== currentUser.uid}">
-        <span>{{ getTimeSinceMessage(msg.timestamp) }}</span>
-        <p>{{ msg.message }}</p>
+      <div>
+        <mat-card class="selected-item">
+          <mat-card-header>
+            <div mat-card-avatar class="image-thumbnail-item" style="background:url('{{itemInfo.images[0]}}')"></div>
+            <mat-card-title>{{ itemInfo.title }}</mat-card-title>
+            <mat-card-subtitle translate>
+              <app-request-type [typeOfRequest]="itemInfo.typeOfRequest"></app-request-type>
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+
+        <div class="customer-first-interaction">
+          <mat-card class="customer-message">
+            <mat-card-header>
+              <mat-card-subtitle>{{ getUserName(selectedMessage.buyerId) }} - {{
+                getTimeSinceMessage(selectedMessage.messages[0].timestamp) }}</mat-card-subtitle>
+              <mat-card-subtitle>{{selectedMessage.messages[0].message}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+          <hr>
+        </div>
+
+
+      </div>
+      <div class="confirmation-buttons" *ngIf="selectedMessage.status === status.PENDING">
+        <button *ngIf="isSellerViewing" (click)="acceptRequest()" class="green-btn" mat-raised-button translate>Accept</button>
+        <button *ngIf="isSellerViewing" (click)="rejectRequest()" class="red-btn" mat-raised-button
+          translate>Reject</button>
+        <button *ngIf="isBuyerViewing" (click)="cancelRequest()" class="red-btn" mat-raised-button
+          translate>Cancel</button>
+      </div>
+
+      <ng-container *ngFor="let msg of selectedMessage.messages; let i = index ">
+        <li *ngIf="i !== 0" class="sent"
+          [ngClass]="{'sent': msg.senderId === currentUser.uid, 'received': msg.senderId !== currentUser.uid}">
+          <span>{{ getTimeSinceMessage(msg.timestamp) }}</span>
+          <p>{{ msg.message }}</p>
+        </li>
+      </ng-container>
+      <li class="full-width" *ngIf="selectedMessage.status === status.PENDING">
+        <p *ngIf="isBuyerViewing">Your request is pending confirmation</p>
+        <p *ngIf="isSellerViewing">Please approve or decline the request</p>
       </li>
     </ng-container>
   </ul>
 
-  <form id="message-form">
-    <input type="text" id="message-input" placeholder="Type a message..." [(ngModel)]="message" (keyup.enter)="sendMessage()" [ngModelOptions]="{standalone: true}" autocomplete="off">
-    <!-- <input matInput id="message-input" type="text"  [(ngModel)]="messageText" /> -->
-    <!-- <button mat-button color="secondary" id="message-btn" type="submit" (click)>Send</button> -->
+  <form id="message-form" *ngIf="showMessageControls">
+    <input type="text" id="message-input" placeholder="Type a message..." [(ngModel)]="message"
+      (keyup.enter)="sendMessage()" [ngModelOptions]="{standalone: true}" autocomplete="off">
   </form>
 </div>

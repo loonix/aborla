@@ -6,7 +6,7 @@ import { Item, TypeOfRequest } from '@app/@shared/models/item.model';
 import { AuthService } from '@app/@shared/services/auth.service';
 import { combineLatest, interval, Subscription } from 'rxjs';
 import { MessageDataService } from './message-data.service';
-import { Message } from './message.model';
+import { Message, RequestStatus } from './message.model';
 
 @Component({
   selector: 'app-my-messages',
@@ -26,6 +26,19 @@ export class MyMessagesComponent implements OnInit {
   typeOfRequest = TypeOfRequest;
   timerCalled: boolean;
   sub: Subscription;
+  status = RequestStatus;
+  itemInfo: Item;
+  get isBuyerViewing() {
+    return this.selectedMessage.buyerId === this.currentUser.uid;
+  }
+
+  get isSellerViewing() {
+    return this.selectedMessage.sellerId === this.currentUser.uid;
+  }
+
+  get showMessageControls() {
+    return this.selectedMessage && this.selectedMessage.status === this.status.ACCEPTED;
+  }
 
   constructor(
     private db: AngularFirestore,
@@ -62,6 +75,7 @@ export class MyMessagesComponent implements OnInit {
       if (!this.selectedMessage) {
         this.selectedMessage = this.messagesToShow.length ? this.messagesToShow[0] : null;
       }
+      this.itemInfo = this.feed.find((item: Item) => item.id === this.selectedMessage.itemId);
     });
     this.timerCalledFunction();
   }
@@ -72,7 +86,7 @@ export class MyMessagesComponent implements OnInit {
     this.timerCalled = true;
     this.sub = (interval(5000)
       .subscribe((val) => { this.ngOnInit(); }));
-      
+
   }
 
   sendMessage() {
@@ -87,6 +101,10 @@ export class MyMessagesComponent implements OnInit {
       this.data.sendMessage(this.selectedMessage.id, this.selectedMessage);
       this.message = '';
     }
+  }
+
+  getUserName(userId: string) {
+    return this.users.find((user: User) => user.uid === userId).displayName;
   }
 
   getSellerName(sellerId: string, buyerId: string) {
@@ -140,6 +158,22 @@ export class MyMessagesComponent implements OnInit {
     } else {
       return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
     }
+  }
+
+  acceptRequest() {
+    this.selectedMessage.status = this.status.ACCEPTED;
+  }
+
+  rejectRequest() {
+    this.selectedMessage.status = this.status.REJECTED;
+  }
+
+  cancelRequest() {
+    this.selectedMessage.status = this.status.CANCELLED;
+  }
+
+  finishRequest() {
+    this.selectedMessage.status = this.status.FINISHED;
   }
 
   ngOnDestroy() {
