@@ -25,9 +25,9 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
   featuredItems: any;
   lat = 41.1359;
   lng = -8.63319;
-  markers = [
-    { lat: 41.1359, lng: -8.63319 },
-  ];
+  //markers = [
+   // { lat: 41.1359, lng: -8.63319 },
+  //];
   showEditOptions: boolean = false;
   relatedItems: any;
   constructor(
@@ -135,16 +135,16 @@ export class DetailPageComponent implements OnInit, OnDestroy, AfterViewChecked 
       if (!changes) return;
       const mapProperties = {
         center: new google.maps.LatLng(this.lat, this.lng),
-        zoom: 12,
+        zoom: 10,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       this.map = new google.maps.Map(changes.first.nativeElement, mapProperties);
-      this.markers.forEach(location => {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(location.lat, location.lng),
-          map: this.map
-        });
-      });
+      // this.markers.forEach(location => {
+      //   var marker = new google.maps.Marker({
+      //     position: new google.maps.LatLng(location.lat, location.lng),
+      //     map: this.map
+      //   });
+      // });
     });
   }
 
