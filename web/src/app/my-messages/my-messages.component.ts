@@ -55,7 +55,8 @@ export class MyMessagesComponent implements OnInit {
 
   get activateReActivateRequest() {
     return (this.selectedMessage.status === this.status.REJECTED && this.isSellerViewing) ||
-      this.selectedMessage.status === this.status.CANCELLED && this.isBuyerViewing;
+      (this.selectedMessage.status === this.status.CANCELLED && this.isBuyerViewing) ||
+      (this.selectedMessage.status === this.status.FINISHED );
   }
 
   get activateFinishButton() {
